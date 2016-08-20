@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -26,6 +25,7 @@ public class FullArticle extends AppCompatActivity {
     private GoogleApiClient client;
     AVLoadingIndicatorView avi;
     private long time;
+    public WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +40,13 @@ public class FullArticle extends AppCompatActivity {
 //        ProgressBar pBar = (ProgressBar) findViewById(R.id.pbar);
 
 
-        Uri webLink = (Uri) getIntent().getExtras().get("url");
+
+        String webLink = (String) getIntent().getExtras().get("url");
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Log.d(TAG,"link==="+url);
                 view.loadUrl(url);
                 return true;
             }
@@ -56,8 +59,9 @@ public class FullArticle extends AppCompatActivity {
         webView.getSettings().setUseWideViewPort(true);
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         webView.setScrollbarFadingEnabled(false);
+        webView.setWebViewClient(new WebViewClient());
         startAnim();
-        webView.loadUrl(String.valueOf(webLink));
+        webView.loadUrl(webLink.toString());
 
         // dont know how to stop the animation
         //toStop stop = new toStop();
@@ -77,10 +81,17 @@ public class FullArticle extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent i = new Intent(FullArticle.this, MainActivity.class);
-        startActivity(i);
-        finish();
+        if(webView.canGoBack())
+        {
+            webView.goBack();
+        }
+        else
+        {
+            super.onBackPressed();
+        }
+//        Intent i = new Intent(FullArticle.this, MainActivity.class);
+//        startActivity(i);
+//        finish();
     }
 
     @Override

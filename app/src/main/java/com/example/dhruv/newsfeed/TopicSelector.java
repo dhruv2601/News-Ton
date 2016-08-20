@@ -2,6 +2,7 @@ package com.example.dhruv.newsfeed;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -11,42 +12,45 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class TopicSelector extends AppCompatActivity {
 
     Integer[] images = new Integer[]
             {
                     R.drawable.topstories,
+                    R.drawable.sportsback,
                     R.drawable.sportsback
             };
     String[] name = new String[]
             {
                     "top stories",
-                    "sports"
+                    "sports",
+                    "photos"
             };
 
     String passTopic[] = new String[]
             {
                     "topstories",
-                    "sports"
+                    "sports",
+                    "photos"
             };
 
     ListView lv;
     public static final String TAG = "Topics";
+//    public static Button listeToAll;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_topic_selector);
         lv = (ListView) findViewById(R.id.lv);
-
+//        listeToAll = (Button) findViewById(R.id.listentoall);
         Intent intent1 = getIntent();
         if (intent1 != null) {
             ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -58,6 +62,8 @@ public class TopicSelector extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+
+
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,10 +79,17 @@ public class TopicSelector extends AppCompatActivity {
                     startActivity(i);
                 }
 
-                Intent i = new Intent(TopicSelector.this, MainActivity.class);
-                Log.d(TAG, "position= " + position);
-                i.putExtra("topic", position);
-                startActivity(i);
+                if(position == 2)
+                {
+                    Intent i = new Intent(TopicSelector.this, Photos.class);
+                    startActivity(i);
+                }
+                else {
+                    Intent i = new Intent(TopicSelector.this, MainActivity.class);
+                    Log.d(TAG, "position= " + position);
+                    i.putExtra("topic", position);
+                    startActivity(i);
+                }
             }
         });
 

@@ -10,12 +10,14 @@ public class RssItem {
     private String link;
     private String date;
     private String category;
+    private String thumbnail;
 
-    public RssItem(String title, String link, String date, String category) {
+    public RssItem(String title, String link, String date, String category, String thumbnail) {
         this.title = title;
         this.link = link;
         this.date = date;
         this.category = category;
+        this.thumbnail = thumbnail;
     }
 
     public void setTitle(String title) {
@@ -39,11 +41,12 @@ public class RssItem {
         return category;
     }
 
-    public String getDate()
-    {
+    public String getDate() {
         return date;
     }
 
-
+    public String getThumbnail() {
+        return thumbnail;
+    }
 
 }

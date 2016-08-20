@@ -1,6 +1,7 @@
 package com.example.dhruv.newsfeed;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,13 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.wang.avi.AVLoadingIndicatorView;
-
-import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -28,7 +26,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
     private static final String TAG = "MainAct";
     AVLoadingIndicatorView avi;
-    private ListView listView;
+    public static ListView listView;
     private View view;
     int pos;
     public static Uri uri;
@@ -36,6 +34,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setRetainInstance(true);
         MainActivity mnAc = new MainActivity();
         String type = mnAc.passType();
@@ -48,7 +47,6 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_layout, container, false);
-            // progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
             avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
             listView = (ListView) view.findViewById(R.id.listView);
             listView.setOnItemClickListener(this);
@@ -83,16 +81,13 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
             List<RssItem> items = (List<RssItem>) resultData.getSerializable(RssService.ITEMS);
 
-            //img.setBackground(R.drawable.whiteback);
-            //img.setBackgroundResource(R.drawable.whiteback);
-            if (items != null) {                                                  // yahan p cards dalne hn
+            if (items != null) {
                 RssAdapter adapter = new RssAdapter(getActivity(), items);
                 listView.setAdapter(adapter);
             } else {
                 Toast.makeText(getActivity(), "An error occured while downloading the rss feed.",
                         Toast.LENGTH_LONG).show();
             }
-//          progressBar.setVisibility(View.GONE);
             avi.hide();
             listView.setVisibility(View.VISIBLE);
         }
@@ -104,13 +99,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         RssAdapter adapter = (RssAdapter) parent.getAdapter();
         RssItem item = (RssItem) adapter.getItem(i);
         uri = Uri.parse(item.getLink());
-        Intent intent = new Intent(RssFragment.super.getActivity(), FullArticle.class);
-        intent.putExtra("url", uri);
-        startActivity(intent);
+        Intent intent = new Intent(RssFragment.super.getContext(), FullArticle.class);
     }
 
-//    public static Uri readFull(AdapterView<?> parent, View view, int pos, long l) {
-//        Log.d(TAG, "readfull " + uri);
-//        return uri;
-//    }
 }
