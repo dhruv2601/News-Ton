@@ -1,7 +1,6 @@
 package com.example.dhruv.newsfeed;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,9 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import com.wang.avi.AVLoadingIndicatorView;
+
 import java.util.List;
 
 /**

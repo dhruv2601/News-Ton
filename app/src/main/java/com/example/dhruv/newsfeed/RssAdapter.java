@@ -195,7 +195,6 @@ public class RssAdapter extends BaseAdapter {
 //            }
 //        });
 
-
 //        ----->>>>>    CAUTION  ::::::   DO NOT DELETE    <<<<<-------         //
 
 
@@ -208,9 +207,10 @@ public class RssAdapter extends BaseAdapter {
         }
 
         if (items.get(position).getThumbnail() == null) {
-            holder.rand.setBackgroundResource(R.drawable.defaultnews);
-            Log.d(TAG, "thumbnail is " + items.get(position).getThumbnail());
+            holder.rand.setBackgroundResource(R.drawable.defaulttwo);
         }
+        Log.d(TAG, "thumbnail is " + items.get(position).getThumbnail());
+
         Picasso.with(RssAdapter.this.context).load(items.get(position).getThumbnail()).into(holder.rand);
         return convertView;
     }
@@ -373,7 +373,6 @@ public class RssAdapter extends BaseAdapter {
         }
         return ret;
     }
-
 
 
     static class ViewHolder {

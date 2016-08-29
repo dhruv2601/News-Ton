@@ -31,11 +31,11 @@ public class MainActivity extends FragmentActivity {
 
     Uri uri;
     public static int itemPos;
-    public static int position = 0;
+    public static int position = -1;
     public static final String TAG = "MainAct";
     public static TextToSpeech t1;
     public static int width;
-    public static String query="";
+    public static String query = "";
     public static String searchedItem;
 
 
@@ -63,12 +63,17 @@ public class MainActivity extends FragmentActivity {
         }
 
 
-
         t1 = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
                 if (i != TextToSpeech.ERROR) {
-                    t1.setLanguage(Locale.ENGLISH);
+                    if (position < 0) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            t1.setLanguage(Locale.forLanguageTag("values-hi-rIN"));
+                        } else {
+                            t1.setLanguage(Locale.ENGLISH);
+                        }
+                    }
                 }
             }
         });
@@ -78,8 +83,6 @@ public class MainActivity extends FragmentActivity {
         position = i.getExtras().getInt("topic");
         Log.d(TAG, "MainPos= " + position);
     }
-
-
 
 
     public String passType() {
@@ -98,8 +101,7 @@ public class MainActivity extends FragmentActivity {
             // add a layout with img and reload btn
             Intent i = new Intent(this, NoInternet.class);
             startActivity(i);
-        }
-        else {
+        } else {
             RssFragment fragment = new RssFragment();
             transaction.add(R.id.fragment_container, fragment);
             transaction.commit();
@@ -111,5 +113,4 @@ public class MainActivity extends FragmentActivity {
         super.onSaveInstanceState(outState);
         outState.putBoolean("fragment_added", true);
     }
-
 }

@@ -16,7 +16,7 @@ import java.util.List;
  * Created by dhruv on 7/8/16.
  */
 
-public class PcWorldRssParser extends AsyncTask{
+public class PcWorldRssParser extends AsyncTask {
 
     private static final String TAG = "pcWorld";
     // We don't use namespaces
@@ -55,25 +55,50 @@ public class PcWorldRssParser extends AsyncTask{
             if (name.equals("title")) {
                 title = readTitle(parser);
                 Log.d(TAG, "turtle= " + title);
-            } else if (name.equals("link")) {
+            }
+            if (name.trim().equals("link")) {
                 link = readLink(parser);
-            } else if (name.equals("category")) {
+                String desc = link.replace("<![CDATA[", "");
+                desc = desc.replace("]]>", "");
+                link = desc;
+                Log.d(TAG, "linkisss" + link);
+            }
+            if (name.equals("category")) {
                 category = readCategory(parser);
                 Log.d(TAG, "channelname " + category + " link " + link);
-            } else if (name.equals("pubDate")) {
+            }
+            if (name.equals("pubDate")) {
                 date = readDate(parser);
 //                RssService.dateString[RssService.x] = date;
 //              ++RssService.x;
                 Log.d(TAG, "date: " + date + "i     " + RssService.x);
-            } else if (name.equals("description")) {
-                thumbnail = parser.getAttributeValue(null, "src");
-            } else if (name.equals("media:thumbnail")) {
-                thumbnail = parser.getAttributeValue(null, "url");
-                Log.d(TAG, "pictureLink" + parser.getAttributeValue(null, "url"));
-            } else if (name.equals("media:content")) {
-                thumbnail = parser.getAttributeValue(null, "url");
             }
+            if (name.trim().equals("description")) {
+                thumbnail = parser.getAttributeValue(null, "img");
+                Log.d(TAG, "src  " + thumbnail);
+            }
+            if (name.trim().equals("media:thumbnail")) {
+                thumbnail = parser.getAttributeValue(null, "url");
+                Log.d(TAG, "pictureLink" + thumbnail);
+            }
+            if (name.trim().equals("thumbnail")) {
+                thumbnail = parser.getAttributeValue(null, "url");
+                Log.d(TAG, "thumb " + thumbnail);
+            }
+
+            if (name.trim().equals("media:content")) {
+                if (thumbnail == null) {
+                    thumbnail = parser.getAttributeValue(null, "url");
+                    Log.d(TAG, "VideoContent " + thumbnail);
+                }
+            }
+//            if(thumbnail == null)
+//            {
+//                thumbnail = readThumbnail(parser);
+//                Log.d(TAG,"readThumbnail "+ thumbnail);
+//            }
             if (title != null && link != null) {
+                Log.d(TAG, "links: " + link);
                 RssItem item = new RssItem(title, link, date, category, thumbnail);
                 items.add(item);
                 title = null;
@@ -116,10 +141,9 @@ public class PcWorldRssParser extends AsyncTask{
 
     private String readThumbnail(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, ns, "media:thumbnail");
-        String thumbnail = readText(parser);
-        Log.d(TAG, "thumbnail" + thumbnail);
-        parser.require(XmlPullParser.END_TAG, ns, "media:thumbnail");
-        return thumbnail;
+        String thumbnailUrl = parser.getAttributeValue(null, "url");
+        parser.nextTag();
+        return thumbnailUrl;
     }
 
     // For the tags title and link, extract their text values.

@@ -1,23 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@drawable/greyback"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.dhruv.newsfeed.TopicSelector">
+    android:layout_gravity="center">
 
-    <ListView
-        android:id="@+id/lv"
-        android:layout_marginTop="20dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@drawable/greyback"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="40dp"
         android:layout_height="match_parent">
-    </ListView>
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/topStories"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="7dp" />
+
+        <TextView
+            android:id="@+id/top"
+            android:layout_marginLeft="20dp"
+            android:background="#90000000"
+            android:textColor="@android:color/holo_red_light"
+            android:text="TOP  STORIES"
+            android:textSize="17sp"
+            android:layout_above="@+id/topStoriestxt"
+            android:layout_width="190dp"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/topStoriesTime"
+            android:layout_above="@id/topStoriestxt"
+            android:layout_toRightOf="@id/top"
+            android:textSize="16sp"
+            android:background="#90000000"
+            android:textColor="@android:color/holo_blue_light"
+            android:textAlignment="center"
+            android:layout_width="80dp"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/topStoriestxt"
+            android:layout_marginLeft="20dp"
+            android:background="#90000000"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:layout_alignBottom="@id/topStories"
+            android:layout_width="270dp"
+            android:layout_height="120dp" />
+
+
+        <ImageView
+            android:id="@+id/sports"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/topStories" />
+
+
+        <TextView
+            android:id="@+id/sportsTitle"
+            android:layout_marginLeft="20dp"
+            android:background="#90000000"
+            android:textColor="@android:color/holo_red_light"
+            android:text=" SPORTS"
+            android:textSize="17sp"
+            android:layout_above="@+id/sportsTxt"
+            android:layout_width="190dp"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/sportsTime"
+            android:layout_above="@id/sportsTxt"
+            android:layout_toRightOf="@id/sportsTitle"
+            android:textSize="16sp"
+            android:background="#90000000"
+            android:textColor="@android:color/holo_blue_light"
+            android:textAlignment="center"
+            android:layout_width="80dp"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/sportsTxt"
+            android:layout_marginLeft="20dp"
+            android:background="#90000000"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:layout_alignBottom="@id/sports"
+            android:layout_width="270dp"
+            android:layout_height="120dp" />
+
+
+
+        <ImageView
+            android:id="@+id/photos"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/sports"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:id="@+id/bussiness"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_below="@id/photos"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/delhi"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_below="@id/bussiness"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp" />
+
+        <ImageView
+            android:id="@+id/world"
+            android:layout_below="@id/delhi"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="220dp" />
+
+        <ImageView
+            android:id="@+id/bollywood"
+            android:layout_below="@id/world"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="220dp" />
+
+        <ImageView
+            android:id="@+id/fashion"
+            android:layout_below="@id/bollywood"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="220dp" />
+
+        <ImageView
+            android:id="@+id/mumbai"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/fashion"
+            android:layout_width="match_parent"
+            android:layout_height="220dp" />
+
+        <ImageView
+            android:id="@+id/banglore"
+            android:layout_below="@id/mumbai"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="220dp" />
+
+    </RelativeLayout>
+</ScrollView>
