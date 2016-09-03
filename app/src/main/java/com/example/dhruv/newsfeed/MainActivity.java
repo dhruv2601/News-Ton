@@ -1,73 +1,39 @@
 package com.example.dhruv.newsfeed;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Point;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.speech.tts.TextToSpeech;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Display;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.Locale;
 
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends FragmentActivity {
-
-    Uri uri;
-    public static int itemPos;
-    public static int position = -1;
-    public static final String TAG = "MainAct";
+    private static final String TAG = "MainAct";
+    public static int position;
     public static TextToSpeech t1;
-    public static int width;
-    public static String query = "";
-    public static String searchedItem;
-
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        Window window = MainActivity.this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        width = size.x;
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
-
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(MainActivity.this.getResources().getColor(R.color.black));
-        }
-        setContentView(R.layout.main);
-
-        if (savedInstanceState == null) {
-            addRssFragment();
-        }
-
-
-        t1 = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+        t1 = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
                 if (i != TextToSpeech.ERROR) {
-                    if (position < 0) {
+                    if (MainActivity.position < 0) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             t1.setLanguage(Locale.forLanguageTag("values-hi-rIN"));
                         } else {
@@ -79,38 +45,90 @@ public class MainActivity extends FragmentActivity {
         });
         t1.setSpeechRate(0.8f);
 
-        Intent i = getIntent();
-        position = i.getExtras().getInt("topic");
-        Log.d(TAG, "MainPos= " + position);
+
+        Log.d(TAG, "beforeTabLayout");
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("INTRO"));
+        Log.d(TAG, "afterTabLayout");
+        tabLayout.addTab(tabLayout.newTab().setText("Top Stories"));
+        Log.d(TAG, "tab1Added");
+        tabLayout.addTab(tabLayout.newTab().setText("Sports"));
+        Log.d(TAG, "tab2Added");
+        tabLayout.addTab(tabLayout.newTab().setText("Tech"));
+        Log.d(TAG, "tab3Added");
+        tabLayout.addTab(tabLayout.newTab().setText("World"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+
+        Log.d(TAG, "viewPagerCAll");
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        Log.d(TAG, "setAdapter");
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(6);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.getTabAt(0).setText("INTRO");
+
+        tabLayout.getTabAt(1).setText("TopStories");
+        tabLayout.getTabAt(1).setIcon(R.drawable.topstories);
+        tabLayout.getTabAt(2).setIcon(R.drawable.sportshindi);
+        tabLayout.getTabAt(3).setIcon(R.drawable.tech);
+        tabLayout.getTabAt(4).setIcon(R.drawable.world);
+
+
+        tabLayout.setBackgroundColor(getResources().getColor(R.color.teal));
+//        tabLayout.setBackgroundColor(R.style.MyCustomTabLayout);
+
+        viewPager.setOffscreenPageLimit(0);           //look into it once all tabs set
+        Log.d(TAG, "adapterAllSet");
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() > 0) {
+                    MainActivity.position = tab.getPosition() - 1;
+                } else {
+                    MainActivity.position = tab.getPosition();
+                }
+
+                viewPager.setCurrentItem(tab.getPosition());
+//                viewPager.arrowScroll(View.FOCUS_RIGHT);
+            }
+
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tab.getPosition() > 0) {
+                    MainActivity.position = tab.getPosition() - 1;
+                } else {
+                    MainActivity.position = tab.getPosition();
+                }
+            }
+        });
     }
 
 
-    public String passType() {
-        return "top stories";
-    }
-
-
-    private void addRssFragment() {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        boolean b = (activeNetworkInfo != null && activeNetworkInfo.isConnected());
-        if (b == false) {
-            // add a layout with img and reload btn
-            Intent i = new Intent(this, NoInternet.class);
-            startActivity(i);
-        } else {
-            RssFragment fragment = new RssFragment();
-            transaction.add(R.id.fragment_container, fragment);
-            transaction.commit();
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("fragment_added", true);
-    }
+    //    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 }

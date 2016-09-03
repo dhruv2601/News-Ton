@@ -44,6 +44,7 @@ public class RssAdapter extends BaseAdapter {
         this.context = context;
     }
 
+
     @Override
     public int getCount() {
         return items.size();
@@ -105,9 +106,9 @@ public class RssAdapter extends BaseAdapter {
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "This Article Was Sent By a BITCHING App" + "\n");   // instead send the description here
 
-                String articleLink = RssAdapter.items.get(position).getLink();    // yahan 3 ki jgah RssService ki list view mn jo bhi position p ye send vala btn hoga vo aayega
+                String articleLink = RssAdapter.items.get(position).getLink();
                 shareIntent.putExtra(Intent.EXTRA_TEXT, items.get(position).getTitle() + "\n\n" + articleLink);
-                context.startActivity(Intent.createChooser(shareIntent, "Share Article"));   // share ke badd app p nhi ja rha hai!!
+                context.startActivity(Intent.createChooser(shareIntent, "Share Article"));
             }
         });
 

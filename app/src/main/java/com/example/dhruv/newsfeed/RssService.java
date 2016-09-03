@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by dhruv on 7/8/16.
  */
-public class RssService extends IntentService {
+public class RssService extends IntentService implements java.io.Serializable {
 
     public static long millis[] = new long[300];
     public static List<RssItem> rssItems = new ArrayList<RssItem>();
@@ -97,13 +97,15 @@ public class RssService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         pos = MainActivity.position;
+//        rssItems = null;
+        rssItems.clear();
         Log.d(TAG, "Service started");
         Log.d(TAG, "pos= " + pos);
 //        Log.d(TAG, "len= " + passTopic[pos].toString().length());
 
         int j = 0;
 
-        if (pos == 0) {
+        if (pos == 1) {
             for (int i = 0; i < topStories.length; i++) {
                 try {
                     Log.d(TAG, "startingLoop");
@@ -125,11 +127,12 @@ public class RssService extends IntentService {
             }
         }
 
-        if (pos == 1) {
+        if (pos == 2) {
             for (int i = 0; i < sports.length; i++) {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();
                     temp = parser.parse(getInputStream(sports[i]));
+
                     int l = 2;
                     for (int k = j; k < temp.size() - 3; k++) {
                         Log.d(TAG, "temp: " + temp.get(l).getTitle());
@@ -146,13 +149,34 @@ public class RssService extends IntentService {
             }
         }
 
-        if (pos == 2) {
+        if (pos == 3) {
             for (int i = 0; i < tech.length; i++) {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();
                     temp = parser.parse(getInputStream(tech[i]));
                     int l = 2;
-                    for (int k = j; k < temp.size(); k++) {
+                    for (int k = j; k < temp.size() - 3; k++) {
+                        Log.d(TAG, "temp: " + temp.get(l).getTitle());
+                        rssItems.add(k, temp.get(l));
+                        ++l;
+                    }
+                    ++j;
+
+                } catch (XmlPullParserException e) {
+                    Log.w(e.getMessage(), e);
+                } catch (IOException e) {
+                    Log.w(e.getMessage(), e);
+                }
+            }
+        }
+
+        if (pos == 4) {
+            for (int i = 0; i < world.length; i++) {
+                try {
+                    PcWorldRssParser parser = new PcWorldRssParser();
+                    temp = parser.parse(getInputStream(tech[i]));
+                    int l = 2;
+                    for (int k = j; k < temp.size() - 3; k++) {
                         Log.d(TAG, "temp: " + temp.get(l).getTitle());
                         rssItems.add(k, temp.get(l));
                         ++l;
@@ -195,7 +219,7 @@ public class RssService extends IntentService {
             try {
                 temp = parser.parse(getInputStream("http://www.amarujala.com/rss/national-news.xml"));
                 int l = 2;
-                for (int k = j; k < temp.size()-2; k++) {
+                for (int k = j; k < temp.size() - 2; k++) {
                     rssItems.add(k, temp.get(l));
                     ++l;
                 }
@@ -291,7 +315,7 @@ public class RssService extends IntentService {
             }
         }
 
-
+        Log.d(TAG, "lenOfArrayList " + rssItems.size());
         Bundle bundle = new Bundle();
         bundle.putSerializable(ITEMS, (Serializable) rssItems);
         ResultReceiver receiver = intent.getParcelableExtra(RECEIVER);

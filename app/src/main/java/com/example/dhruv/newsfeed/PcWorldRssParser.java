@@ -35,7 +35,6 @@ public class PcWorldRssParser extends AsyncTask {
         }
     }
 
-
     private List<RssItem> readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, null, "rss");
         List<RssItem> items = new ArrayList<RssItem>();
@@ -45,7 +44,7 @@ public class PcWorldRssParser extends AsyncTask {
         String category = null;
         String thumbnail = null;
 
-        while ((parser.next() != XmlPullParser.END_DOCUMENT)) {
+        while ((parser.next() != XmlPullParser.END_DOCUMENT)) {    //set a count condition to keep a check on the no.of feeds displayed
 
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -54,6 +53,7 @@ public class PcWorldRssParser extends AsyncTask {
             String name = parser.getName();
             if (name.equals("title")) {
                 title = readTitle(parser);
+                ++count;
                 Log.d(TAG, "turtle= " + title);
             }
             if (name.trim().equals("link")) {

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,18 +29,20 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     AVLoadingIndicatorView avi;
     public static ListView listView;
     private View view;
-    int pos;
     public static Uri uri;
+    public static int pos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setRetainInstance(true);
-        MainActivity mnAc = new MainActivity();
-        String type = mnAc.passType();
-        pos = mnAc.position;
-        Log.d(TAG, "type: " + type);
+        pos = MainActivity.position;
+        startService();       //_________________________________________
+//        MainActivity mnAc = new MainActivity();
+//        String type = mnAc.passType();
+//        pos = mnAc.position;
+//        Log.d(TAG, "type: " + type);
     }
 
     @Override
@@ -51,7 +54,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             listView = (ListView) view.findViewById(R.id.listView);
             listView.setOnItemClickListener(this);
             avi.show();
-            startService();
+//            startService();
         } else {
             // If we are returning from a configuration change:
             // "view" is still attached to the previous view hierarchy
@@ -65,7 +68,8 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     private void startService() {
         Intent intent = new Intent(getActivity(), RssService.class);
         intent.putExtra(RssService.RECEIVER, resultReceiver);
-        intent.putExtra("topic", pos);
+        Log.d(TAG,"positionAtRssFrag "+MainActivity.position);
+        intent.putExtra("topic", MainActivity.position);
         getActivity().startService(intent);
     }
 
