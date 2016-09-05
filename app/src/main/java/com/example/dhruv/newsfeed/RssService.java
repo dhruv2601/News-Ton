@@ -98,7 +98,7 @@ public class RssService extends IntentService implements java.io.Serializable {
     protected void onHandleIntent(Intent intent) {
         pos = MainActivity.position;
 //        rssItems = null;
-        rssItems.clear();
+//        rssItems.clear();            // should do something like this to stop them from  mixing up
         Log.d(TAG, "Service started");
         Log.d(TAG, "pos= " + pos);
 //        Log.d(TAG, "len= " + passTopic[pos].toString().length());

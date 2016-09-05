@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.Locale;
 
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Tech"));
         Log.d(TAG, "tab3Added");
         tabLayout.addTab(tabLayout.newTab().setText("World"));
+
+        tabLayout.addTab(tabLayout.newTab().setText("Weather")); //weather
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
@@ -76,9 +79,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(R.drawable.sportshindi);
         tabLayout.getTabAt(3).setIcon(R.drawable.tech);
         tabLayout.getTabAt(4).setIcon(R.drawable.world);
+        tabLayout.getTabAt(5).setText("WEATHER");
 
 
-        tabLayout.setBackgroundColor(getResources().getColor(R.color.teal));
+        tabLayout.setBackgroundColor(getResources().getColor(R.color.pink_red));
 //        tabLayout.setBackgroundColor(R.style.MyCustomTabLayout);
 
         viewPager.setOffscreenPageLimit(0);           //look into it once all tabs set

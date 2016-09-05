@@ -4,22 +4,32 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.speech.tts.TextToSpeech;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.squareup.picasso.Picasso;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
 
@@ -38,6 +48,10 @@ public class RssAdapter extends BaseAdapter {
     public static Animator mCurrentAnimator;
     public static View convertView;
     public View view1 = null;
+    private GoogleApiClient client;
+    public static WebView wv;
+    public static ProgressBar progressBar;
+
 
     public RssAdapter(Context context, List<RssItem> items) {
         this.items = items;
@@ -72,6 +86,7 @@ public class RssAdapter extends BaseAdapter {
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
+            globalPos = position;
             Log.d(TAG, "pos==" + position);
             s = items.get(position).getLink();
             Log.d(TAG, "s==" + s);
@@ -130,12 +145,46 @@ public class RssAdapter extends BaseAdapter {
 
         ImageView fullart = (ImageView) convertView.findViewById(R.id.full);
         fullart.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, FullArticle.class);
-                i.putExtra("url", RssAdapter.items.get(position).getLink().toString());
-                Log.d(TAG, "link==" + RssAdapter.items.get(position).getLink().toString());
-                context.startActivity(i);
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context);
+                alert.setTitle(RssAdapter.items.get(position).getTitle());
+
+                wv = new WebView(RssAdapter.context);
+                wv.setInitialScale(1);
+                wv.getSettings().setJavaScriptEnabled(true);
+                wv.getSettings().setLoadWithOverviewMode(true);
+                wv.getSettings().setUseWideViewPort(true);
+                wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+                wv.setScrollbarFadingEnabled(false);
+
+                wv.loadUrl(RssAdapter.items.get(position).getLink());
+                wv.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(url);
+
+                        return true;
+                    }
+                });
+
+                alert.setView(wv);
+                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+
+
+//                Intent i = new Intent(context, FullArticle.class);
+//                i.putExtra("url", RssAdapter.items.get(position).getLink().toString());
+//
+// Log.d(TAG, "link==" + RssAdapter.items.get(position).getLink().toString());
+//                context.startActivity(i);
             }
         });
 
@@ -143,10 +192,37 @@ public class RssAdapter extends BaseAdapter {
         readFull.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, FullArticle.class);
-                i.putExtra("url", RssAdapter.items.get(position).getLink().toString());
-                Log.d(TAG, "link==" + RssAdapter.items.get(position).getLink().toString());
-                context.startActivity(i);
+                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context,R.style.MyDialogTheme);
+                alert.setTitle(RssAdapter.items.get(position).getTitle());
+
+                wv = new WebView(RssAdapter.context);
+                wv.setInitialScale(1);
+                wv.getSettings().setJavaScriptEnabled(true);
+                wv.getSettings().setLoadWithOverviewMode(true);
+                wv.getSettings().setUseWideViewPort(true);
+                wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+                wv.setScrollbarFadingEnabled(false);
+
+                wv.loadUrl(RssAdapter.items.get(position).getLink());
+                wv.setWebViewClient(new WebViewClient(){
+                    @Override
+                    public boolean shouldOverrideUrlLoading (WebView view, String url){
+                        view.loadUrl(url);
+
+                        return true;
+                    }
+                });
+
+                alert.setView(wv);
+                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+
+
             }
         });
 
@@ -175,7 +251,6 @@ public class RssAdapter extends BaseAdapter {
 //                i.putExtra("position", position);
             }
         });
-
 
 
 //        ----->>>>>    CAUTION  ::::::   DO NOT DELETE    <<<<<-------         //
@@ -222,8 +297,10 @@ public class RssAdapter extends BaseAdapter {
             mCurrentAnimator.cancel();
         }
 
+//        final Dialog dialog = new Dialog(RssAdapter.context);
+//        dialog.setContentView(R.layout.expand_image);
         final ImageView expandedImageView = (ImageView) view1.findViewById(R.id.expanded_image);
-
+//        dialog.show();
         Picasso.with(RssAdapter.this.context).load(items.get(globalPos).getThumbnail()).into(expandedImageView);
 
         // Calculate the starting and ending bounds for the zoomed-in image.
@@ -354,23 +431,17 @@ public class RssAdapter extends BaseAdapter {
 
     }
 
-    private String calcTime(long x)
-    {
+    private String calcTime(long x) {
         String ret;
-        x/=(1000*60);
-        if(x>(1440))
-        {
-            x/=1440;
-            ret = String.valueOf(x)+" Day";
-        }
-        else if(x>60)
-        {
-            x/=60;
-            ret = String.valueOf(x)+" Hr.";
-        }
-        else
-        {
-            ret = String.valueOf(x)+" Min";
+        x /= (1000 * 60);
+        if (x > (1440)) {
+            x /= 1440;
+            ret = String.valueOf(x) + " Day";
+        } else if (x > 60) {
+            x /= 60;
+            ret = String.valueOf(x) + " Hr.";
+        } else {
+            ret = String.valueOf(x) + " Min";
         }
         return ret;
     }

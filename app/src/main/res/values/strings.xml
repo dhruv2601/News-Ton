@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">News Feed</string>
     <string name="getty_id">na7hqhx9pygkwg5953evmcgs </string>
+
+    <string name="attribution">Weather data by OpenWeatherMap.org</string>
+    <string name="error_fetch_weather">Could not fetch weather data</string>
+    <string name="error_location_unavailable">Could not get current location</string>
+    <string name="today">TODAY</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="monday">Monday</string>
+    <string name="sky_is_clear">sky is clear</string>
+    <string name="nineteen_degrees">19°</string>
+    <string name="fifteen_degrees">15°</string>
 </resources>

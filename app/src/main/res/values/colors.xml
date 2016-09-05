@@ -7,4 +7,11 @@
     <color name="darkgreen">#00897b</color>
     <color name="red">#e53935</color>
     <color name="teal">#00796b</color>
+    <color name="pink_red">#ef5350</color>
+    <color name="dark_teal">#004d40</color>
+    <color name="dark_grey">#212121</color>
+    <color name="brand_main">#33B5E5</color>
+    <color name="text">#333333</color>
+    <color name="text_de_emphasized">#666666</color>
+    <color name="text_faint">#999999</color>
 </resources>
