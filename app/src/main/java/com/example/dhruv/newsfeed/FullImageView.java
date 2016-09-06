@@ -1,15 +1,7 @@
 package com.example.dhruv.newsfeed;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.graphics.Point;
-import android.graphics.Rect;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.animation.DecelerateInterpolator;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -24,7 +16,7 @@ public class FullImageView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_image_view);
 
-        expandedImageView = (ImageView) findViewById(R.id.expanded_image);
+//        expandedImageView = (ImageView) findViewById(R.id.expanded_image);
         if (RssAdapter.mCurrentAnimator != null) {
             RssAdapter.mCurrentAnimator.cancel();
         }
@@ -36,7 +28,6 @@ public class FullImageView extends AppCompatActivity {
 
     private void func()
     {
-
 
         Picasso.with(this).load(RssAdapter.items.get(10).getThumbnail()).into(expandedImageView);
         //expandedImageView.setImageResource(imageResId);
