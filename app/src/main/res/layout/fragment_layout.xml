@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -26,26 +26,81 @@
         <!--android:layout_height="match_parent"-->
         <!--android:scrollbars="vertical"/>-->
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            
+            <Button
+                android:id="@+id/listenToAll"
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:text="L  i  s  t  e  n      T  o      A  l  l"
+                android:textColor="@android:color/white"
+                android:background="@drawable/greyback"
+                android:textSize="17dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+        </LinearLayout>
+
         <ListView
-            android:id="@+id/listView"
+            android:id="@+id/listViewTopStories"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginTop="30dp"
             android:background="@drawable/shadow"
             android:divider="@drawable/greyback"
-            android:dividerHeight="22dp"
+            android:dividerHeight="18dp"
             android:visibility="gone">
 
         </ListView>
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/avi"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            app:indicatorColor="@color/common_signin_btn_default_background"
-            app:indicatorName="BallClipRotatePulseIndicator" />
+        <ListView
+            android:id="@+id/listViewSports"
+            android:layout_marginTop="30dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shadow"
+            android:divider="@drawable/greyback"
+            android:dividerHeight="18dp"
+            android:visibility="gone">
 
+        </ListView>
+
+        <ListView
+            android:id="@+id/listViewTech"
+            android:layout_marginTop="30dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shadow"
+            android:divider="@drawable/greyback"
+            android:dividerHeight="18dp"
+            android:visibility="gone">
+
+        </ListView>
+
+        <ListView
+            android:id="@+id/listViewWorld"
+            android:layout_marginTop="30dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shadow"
+            android:divider="@drawable/greyback"
+            android:dividerHeight="18dp"
+            android:visibility="gone">
+
+        </ListView>
+
+        <ListView
+            android:id="@+id/savedArticle"
+            android:layout_marginTop="30dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shadow"
+            android:divider="@drawable/greyback"
+            android:dividerHeight="18dp"
+            android:visibility="gone">
+
+        </ListView>
 
         <!---->
         <!--<ProgressBar-->
@@ -57,3 +112,4 @@
 
     </RelativeLayout>
 </RelativeLayout>
+

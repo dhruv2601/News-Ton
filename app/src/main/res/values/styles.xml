@@ -2,6 +2,8 @@
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">#d32f2f</item>
+        <item name="android:textIsSelectable">true</item>
+        <item name="android:tabStripEnabled">true</item>
     </style>
 
     <!-- Base application theme. -->
@@ -55,7 +57,7 @@
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <!--buttons color-->
-        <item name="colorAccent">@color/teal</item>
+        <item name="colorAccent">@color/red</item>
         <!--title and message color-->
         <item name="android:textColorPrimary">@android:color/white</item>
         <!--dialog background-->

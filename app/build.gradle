@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
-    useLibrary  'org.apache.http.legacy'
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.example.dhruv.newsfeed"
@@ -41,4 +41,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.1.+'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.1.+'
     compile 'de.keyboardsurfer.android.widget:crouton:1.8.5@jar'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

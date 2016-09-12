@@ -144,8 +144,6 @@ public class TopicSelector extends AppCompatActivity {
                     i.putExtra("topic", 0);
                     startActivity(i);
                 }
-
-
             }
         });
 

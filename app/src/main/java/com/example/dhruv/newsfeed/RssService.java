@@ -34,12 +34,18 @@ public class RssService extends IntentService implements java.io.Serializable {
     public static long[] arr;
     public static int i = 0;
     public static int x = 0;
+    public static int topStoriesCount;
+    public static int sportsCount;
+    public static int techCount;
+    public static int worldCount;
+    public static int count=0;
 
     public String passTopic[] = new String[]
             {
                     "topstories",
                     "sports",
                     "tech",
+                    "world",
                     "hindi"  // at no. 9 though
             };
 
@@ -106,6 +112,8 @@ public class RssService extends IntentService implements java.io.Serializable {
         int j = 0;
 
         if (pos == 1) {
+            topStoriesCount=0;
+            count=0;
             for (int i = 0; i < topStories.length; i++) {
                 try {
                     Log.d(TAG, "startingLoop");
@@ -115,6 +123,8 @@ public class RssService extends IntentService implements java.io.Serializable {
                     for (int k = j; k < temp.size() / 1.5; k++) {            // make it back to temp.size()-10
                         Log.d(TAG, "temp: " + temp.get(l).getTitle());
                         rssItems.add(k, temp.get(l));
+                        topStoriesCount++;
+                        count++;
                         ++l;
                     }
                     ++j;
@@ -128,6 +138,8 @@ public class RssService extends IntentService implements java.io.Serializable {
         }
 
         if (pos == 2) {
+            sportsCount=0;
+            count=0;
             for (int i = 0; i < sports.length; i++) {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();
@@ -137,6 +149,8 @@ public class RssService extends IntentService implements java.io.Serializable {
                     for (int k = j; k < temp.size() - 3; k++) {
                         Log.d(TAG, "temp: " + temp.get(l).getTitle());
                         rssItems.add(k, temp.get(l));
+                        sportsCount++;
+                        count++;
                         ++l;
                     }
                     ++j;
@@ -150,6 +164,8 @@ public class RssService extends IntentService implements java.io.Serializable {
         }
 
         if (pos == 3) {
+            techCount=0;
+            count=0;
             for (int i = 0; i < tech.length; i++) {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();
@@ -158,6 +174,8 @@ public class RssService extends IntentService implements java.io.Serializable {
                     for (int k = j; k < temp.size() - 3; k++) {
                         Log.d(TAG, "temp: " + temp.get(l).getTitle());
                         rssItems.add(k, temp.get(l));
+                        techCount++;
+                        count++;
                         ++l;
                     }
                     ++j;
@@ -171,6 +189,8 @@ public class RssService extends IntentService implements java.io.Serializable {
         }
 
         if (pos == 4) {
+            worldCount=0;
+            count=0;
             for (int i = 0; i < world.length; i++) {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();
@@ -179,6 +199,8 @@ public class RssService extends IntentService implements java.io.Serializable {
                     for (int k = j; k < temp.size() - 3; k++) {
                         Log.d(TAG, "temp: " + temp.get(l).getTitle());
                         rssItems.add(k, temp.get(l));
+                        worldCount++;
+                        count++;
                         ++l;
                     }
                     ++j;
@@ -318,6 +340,7 @@ public class RssService extends IntentService implements java.io.Serializable {
         Log.d(TAG, "lenOfArrayList " + rssItems.size());
         Bundle bundle = new Bundle();
         bundle.putSerializable(ITEMS, (Serializable) rssItems);
+        bundle.putSerializable(passTopic[pos], (Serializable) rssItems); // to save list state to get later when tabs are switched
         ResultReceiver receiver = intent.getParcelableExtra(RECEIVER);
         receiver.send(0, bundle);
     }
