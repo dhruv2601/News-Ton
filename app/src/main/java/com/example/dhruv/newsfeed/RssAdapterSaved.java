@@ -236,7 +236,7 @@ public class RssAdapterSaved extends BaseAdapter {
                 wv.getSettings().setBuiltInZoomControls(true);
                 wv.getSettings().setDisplayZoomControls(false);
 
-                wv.loadUrl(RssAdapter.items.get(position).getLink());
+                wv.loadUrl(RssAdapterSaved.items.get(position).getLink());
                 wv.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {

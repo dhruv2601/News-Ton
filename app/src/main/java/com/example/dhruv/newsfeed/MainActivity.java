@@ -13,6 +13,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -29,7 +32,8 @@ MainActivity extends AppCompatActivity {
     public static ListView listViewSports;
     public static ListView listViewTech;
     public static ListView listViewWold;
-
+    public TabLayout tabLayout;
+    public int eye=0;
     public static int savedArticleSize;
     public static int sharedPrefSize[] = new int[15];
     public static SharedPreferences sref;
@@ -66,6 +70,10 @@ MainActivity extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         b = (activeNetworkInfo != null && activeNetworkInfo.isConnected());
+        if(!b)
+        {
+            Toast.makeText(MainActivity.this, "A P P  R U N N I N G  I N  O F F L I N E   M O D E", Toast.LENGTH_LONG).show();
+        }
 
         t1 = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -85,26 +93,28 @@ MainActivity extends AppCompatActivity {
 
 
         Log.d(TAG, "beforeTabLayout");
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("INTRO")); //0
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("SEARCH")); //0
         Log.d(TAG, "afterTabLayout");
         tabLayout.addTab(tabLayout.newTab()); //1
         tabLayout.addTab(tabLayout.newTab().setText("Top Stories"));    //2
         Log.d(TAG, "tab1Added");
-        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.activity_main_two));   //3
+        tabLayout.addTab(tabLayout.newTab().setText("PAPERS"));   //3
         tabLayout.addTab(tabLayout.newTab().setText("Sports"));         //4
         Log.d(TAG, "tab2Added");
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.activity_main_two));   //5
         tabLayout.addTab(tabLayout.newTab().setText("Tech"));       //6
         Log.d(TAG, "tab3Added");
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.activity_main_two));       //7
-        tabLayout.addTab(tabLayout.newTab().setText("World"));      //8
+        tabLayout.addTab(tabLayout.newTab().setText("HINDI"));      //8
 
         tabLayout.addTab(tabLayout.newTab().setText("Weather")); //weather      //9
 
         tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 10
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        tabLayout.post(tabLayoutConfig);
+//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         Log.d(TAG, "viewPagerCAll");
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -115,25 +125,29 @@ MainActivity extends AppCompatActivity {
         viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
 
-        tabLayout.getTabAt(0).setText("INTRO");
+        tabLayout.getTabAt(0).setText("SEARCH");
+        tabLayout.getTabAt(1).setText("SAVED ARTICLES");
+        tabLayout.getTabAt(2).setText("TOP STORIES");
+        tabLayout.getTabAt(3).setText("PAPERS");
+        tabLayout.getTabAt(4).setText("SPORTS");
+//        tabLayout.getTabAt(1).setIcon(R.drawable.topstories);
+//        tabLayout.getTabAt(2).setIcon(R.drawable.sportshindi);
+//        tabLayout.getTabAt(3).setIcon(R.drawable.tech);
+//        tabLayout.getTabAt(4).setIcon(R.drawable.world);
+//        tabLayout.getTabAt(5).setText("WEATHER");
+        tabLayout.getTabAt(6).setText("TECH");
+        tabLayout.getTabAt(8).setText("HINDI");
+        tabLayout.getTabAt(9).setText("WEATHER");
 
-        tabLayout.getTabAt(1).setText("TopStories");
-        tabLayout.getTabAt(1).setIcon(R.drawable.topstories);
-        tabLayout.getTabAt(2).setIcon(R.drawable.sportshindi);
-        tabLayout.getTabAt(3).setIcon(R.drawable.tech);
-        tabLayout.getTabAt(4).setIcon(R.drawable.world);
-        tabLayout.getTabAt(5).setText("WEATHER");
-        tabLayout.getTabAt(6).setText("Saved Article");
-
-        tabLayout.getTabAt(2).setCustomView(R.layout.activity_main_two);
-        tabLayout.getTabAt(4).setCustomView(R.layout.activity_main_two);
-        tabLayout.getTabAt(6).setCustomView(R.layout.activity_main_two);
+//        tabLayout.getTabAt(2).setCustomView(R.layout.activity_main_two);
+//        tabLayout.getTabAt(4).setCustomView(R.layout.activity_main_two);
+//        tabLayout.getTabAt(6).setCustomView(R.layout.activity_main_two);
         tabLayout.getTabAt(8).setCustomView(R.layout.activity_main_two);
 
-        tabLayout.setBackgroundColor(getResources().getColor(R.color.pink_red));
+//        tabLayout.setBackgroundColor(getResources().getColor(R.color.black));
 //        tabLayout.setBackgroundColor(R.style.MyCustomTabLayout);
 
-        viewPager.setOffscreenPageLimit(0);           //look into it once all tabs set
+        viewPager.setOffscreenPageLimit(1);           //look into it once all tabs set
         Log.d(TAG, "adapterAllSet");
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -158,7 +172,60 @@ MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(event.getAction() == KeyEvent.ACTION_DOWN)
+        {
+            switch (keyCode)
+            {
+                case KeyEvent.KEYCODE_BACK:
+                    if(Search_class.webView.canGoBack())
+                    {
+                        Search_class.webView.goBack();
+                    }
+                    else if(TopStoryReference.wb.canGoBack())
+                    {
+                        eye=1;
+                        TopStoryReference.wb.goBack();
+                    }
+
+                    else if(eye==1)
+                    {
+                        TopStoryReference.rlWithTop.setVisibility(View.VISIBLE);
+                        TopStoryReference.getRlWithTopWb.setVisibility(View.GONE);
+                    }
+                    else
+                    {
+                        onBackPressed();
+                    }
+                    return  true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    Runnable tabLayoutConfig = new Runnable() {
+        @Override
+        public void run()
+        {
+
+            if(tabLayout.getWidth() < MainActivity.this.getResources().getDisplayMetrics().widthPixels)
+            {
+                tabLayout.setTabMode(TabLayout.MODE_FIXED);
+                ViewGroup.LayoutParams mParams = tabLayout.getLayoutParams();
+                mParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                tabLayout.setLayoutParams(mParams);
+
+            }
+            else
+            {
+                tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            }
+        }
+    };
+
+    @Override
     public void onBackPressed() {
+        Log.d(TAG,"backPressedCalled");
         Toast.makeText(MainActivity.this, "Press Again To Exit News Feed", Toast.LENGTH_SHORT).show();
         t1.shutdown();
         super.onBackPressed();

@@ -37,11 +37,12 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
         switch (position) {
             case 0:
                 MainActivity.position = 0;
-                return new EntryPage();
+                return new Search_class();
 
             case 1:
                 MainActivity.position = 0;
-                return new Search_class();
+                SavedArticleClass savedArticleClass = new SavedArticleClass();
+                return savedArticleClass;
 
             case 2:
                 Log.d(TAG, "beforeTab1");
@@ -58,7 +59,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
 
             case 3:
                 MainActivity.position = 0;
-                return new EntryPage();
+                return new TopStoryReference();
 
             case 4:
                 Log.d(TAG, "beforeTab2");
@@ -106,9 +107,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                 return weather;
 
             case 10:
-                SavedArticleClass savedArticleClass = new SavedArticleClass();
-                return savedArticleClass;
-
+                return new EntryPage();
             default:
                 return null;
         }

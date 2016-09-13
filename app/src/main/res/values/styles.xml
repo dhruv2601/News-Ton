@@ -1,9 +1,13 @@
 <resources>
 
+    <style name="textSize" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">17sp</item>
+    </style>
+
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">#d32f2f</item>
         <item name="android:textIsSelectable">true</item>
-        <item name="android:tabStripEnabled">true</item>
+        <item name="android:tabStripEnabled">false</item>
     </style>
 
     <!-- Base application theme. -->
@@ -57,7 +61,7 @@
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <!--buttons color-->
-        <item name="colorAccent">@color/red</item>
+        <item name="colorAccent">@android:color/white</item>
         <!--title and message color-->
         <item name="android:textColorPrimary">@android:color/white</item>
         <!--dialog background-->

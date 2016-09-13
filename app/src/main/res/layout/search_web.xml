@@ -22,7 +22,7 @@
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:elevation="30dp"
-            android:hint="   S E A R C H" />
+            android:hint="  S E A R C H" />
 
     </android.support.design.widget.TextInputLayout>
 

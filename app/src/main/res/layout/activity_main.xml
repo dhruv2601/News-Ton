@@ -13,16 +13,23 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
-            android:scrollbars="vertical"
+            app:tabMode="scrollable"
+            android:background="@drawable/tabimg"
+            app:tabTextColor="@android:color/black"
+            app:tabSelectedTextColor="@color/colorPrimaryDark"
+            android:overScrollMode="never"
+            app:tabGravity="fill"
+            android:requiresFadingEdge="vertical"
             style="@style/MyCustomTabLayout"
+            app:tabTextAppearance="@style/textSize"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:elevation="25dp"
             android:minHeight="?attr/actionBarSize"
             app:tabIndicatorHeight="4dp" />
 
-    <!--</android.support.design.widget.CollapsingToolbarLayout>-->
 
+    <!--</android.support.design.widget.CollapsingToolbarLayout>-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

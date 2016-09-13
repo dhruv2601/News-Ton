@@ -52,20 +52,19 @@ public class RssService extends IntentService implements java.io.Serializable {
 
     public String[] topStories = new String[]
             {
+                    "http://www.thehindu.com/?service=rss",
                     "http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms",
                     "http://economictimes.indiatimes.com/rssfeedstopstories.cms",
-                    "http://www.thehindu.com/?service=rss",
-                    "http://timesofindia.indiatimes.com/rssfeedstopstories.cms",
-                    "http://feeds.abcnews.com/abcnews/topstories",
+//                    "http://feeds.abcnews.com/abcnews/topstories",
 //                    "http://rss.nytimes.com/services/xml/rss/nyt/AsiaPacific.xml"
             };
 
     public String sports[] = new String[]
             {
+                    "http://feeds.abcnews.com/abcnews/sportsheadlines",
                     "http://www.mirror.co.uk/sport/football/rss.xml",  // football with love
                     "http://www.espncricinfo.com/rss/content/story/feeds/6.xml",
-                    "http://timesofindia.indiatimes.com/rssfeeds/4719148.cms",
-                    "http://feeds.abcnews.com/abcnews/sportsheadlines"
+                    "http://timesofindia.indiatimes.com/rssfeeds/4719148.cms"
             };
     public String tech[] = new String[]
             {
@@ -82,8 +81,9 @@ public class RssService extends IntentService implements java.io.Serializable {
     public String hindi[] = new String[]
             {
                     "http://www.amarujala.com/rss/national-news.xml",
+                    "https://news.google.co.in/news?cf=all&ned=hi_in&hl=hi&output=rss",
                     "http://www.amarujala.com/rss/sports-news.xml",
-                    "https://news.google.co.in/news?cf=all&ned=hi_in&hl=hi&output=rss"
+                    "http://www.amarujala.com/rss/entertainment.xml"
             };
 
     public String bollywood[] = new String[]
@@ -188,32 +188,32 @@ public class RssService extends IntentService implements java.io.Serializable {
             }
         }
 
+//        if (pos == 4) {
+//            worldCount=0;
+//            count=0;
+//            for (int i = 0; i < world.length; i++) {
+//                try {
+//                    PcWorldRssParser parser = new PcWorldRssParser();
+//                    temp = parser.parse(getInputStream(tech[i]));
+//                    int l = 2;
+//                    for (int k = j; k < temp.size() - 3; k++) {
+//                        Log.d(TAG, "temp: " + temp.get(l).getTitle());
+//                        rssItems.add(k, temp.get(l));
+//                        worldCount++;
+//                        count++;
+//                        ++l;
+//                    }
+//                    ++j;
+//
+//                } catch (XmlPullParserException e) {
+//                    Log.w(e.getMessage(), e);
+//                } catch (IOException e) {
+//                    Log.w(e.getMessage(), e);
+//                }
+//            }
+//        }
+
         if (pos == 4) {
-            worldCount=0;
-            count=0;
-            for (int i = 0; i < world.length; i++) {
-                try {
-                    PcWorldRssParser parser = new PcWorldRssParser();
-                    temp = parser.parse(getInputStream(tech[i]));
-                    int l = 2;
-                    for (int k = j; k < temp.size() - 3; k++) {
-                        Log.d(TAG, "temp: " + temp.get(l).getTitle());
-                        rssItems.add(k, temp.get(l));
-                        worldCount++;
-                        count++;
-                        ++l;
-                    }
-                    ++j;
-
-                } catch (XmlPullParserException e) {
-                    Log.w(e.getMessage(), e);
-                } catch (IOException e) {
-                    Log.w(e.getMessage(), e);
-                }
-            }
-        }
-
-        if (pos == 9) {
             for (int i = 0; i < hindi.length; i++) {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();
