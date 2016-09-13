@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@color/darkgreen"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:id="@+id/news"
+        android:layout_marginTop="60dp"
+        android:textSize="35dp"
+        android:text="             N  E  W  S "
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/feed"
+        android:layout_marginTop="60dp"
+        android:textSize="35dp"
+        android:textColor="@android:color/black"
+        android:text="               F E E D "
+        android:fontFamily="sans-serif-condensed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/img"
+        android:layout_below="@+id/news"
+        android:layout_marginTop="180dp"
+        android:layout_width="1500dp"
+        android:layout_height="150dp"
+        android:src="@drawable/newsfeedthree"
+
+        app:civ_border_width="5dp"
+        app:civ_border_color="#FF000000"/>
+
+    <TextView
+        android:id="@+id/version"
+        android:text="VERSION 1.0"
+        android:textSize="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/img"
+        android:layout_alignEnd="@+id/img" />
+
+
+    <!--<com.example.dhruv.customsearch.Circle-->
+    <!--android:id="@+id/circle"-->
+    <!--android:layout_marginTop="200dp"-->
+    <!--android:layout_marginLeft="60dp"-->
+    <!--android:layout_width="180dp"-->
+    <!--android:layout_height="180dp" />-->
+
+</RelativeLayout>

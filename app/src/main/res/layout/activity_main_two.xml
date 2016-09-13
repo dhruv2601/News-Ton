@@ -1,0 +1,34 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="0dp"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/main_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout1"
+            style="@style/MyCustomTabLayout"
+            android:layout_width="0dp"
+            android:layout_height="90dp"
+            android:elevation="25dp"
+            android:minHeight="?attr/actionBarSize"
+            android:scrollbars="vertical"
+            app:tabIndicatorHeight="4dp" />
+
+        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

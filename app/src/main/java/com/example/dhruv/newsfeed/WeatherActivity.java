@@ -247,11 +247,11 @@ public class WeatherActivity extends Fragment {
 
                         if (error instanceof TimeoutException) {
                             Crouton.makeText(getActivity(),
-                                    R.string.error_location_unavailable, Style.ALERT).show();
+                                    R.string.error_location_unavailable, Style.INFO).show();
                         } else if (error instanceof RetrofitError
                                 || error instanceof HttpException) {
                             Crouton.makeText(getActivity(),
-                                    R.string.error_fetch_weather, Style.ALERT).show();
+                                    R.string.error_fetch_weather, Style.INFO).show();
                         } else {
                             Log.e(TAG, error.getMessage());
                             error.printStackTrace();

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_password"
+        android:layout_width="match_parent"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/search_box"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:fontFamily="serif"
+            android:textColor="@color/black"
+            android:drawableRight="@drawable/search_icon"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:elevation="30dp"
+            android:hint="   S E A R C H" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <WebView
+        android:id="@+id/search_web_view"
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="match_parent">
+    </WebView>
+
+
+</LinearLayout>
