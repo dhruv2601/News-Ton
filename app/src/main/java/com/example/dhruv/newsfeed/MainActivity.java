@@ -14,8 +14,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -33,7 +37,7 @@ MainActivity extends AppCompatActivity {
     public static ListView listViewTech;
     public static ListView listViewWold;
     public TabLayout tabLayout;
-    public int eye=0;
+    public int eye = 0;
     public static int savedArticleSize;
     public static int sharedPrefSize[] = new int[15];
     public static SharedPreferences sref;
@@ -54,24 +58,21 @@ MainActivity extends AppCompatActivity {
 
         relativeLayout = (RelativeLayout) findViewById(R.id.main_layout);
         sref = MainActivity.this.getSharedPreferences("sharedPrefSize", 0);
-        for(int i=0;i<15;i++)
-        {
-            sharedPrefSize[i]  = sref.getInt("size"+i,0);
+        for (int i = 0; i < 15; i++) {
+            sharedPrefSize[i] = sref.getInt("size" + i, 0);
         }
 
-        for(int i=0;i<15;i++)
-        {
-            flag[i]=0;
+        for (int i = 0; i < 15; i++) {
+            flag[i] = 0;
         }
 
-        SharedPreferences saved = MainActivity.this.getSharedPreferences("savedArticle",0);
-        savedArticleSize = saved.getInt("size",0);
+        SharedPreferences saved = MainActivity.this.getSharedPreferences("savedArticle", 0);
+        savedArticleSize = saved.getInt("size", 0);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         b = (activeNetworkInfo != null && activeNetworkInfo.isConnected());
-        if(!b)
-        {
+        if (!b) {
             Toast.makeText(MainActivity.this, "A P P  R U N N I N G  I N  O F F L I N E   M O D E", Toast.LENGTH_LONG).show();
         }
 
@@ -108,9 +109,11 @@ MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.activity_main_two));       //7
         tabLayout.addTab(tabLayout.newTab().setText("HINDI"));      //8
 
-        tabLayout.addTab(tabLayout.newTab().setText("Weather")); //weather      //9
+        tabLayout.addTab(tabLayout.newTab().setText("HindiPapers"));//9
 
-        tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 10
+        tabLayout.addTab(tabLayout.newTab().setText("Weather")); //weather      //10
+
+        tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 11
 
 
         tabLayout.post(tabLayoutConfig);
@@ -137,12 +140,11 @@ MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(5).setText("PAPERS");
         tabLayout.getTabAt(6).setText("TECH");
         tabLayout.getTabAt(8).setText("HINDI");
-        tabLayout.getTabAt(9).setText("WEATHER");
+        tabLayout.getTabAt(10).setText("WEATHER");
 
 //        tabLayout.getTabAt(2).setCustomView(R.layout.activity_main_two);
 //        tabLayout.getTabAt(4).setCustomView(R.layout.activity_main_two);
 //        tabLayout.getTabAt(6).setCustomView(R.layout.activity_main_two);
-        tabLayout.getTabAt(8).setCustomView(R.layout.activity_main_two);
 
 //        tabLayout.setBackgroundColor(getResources().getColor(R.color.black));
 //        tabLayout.setBackgroundColor(R.style.MyCustomTabLayout);
@@ -150,66 +152,128 @@ MainActivity extends AppCompatActivity {
         viewPager.setOffscreenPageLimit(1);           //look into it once all tabs set
         Log.d(TAG, "adapterAllSet");
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                onTabChanged();
+                return false;
+            }
+
+            public void onTabChanged() {
+                viewPager.setAnimation(outToLeftAnimation());
+                viewPager.setAnimation(inFromRightAnimation());
+                viewPager.animate();
+            }
+
+            public Animation inFromRightAnimation() {
+
+                Animation inFromRight = new TranslateAnimation(
+                        Animation.RELATIVE_TO_PARENT, +1.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f);
+                inFromRight.setDuration(200);
+                inFromRight.setInterpolator(new AccelerateInterpolator());
+                return inFromRight;
+            }
+
+            public Animation outToLeftAnimation() {
+                Animation outtoLeft = new TranslateAnimation(
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, -2.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f);
+                outtoLeft.setDuration(200);
+                outtoLeft.setInterpolator(new AccelerateInterpolator());
+                return outtoLeft;
+            }
+
+        });
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            public void onTabChanged() {
+                viewPager.setAnimation(outToLeftAnimation());
+                viewPager.setAnimation(inFromRightAnimation());
+                viewPager.animate();
+            }
+
+            public Animation inFromRightAnimation() {
+
+                Animation inFromRight = new TranslateAnimation(
+                        Animation.RELATIVE_TO_PARENT, +1.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f);
+                inFromRight.setDuration(700);
+                inFromRight.setInterpolator(new AccelerateInterpolator());
+                return inFromRight;
+            }
+
+            public Animation outToLeftAnimation() {
+                Animation outtoLeft = new TranslateAnimation(
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, -2.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f,
+                        Animation.RELATIVE_TO_PARENT, 0.0f);
+                outtoLeft.setDuration(700);
+                outtoLeft.setInterpolator(new AccelerateInterpolator());
+                return outtoLeft;
+            }
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 MainActivity.position = tab.getPosition();
+                onTabChanged();
                 viewPager.setCurrentItem(tab.getPosition());
 //                viewPager.arrowScroll(View.FOCUS_RIGHT);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                onTabChanged();
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                onTabChanged();
 
             }
         });
+
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(event.getAction() == KeyEvent.ACTION_DOWN)
-        {
-            switch (keyCode)
-            {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (keyCode) {
                 case KeyEvent.KEYCODE_BACK:
-                    if(Search_class.webView.canGoBack())
-                    {
+                    if (Search_class.webView.canGoBack()) {
                         Search_class.webView.goBack();
-                    }
-                    else if(TopStoryReference.wb.canGoBack())
-                    {
-                        eye=1;
+                    } else if (TopStoryReference.wb.canGoBack()) {
+                        eye = 1;
                         TopStoryReference.wb.goBack();
-                    }
-                    else if(SportsReference.wb.canGoBack())
-                    {
-                        eye=2;
+                    } else if (SportsReference.wb.canGoBack()) {
+                        eye = 2;
                         SportsReference.wb.goBack();
+                    } else if (HindiReference.wb.canGoBack()) {
+                        eye = 3;
+                        HindiReference.wb.goBack();
                     }
-
-
-                    else if(eye==1)
-                    {
+                    if (eye == 1) {
                         TopStoryReference.rlWithTop.setVisibility(View.VISIBLE);
                         TopStoryReference.getRlWithTopWb.setVisibility(View.GONE);
                     }
-                    else if(eye==2)
-                    {
+                    if (eye == 2) {
                         SportsReference.rlWithTop.setVisibility(View.VISIBLE);
                         SportsReference.getRlWithTopWb.setVisibility(View.GONE);
                     }
-
-                    else
-                    {
+                    if (eye == 3) {
+                        HindiReference.rlWithTop.setVisibility(View.VISIBLE);
+                        HindiReference.getRlWithTopWb.setVisibility(View.GONE);
+                    } else {
                         onBackPressed();
                     }
-                    return  true;
+                    return true;
             }
         }
         return super.onKeyDown(keyCode, event);
@@ -217,19 +281,15 @@ MainActivity extends AppCompatActivity {
 
     Runnable tabLayoutConfig = new Runnable() {
         @Override
-        public void run()
-        {
+        public void run() {
 
-            if(tabLayout.getWidth() < MainActivity.this.getResources().getDisplayMetrics().widthPixels)
-            {
+            if (tabLayout.getWidth() < MainActivity.this.getResources().getDisplayMetrics().widthPixels) {
                 tabLayout.setTabMode(TabLayout.MODE_FIXED);
                 ViewGroup.LayoutParams mParams = tabLayout.getLayoutParams();
                 mParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 tabLayout.setLayoutParams(mParams);
 
-            }
-            else
-            {
+            } else {
                 tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
             }
         }
@@ -237,7 +297,7 @@ MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Log.d(TAG,"backPressedCalled");
+        Log.d(TAG, "backPressedCalled");
         Toast.makeText(MainActivity.this, "Press Again To Exit News Feed", Toast.LENGTH_SHORT).show();
         t1.shutdown();
         super.onBackPressed();

@@ -28,6 +28,7 @@ import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -87,9 +88,7 @@ public class RssAdapterSaved extends BaseAdapter {
             holder.rand = (ImageView) convertView.findViewById(R.id.rand);
             holder.category = (TextView) convertView.findViewById(R.id.channel);
             convertView.setTag(holder);
-        }
-        else
-        {
+        } else {
             holder = (ViewHolder) convertView.getTag();
             globalPos = position;
             Log.d(TAG, "pos==" + position);
@@ -115,26 +114,40 @@ public class RssAdapterSaved extends BaseAdapter {
         mShortAnimationDuration = convertView.getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
-        de.hdodenhof.circleimageview.CircleImageView addImg = (CircleImageView) convertView.findViewById(R.id.addBtn);
-        addImg.setOnClickListener(new View.OnClickListener() {
+        de.hdodenhof.circleimageview.CircleImageView delImg = (CircleImageView) convertView.findViewById(R.id.delBtn);
+        delImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences addToList;
-                addToList = context.getSharedPreferences("savedArticle",0);
+                addToList = context.getSharedPreferences("savedArticle", 0);
                 SharedPreferences.Editor editor = addToList.edit();
 
-                editor.putString("title" + MainActivity.savedArticleSize, items.get(globalPos).getTitle());
-                editor.putString("link" + MainActivity.savedArticleSize, items.get(globalPos).getLink());
-                editor.putString("date" + MainActivity.savedArticleSize, items.get(globalPos).getDate());
-                editor.putString("category" + MainActivity.savedArticleSize, items.get(globalPos).getCategory());
-                editor.putString("thumbnail" + MainActivity.savedArticleSize, items.get(globalPos).getThumbnail());
+                editor.remove("title" + globalPos);
+                editor.remove("link" + globalPos);
+                editor.remove("date" + globalPos);
+                editor.remove("category" + globalPos);
+                editor.remove("thumbnail" + globalPos);
 
-                MainActivity.savedArticleSize++;
-                editor.putInt("size",MainActivity.savedArticleSize);
+//                editor.putString("title" + MainActivity.savedArticleSize, items.get(globalPos).getTitle());
+//                editor.putString("link" + MainActivity.savedArticleSize, items.get(globalPos).getLink());
+//                editor.putString("date" + MainActivity.savedArticleSize, items.get(globalPos).getDate());
+//                editor.putString("category" + MainActivity.savedArticleSize, items.get(globalPos).getCategory());
+//                editor.putString("thumbnail" + MainActivity.savedArticleSize, items.get(globalPos).getThumbnail());
+
+                MainActivity.savedArticleSize--;
+                editor.putInt("size", MainActivity.savedArticleSize);
                 editor.apply();
 
-                Toast.makeText(context, "Article Added To Reading List", Toast.LENGTH_SHORT).show();
-                Log.d(TAG,"Article Added To Reading List");
+                List<RssItem> list = new ArrayList<RssItem>();
+                for (int i = 0; i < MainActivity.savedArticleSize-1; i++) {
+                    RssItem item = new RssItem(addToList.getString("title" + i, null), addToList.getString("link" + i, null), addToList.getString("date" + i, null), addToList.getString("category" + i, null), addToList.getString("thumbnail" + i, null));
+                    list.add(item);
+                    RssAdapterSaved adapter = new RssAdapterSaved(RssAdapterSaved.context, list);
+                    SavedArticleClass.savedArticle.setAdapter(adapter);
+                }
+
+                Toast.makeText(context, "Article Removed From Reading List", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Article Added To Reading List");
             }
         });
 

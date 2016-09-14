@@ -116,6 +116,7 @@ public class RssAdapter extends BaseAdapter {
                 android.R.integer.config_shortAnimTime);
 
         de.hdodenhof.circleimageview.CircleImageView addImg = (CircleImageView) convertView.findViewById(R.id.addBtn);
+
         addImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -384,7 +385,6 @@ public class RssAdapter extends BaseAdapter {
                                 }
                             }
                         }).start();
-                        Toast.makeText(context, "Image Saved In Downloads ", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

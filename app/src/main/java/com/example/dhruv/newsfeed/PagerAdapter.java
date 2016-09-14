@@ -103,10 +103,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                 }
 
             case 9:
+                return new HindiReference();
+
+            case 10:
                 WeatherActivity weather = new WeatherActivity();
                 return weather;
 
-            case 10:
+            case 11:
                 return new EntryPage();
             default:
                 return null;

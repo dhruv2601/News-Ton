@@ -23,7 +23,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/addBtn"
+        android:id="@+id/delBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignBottom="@+id/channel"

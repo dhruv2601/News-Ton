@@ -25,13 +25,13 @@ public class SavedArticleClass extends Fragment {
 
     private static final String TAG = "SavedArticle";
     public int pos;
-    public ListView savedArticle;
+    public static ListView savedArticle;
     private View view;
     public static ListView listViewTopStories;
     public static ListView listViewSports;
     public static ListView listViewTech;
     public static ListView listViewWold;
-    private Button delAll;
+    private Button delThis;
 
 
     @Nullable
@@ -43,6 +43,7 @@ public class SavedArticleClass extends Fragment {
             view = inflater.inflate(R.layout.fragment_layout_saved, container, false);
 
             savedArticle = (ListView) view.findViewById(R.id.savedArticle);
+
             listViewTopStories = (ListView) view.findViewById(R.id.listViewTopStories);
 
             listViewSports = (ListView) view.findViewById(R.id.listViewSports);
@@ -55,12 +56,14 @@ public class SavedArticleClass extends Fragment {
             List<RssItem> rssItem = new ArrayList<RssItem>();
 
             int l = 0;
+
             for (int i = MainActivity.savedArticleSize - 1; i >= 0; i--)    // check if initial should be -1
             {
                 RssItem item = new RssItem(savedArtPref.getString("title" + i, null), savedArtPref.getString("link" + i, null), savedArtPref.getString("date" + i, null), savedArtPref.getString("category" + i, null), savedArtPref.getString("thumbnail" + i, null));
                 Log.d(TAG, "savedArt " + savedArtPref.getString("title" + i, null));
                 rssItem.add(l++, item);
             }
+
             final RssAdapterSaved adapter = new RssAdapterSaved(getActivity(), rssItem);
             savedArticle.setAdapter(adapter);
             savedArticle.setVisibility(View.VISIBLE);
@@ -90,6 +93,7 @@ public class SavedArticleClass extends Fragment {
                             List<RssItem> empty = new ArrayList<RssItem>();
                             RssAdapter adapter1 = new RssAdapter(getActivity(), empty);
                             savedArticle.setAdapter(adapter1);
+                            MainActivity.savedArticleSize = 0;
 
                             Toast.makeText(getContext(), "Cleared Saved Article", Toast.LENGTH_SHORT).show();
 

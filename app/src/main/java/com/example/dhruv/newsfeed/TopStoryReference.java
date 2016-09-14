@@ -1,12 +1,15 @@
 package com.example.dhruv.newsfeed;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.TranslateAnimation;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -39,7 +42,7 @@ public class TopStoryReference extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.top_story_reference,container,false);
+        view = inflater.inflate(R.layout.top_story_reference, container, false);
 
         wb = (WebView) view.findViewById(R.id.webViewForTop);
 
@@ -67,8 +70,13 @@ public class TopStoryReference extends Fragment {
             public void onClick(View v) {
                 url = "http://timesofindia.indiatimes.com/";
 
+                TranslateAnimation animate = new TranslateAnimation(0,0, 0, rlWithTop.getHeight());
+                animate.setDuration(700);
+                animate.setFillAfter(true);
+                rlWithTop.startAnimation(animate);
+
                 rlWithTop.setVisibility(View.GONE);
-                getRlWithTopWb.setVisibility(View.VISIBLE);
+
                 wb.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -77,6 +85,14 @@ public class TopStoryReference extends Fragment {
                     }
                 });
                 wb.loadUrl(url);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getRlWithTopWb.setVisibility(View.VISIBLE);
+                    }
+                }, 700);
+
                 // if not loading check the Search_class
             }
         });
@@ -85,9 +101,13 @@ public class TopStoryReference extends Fragment {
             @Override
             public void onClick(View v) {
                 url = "http://indiatoday.intoday.in/";
+                TranslateAnimation animate = new TranslateAnimation(0,0, 0, rlWithTop.getHeight());
+                animate.setDuration(700);
+                animate.setFillAfter(true);
+                rlWithTop.startAnimation(animate);
 
                 rlWithTop.setVisibility(View.GONE);
-                getRlWithTopWb.setVisibility(View.VISIBLE);
+
                 wb.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -96,7 +116,13 @@ public class TopStoryReference extends Fragment {
                     }
                 });
                 wb.loadUrl(url);
-                // if not loading check the Search_class
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getRlWithTopWb.setVisibility(View.VISIBLE);
+                    }
+                }, 700);
             }
         });
 
@@ -104,9 +130,13 @@ public class TopStoryReference extends Fragment {
             @Override
             public void onClick(View v) {
                 url = "http://www.thehindu.com/";
+                TranslateAnimation animate = new TranslateAnimation(0,0, 0, rlWithTop.getHeight());
+                animate.setDuration(700);
+                animate.setFillAfter(true);
+                rlWithTop.startAnimation(animate);
 
                 rlWithTop.setVisibility(View.GONE);
-                getRlWithTopWb.setVisibility(View.VISIBLE);
+
                 wb.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -115,6 +145,13 @@ public class TopStoryReference extends Fragment {
                     }
                 });
                 wb.loadUrl(url);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getRlWithTopWb.setVisibility(View.VISIBLE);
+                    }
+                }, 700);
                 // if not loading check the Search_class
             }
         });
@@ -122,9 +159,13 @@ public class TopStoryReference extends Fragment {
             @Override
             public void onClick(View v) {
                 url = "http://abcnews.go.com/";
+                TranslateAnimation animate = new TranslateAnimation(0,0, 0, rlWithTop.getHeight());
+                animate.setDuration(700);
+                animate.setFillAfter(true);
+                rlWithTop.startAnimation(animate);
 
                 rlWithTop.setVisibility(View.GONE);
-                getRlWithTopWb.setVisibility(View.VISIBLE);
+
                 wb.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -133,6 +174,13 @@ public class TopStoryReference extends Fragment {
                     }
                 });
                 wb.loadUrl(url);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getRlWithTopWb.setVisibility(View.VISIBLE);
+                    }
+                }, 700);
                 // if not loading check the Search_class
             }
         });
@@ -140,9 +188,13 @@ public class TopStoryReference extends Fragment {
             @Override
             public void onClick(View v) {
                 url = "http://www.telegraph.co.uk/";
+                TranslateAnimation animate = new TranslateAnimation(0,0, 0, rlWithTop.getHeight());
+                animate.setDuration(700);
+                animate.setFillAfter(true);
+                rlWithTop.startAnimation(animate);
 
                 rlWithTop.setVisibility(View.GONE);
-                getRlWithTopWb.setVisibility(View.VISIBLE);
+
                 wb.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -151,6 +203,13 @@ public class TopStoryReference extends Fragment {
                     }
                 });
                 wb.loadUrl(url);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getRlWithTopWb.setVisibility(View.VISIBLE);
+                    }
+                }, 700);
                 // if not loading check the Search_class
             }
         });
@@ -159,9 +218,13 @@ public class TopStoryReference extends Fragment {
             @Override
             public void onClick(View v) {
                 url = "http://www.ndtv.com/";
+                TranslateAnimation animate = new TranslateAnimation(0,0, 0, rlWithTop.getHeight());
+                animate.setDuration(700);
+                animate.setFillAfter(true);
+                rlWithTop.startAnimation(animate);
 
                 rlWithTop.setVisibility(View.GONE);
-                getRlWithTopWb.setVisibility(View.VISIBLE);
+
                 wb.setWebViewClient(new WebViewClient() {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -170,6 +233,13 @@ public class TopStoryReference extends Fragment {
                     }
                 });
                 wb.loadUrl(url);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getRlWithTopWb.setVisibility(View.VISIBLE);
+                    }
+                }, 700);
             }
         });
 
