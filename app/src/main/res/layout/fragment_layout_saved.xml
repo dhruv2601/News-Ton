@@ -26,31 +26,35 @@
         <!--android:layout_height="match_parent"-->
         <!--android:scrollbars="vertical"/>-->
 
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="80dp">
 
+
+
             <Button
                 android:id="@+id/listenToAll"
                 style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/greyback"
                 android:text="L  i  s  t  e  n      T  o      A  l  l"
                 android:textColor="@android:color/white"
-                android:background="@drawable/greyback"
-                android:textSize="17dp"
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:textSize="17dp" />
 
             <Button
                 android:id="@+id/deleteAll"
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
                 android:layout_below="@+id/listenToAll"
                 android:layout_marginTop="5dp"
-                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:background="@drawable/greyback"
                 android:text="D  E  L  E  T  E     A  L  L "
                 android:textColor="@android:color/white"
-                android:background="@drawable/greyback"
-                android:textSize="17dp"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:textSize="17dp" />
 
         </RelativeLayout>
 
@@ -68,9 +72,9 @@
 
         <ListView
             android:id="@+id/listViewSports"
-            android:layout_marginTop="80dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginTop="80dp"
             android:background="@drawable/shadow"
             android:divider="@drawable/greyback"
             android:dividerHeight="18dp"
@@ -80,9 +84,9 @@
 
         <ListView
             android:id="@+id/listViewTech"
-            android:layout_marginTop="80dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginTop="80dp"
             android:background="@drawable/shadow"
             android:divider="@drawable/greyback"
             android:dividerHeight="18dp"
@@ -92,9 +96,9 @@
 
         <ListView
             android:id="@+id/listViewWorld"
-            android:layout_marginTop="80dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginTop="80dp"
             android:background="@drawable/shadow"
             android:divider="@drawable/greyback"
             android:dividerHeight="18dp"
@@ -104,9 +108,9 @@
 
         <ListView
             android:id="@+id/savedArticle"
-            android:layout_marginTop="80dp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginTop="80dp"
             android:background="@drawable/shadow"
             android:divider="@drawable/greyback"
             android:dividerHeight="18dp"

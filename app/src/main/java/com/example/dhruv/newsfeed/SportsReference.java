@@ -12,19 +12,19 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.example.dhruv.newsfeed.R;
-
 /**
  * Created by dhruv on 14/9/16.
  */
-public class TopStoryReference extends Fragment {
+
+public class SportsReference extends Fragment {
+
     public View view;
-    public ImageView toi;
-    public ImageView indiat;
-    public ImageView ndtv;
-    public ImageView hindu;
-    public ImageView abc;
-    public ImageView telegraph;
+    public ImageView espn;
+    public ImageView mirror;
+    public ImageView neo;
+    public ImageView tensports;
+    public ImageView ndtvS;
+    public ImageView crick;
     public static WebView wb;
     public String url;
     public static RelativeLayout rlWithTop;
@@ -39,19 +39,19 @@ public class TopStoryReference extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.top_story_reference,container,false);
+        view = inflater.inflate(R.layout.sports_reference,container,false);
 
-        wb = (WebView) view.findViewById(R.id.webViewForTop);
+        wb = (WebView) view.findViewById(R.id.webViewForSports);
 
-        toi = (ImageView) view.findViewById(R.id.toi);
-        indiat = (ImageView) view.findViewById(R.id.india_today);
-        ndtv = (ImageView) view.findViewById(R.id.ndtv);
-        hindu = (ImageView) view.findViewById(R.id.hindu);
-        abc = (ImageView) view.findViewById(R.id.abc);
-        telegraph = (ImageView) view.findViewById(R.id.telegraph);
+        espn = (ImageView) view.findViewById(R.id.espn);
+        mirror = (ImageView) view.findViewById(R.id.mirror);
+        neo = (ImageView) view.findViewById(R.id.newSports);
+        tensports = (ImageView) view.findViewById(R.id.tenSports);
+        ndtvS = (ImageView) view.findViewById(R.id.ndtvSports);
+        crick = (ImageView) view.findViewById(R.id.crickBuzz);
 
-        rlWithTop = (RelativeLayout) view.findViewById(R.id.rlWithTop);
-        getRlWithTopWb = (RelativeLayout) view.findViewById(R.id.rlWithTopWV);
+        rlWithTop = (RelativeLayout) view.findViewById(R.id.rlWithSports);
+        getRlWithTopWb = (RelativeLayout) view.findViewById(R.id.rlWithSportsWV);
 
         wb.setInitialScale(1);
         wb.getSettings().setJavaScriptEnabled(true);
@@ -62,10 +62,10 @@ public class TopStoryReference extends Fragment {
         wb.getSettings().setBuiltInZoomControls(true);
         wb.getSettings().setDisplayZoomControls(false);
 
-        toi.setOnClickListener(new View.OnClickListener() {
+        espn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url = "http://timesofindia.indiatimes.com/";
+                url = "http://www.espn.in/";
 
                 rlWithTop.setVisibility(View.GONE);
                 getRlWithTopWb.setVisibility(View.VISIBLE);
@@ -81,10 +81,10 @@ public class TopStoryReference extends Fragment {
             }
         });
 
-        indiat.setOnClickListener(new View.OnClickListener() {
+        neo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url = "http://indiatoday.intoday.in/";
+                url = "http://www.neosports.tv/";
 
                 rlWithTop.setVisibility(View.GONE);
                 getRlWithTopWb.setVisibility(View.VISIBLE);
@@ -100,10 +100,10 @@ public class TopStoryReference extends Fragment {
             }
         });
 
-        hindu.setOnClickListener(new View.OnClickListener() {
+        ndtvS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url = "http://www.thehindu.com/";
+                url = "http://sports.ndtv.com/";
 
                 rlWithTop.setVisibility(View.GONE);
                 getRlWithTopWb.setVisibility(View.VISIBLE);
@@ -118,10 +118,10 @@ public class TopStoryReference extends Fragment {
                 // if not loading check the Search_class
             }
         });
-        abc.setOnClickListener(new View.OnClickListener() {
+        tensports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url = "http://abcnews.go.com/";
+                url = "http://www.tensports.com/";
 
                 rlWithTop.setVisibility(View.GONE);
                 getRlWithTopWb.setVisibility(View.VISIBLE);
@@ -136,10 +136,10 @@ public class TopStoryReference extends Fragment {
                 // if not loading check the Search_class
             }
         });
-        telegraph.setOnClickListener(new View.OnClickListener() {
+        mirror.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url = "http://www.telegraph.co.uk/";
+                url = "http://www.mirror.co.uk/sport/";
 
                 rlWithTop.setVisibility(View.GONE);
                 getRlWithTopWb.setVisibility(View.VISIBLE);
@@ -155,10 +155,10 @@ public class TopStoryReference extends Fragment {
             }
         });
 
-        ndtv.setOnClickListener(new View.OnClickListener() {
+        crick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                url = "http://www.ndtv.com/";
+                url = "http://www.cricbuzz.com/";
 
                 rlWithTop.setVisibility(View.GONE);
                 getRlWithTopWb.setVisibility(View.VISIBLE);
@@ -175,5 +175,4 @@ public class TopStoryReference extends Fragment {
 
         return view;
     }
-
 }

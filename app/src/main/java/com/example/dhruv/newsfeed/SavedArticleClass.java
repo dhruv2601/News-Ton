@@ -1,10 +1,12 @@
 package com.example.dhruv.newsfeed;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +36,7 @@ public class SavedArticleClass extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         Log.d(TAG, "SavedArtonCreateView");
         if (view == null) {
@@ -49,23 +51,60 @@ public class SavedArticleClass extends Fragment {
 
             listViewWold = (ListView) view.findViewById(R.id.listViewWorld);
 
-            SharedPreferences savedArtPref = getContext().getSharedPreferences("savedArticle", 0);
+            final SharedPreferences savedArtPref = getContext().getSharedPreferences("savedArticle", 0);
             List<RssItem> rssItem = new ArrayList<RssItem>();
 
             int l = 0;
-            for (int i = MainActivity.savedArticleSize-1; i >= 0; i--)    // check if initial should be -1
+            for (int i = MainActivity.savedArticleSize - 1; i >= 0; i--)    // check if initial should be -1
             {
                 RssItem item = new RssItem(savedArtPref.getString("title" + i, null), savedArtPref.getString("link" + i, null), savedArtPref.getString("date" + i, null), savedArtPref.getString("category" + i, null), savedArtPref.getString("thumbnail" + i, null));
                 Log.d(TAG, "savedArt " + savedArtPref.getString("title" + i, null));
                 rssItem.add(l++, item);
             }
-            RssAdapterSaved adapter = new RssAdapterSaved(getActivity(), rssItem);
+            final RssAdapterSaved adapter = new RssAdapterSaved(getActivity(), rssItem);
             savedArticle.setAdapter(adapter);
             savedArticle.setVisibility(View.VISIBLE);
             listViewSports.setVisibility(View.GONE);
             listViewTopStories.setVisibility(View.GONE);
             listViewWold.setVisibility(View.GONE);
             listViewTech.setVisibility(View.GONE);
+
+            Button del = (Button) view.findViewById(R.id.deleteAll);
+            del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    View dialogLayout = inflater.inflate(R.layout.dialogue_alert, null);
+
+                    Log.d(TAG,"inside onClick");
+                    AlertDialog.Builder delAlert = new AlertDialog.Builder(getContext());
+                    delAlert.setTitle("Delete All Saved Articles ?");
+                    delAlert.setView(dialogLayout);
+                    delAlert.setNegativeButton("YES ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences.Editor editor = savedArtPref.edit();
+                            editor.clear();
+                            editor.apply();
+
+                            List<RssItem> empty = new ArrayList<RssItem>();
+                            RssAdapter adapter1 = new RssAdapter(getActivity(), empty);
+                            savedArticle.setAdapter(adapter1);
+
+                            Toast.makeText(getContext(), "Cleared Saved Article", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                    delAlert.setPositiveButton("                                               NO ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    delAlert.show();
+                }
+            });
 
 
         } else {

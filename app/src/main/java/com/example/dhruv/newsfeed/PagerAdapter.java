@@ -76,7 +76,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
 
             case 5:
                 MainActivity.position = 0;
-                return new EntryPage();
+                return new SportsReference();
 
             case 6:
                 MainActivity.position = 3;

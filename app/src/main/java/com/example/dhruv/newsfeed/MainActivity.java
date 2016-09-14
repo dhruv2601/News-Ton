@@ -102,7 +102,7 @@ MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("PAPERS"));   //3
         tabLayout.addTab(tabLayout.newTab().setText("Sports"));         //4
         Log.d(TAG, "tab2Added");
-        tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.activity_main_two));   //5
+        tabLayout.addTab(tabLayout.newTab().setText("PAPERS"));   //5
         tabLayout.addTab(tabLayout.newTab().setText("Tech"));       //6
         Log.d(TAG, "tab3Added");
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.activity_main_two));       //7
@@ -134,7 +134,7 @@ MainActivity extends AppCompatActivity {
 //        tabLayout.getTabAt(2).setIcon(R.drawable.sportshindi);
 //        tabLayout.getTabAt(3).setIcon(R.drawable.tech);
 //        tabLayout.getTabAt(4).setIcon(R.drawable.world);
-//        tabLayout.getTabAt(5).setText("WEATHER");
+        tabLayout.getTabAt(5).setText("PAPERS");
         tabLayout.getTabAt(6).setText("TECH");
         tabLayout.getTabAt(8).setText("HINDI");
         tabLayout.getTabAt(9).setText("WEATHER");
@@ -187,12 +187,24 @@ MainActivity extends AppCompatActivity {
                         eye=1;
                         TopStoryReference.wb.goBack();
                     }
+                    else if(SportsReference.wb.canGoBack())
+                    {
+                        eye=2;
+                        SportsReference.wb.goBack();
+                    }
+
 
                     else if(eye==1)
                     {
                         TopStoryReference.rlWithTop.setVisibility(View.VISIBLE);
                         TopStoryReference.getRlWithTopWb.setVisibility(View.GONE);
                     }
+                    else if(eye==2)
+                    {
+                        SportsReference.rlWithTop.setVisibility(View.VISIBLE);
+                        SportsReference.getRlWithTopWb.setVisibility(View.GONE);
+                    }
+
                     else
                     {
                         onBackPressed();

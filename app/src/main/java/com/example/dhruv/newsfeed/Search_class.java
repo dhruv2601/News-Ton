@@ -25,6 +25,7 @@ public class Search_class extends Fragment {
     public View view;
     public static WebView webView;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,7 @@ public class Search_class extends Fragment {
         webView.setScrollbarFadingEnabled(false);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+
 
         edt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
