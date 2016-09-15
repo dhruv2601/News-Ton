@@ -2,6 +2,11 @@
     <string name="app_name">News Feed</string>
     <string name="getty_id">na7hqhx9pygkwg5953evmcgs </string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
     <string name="attribution">Weather data by OpenWeatherMap.org</string>
     <string name="error_fetch_weather">Could not fetch weather data</string>
     <string name="error_location_unavailable">Could not get current location</string>
