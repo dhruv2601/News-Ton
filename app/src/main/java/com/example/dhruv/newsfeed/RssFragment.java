@@ -257,8 +257,8 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     }
 
     private void startService() {
-        avi.show();
         loading.show();
+        avi.show();
 //        listViewTopStories.requestDisallowInterceptTouchEvent(true);
         Intent intent = new Intent(getActivity(), RssService.class);
         intent.putExtra(RssService.RECEIVER, resultReceiver);
