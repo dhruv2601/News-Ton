@@ -177,7 +177,7 @@ public class RssAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context);
+                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context,R.style.MyDialogTheme);
                 alert.setTitle(RssAdapter.items.get(position).getTitle());
 
                 wv = new WebView(RssAdapter.context);
@@ -333,13 +333,13 @@ public class RssAdapter extends BaseAdapter {
 //        final Dialog dialog = new Dialog(RssAdapter.context);
 //        dialog.setContentView(R.layout.expand_image);
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyDialogTheme);
+        AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyImageTheme);
         alert.setTitle("Image");
 
         ImageView img = new ImageView(RssAdapter.context);
         alert.setView(img);
 
-        Picasso.with(RssAdapter.this.context).load(items.get(globalPos).getThumbnail()).into(img);
+        Picasso.with(RssAdapter.this.context).load(items.get(globalPos).getThumbnail()).resize(800,600).into(img);
 
         alert.setPositiveButton("     Close  ", new DialogInterface.OnClickListener() {
             @Override
@@ -385,6 +385,7 @@ public class RssAdapter extends BaseAdapter {
                                 }
                             }
                         }).start();
+                        Toast.makeText(context, "Image Saved In Downloads", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

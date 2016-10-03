@@ -65,7 +65,28 @@
         <!--title and message color-->
         <item name="android:textColorPrimary">@android:color/white</item>
         <!--dialog background-->
-        <item name="android:windowBackground">@color/dark_grey</item>
+        <item name="android:windowBackground">@color/teal</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="MyInvisibleDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@android:color/transparent</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/transparent</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+
+    <style name="MyImageTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@android:color/white</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@color/black</item>
         <item name="android:textSize">20dp</item>
     </style>
 

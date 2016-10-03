@@ -21,8 +21,7 @@
         android:textSize="21dp"
         android:textStyle="bold" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/delBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -93,7 +92,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/share" />
+            android:background="@drawable/ic_menu_share" />
 
         <Button
             android:id="@+id/share"
@@ -112,29 +111,23 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_toEndOf="@+id/share"
             android:layout_toRightOf="@+id/share"
-            android:background="@drawable/readfull" />
-
-        <Button
-            android:id="@+id/readFull"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="65dp"
-            android:layout_height="60dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="casual"
-            android:text="Read"
-            android:textStyle="bold" />
+            android:background="@android:drawable/btn_dropdown" />
 
         <ImageView
             android:id="@+id/listenimg"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/listenbtn"
-            android:layout_toStartOf="@+id/listenbtn"
-            android:background="@drawable/listen" />
+            android:layout_marginEnd="57dp"
+            android:layout_marginRight="57dp"
+            android:background="@android:drawable/ic_media_play"
+            android:backgroundTint="@color/black" />
 
         <Button
             android:id="@+id/listenbtn"
@@ -147,6 +140,18 @@
             android:fontFamily="casual"
             android:text="Listen"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/readFull"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:fontFamily="casual"
+            android:text="Read"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/full"
+            android:layout_toEndOf="@+id/full" />
 
     </RelativeLayout>
 

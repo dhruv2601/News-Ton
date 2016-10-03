@@ -6,11 +6,19 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,7 +46,7 @@ public class RssService extends IntentService implements java.io.Serializable {
     public static int sportsCount;
     public static int techCount;
     public static int worldCount;
-    public static int count=0;
+    public static int count = 0;
 
     public String passTopic[] = new String[]
             {
@@ -112,8 +120,9 @@ public class RssService extends IntentService implements java.io.Serializable {
         int j = 0;
 
         if (pos == 1) {
-            topStoriesCount=0;
-            count=0;
+            topStoriesCount = 0;
+
+            count = 0;
             for (int i = 0; i < topStories.length; i++) {
                 try {
                     Log.d(TAG, "startingLoop");
@@ -138,8 +147,8 @@ public class RssService extends IntentService implements java.io.Serializable {
         }
 
         if (pos == 2) {
-            sportsCount=0;
-            count=0;
+            sportsCount = 0;
+            count = 0;
             for (int i = 0; i < sports.length; i++) {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();
@@ -164,8 +173,8 @@ public class RssService extends IntentService implements java.io.Serializable {
         }
 
         if (pos == 3) {
-            techCount=0;
-            count=0;
+            techCount = 0;
+            count = 0;
             for (int i = 0; i < tech.length; i++) {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();

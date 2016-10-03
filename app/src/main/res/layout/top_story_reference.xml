@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/toi"
             android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif"
             android:text=" Times Of India"
             android:textSize="18dp" />
 

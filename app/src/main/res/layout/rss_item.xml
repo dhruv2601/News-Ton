@@ -16,8 +16,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="110dp"
         android:layout_marginTop="10dp"
-        android:fontFamily="sans-serif-condensed"
-        android:textColor="@android:color/black"
+        android:text="dhruv rathi is a grate man who just invneted the word grate in his honour"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/dark_grey"
         android:textSize="21dp"
         android:textStyle="bold" />
 
@@ -67,7 +68,7 @@
         android:layout_below="@id/rand"
         android:layout_marginTop="18dp"
         android:fontFamily="cursive"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@android:color/holo_red_light"
         android:textSize="18dp"
         android:textStyle="bold" />
 
@@ -93,7 +94,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/share" />
+            android:background="@drawable/ic_menu_share"
+            />
 
         <Button
             android:id="@+id/share"
@@ -103,38 +105,8 @@
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/shareimg"
             android:layout_toRightOf="@+id/shareimg"
-            android:fontFamily="casual"
             android:text="SHARE"
             android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/full"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/share"
-            android:layout_toRightOf="@+id/share"
-            android:background="@drawable/readfull" />
-
-        <Button
-            android:id="@+id/readFull"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="65dp"
-            android:layout_height="60dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="casual"
-            android:text="Read"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/listenimg"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/listenbtn"
-            android:layout_toStartOf="@+id/listenbtn"
-            android:background="@drawable/listen" />
 
         <Button
             android:id="@+id/listenbtn"
@@ -144,9 +116,40 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:fontFamily="casual"
             android:text="Listen"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/listenimg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:drawable/ic_btn_speak_now"
+            android:backgroundTint="@color/black"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="57dp"
+            android:layout_marginEnd="57dp" />
+
+        <ImageView
+            android:id="@+id/full"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/readFull"
+            android:layout_toStartOf="@+id/readFull" />
+
+        <Button
+            android:id="@+id/readFull"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:text="Read"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/listenimg"
+            android:layout_toStartOf="@+id/listenimg" />
 
     </RelativeLayout>
 

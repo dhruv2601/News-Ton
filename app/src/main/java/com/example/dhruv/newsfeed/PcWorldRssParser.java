@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Xml;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -36,31 +39,36 @@ public class PcWorldRssParser extends AsyncTask {
     }
 
     private List<RssItem> readFeed(XmlPullParser parser) throws XmlPullParserException, IOException {
+
+
         parser.require(XmlPullParser.START_TAG, null, "rss");
         List<RssItem> items = new ArrayList<RssItem>();
         String title = null;
         String link = null;
         String date = null;
         String category = null;
+        String shortDesc = null;
         String thumbnail = null;
 
-        while ((parser.next() != XmlPullParser.END_DOCUMENT)) {    //set a count condition to keep a check on the no.of feeds displayed
+        while ((parser.next() != XmlPullParser.END_DOCUMENT) && count <= 60) {    //set a count condition to keep a check on the no.of feeds displayed
 
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
-            count++;
             String name = parser.getName();
+
             if (name.equals("title")) {
                 title = readTitle(parser);
                 ++count;
                 Log.d(TAG, "turtle= " + title);
             }
+
             if (name.trim().equals("link")) {
                 link = readLink(parser);
                 String desc = link.replace("<![CDATA[", "");
                 desc = desc.replace("]]>", "");
                 link = desc;
+
                 Log.d(TAG, "linkisss" + link);
             }
             if (name.equals("category")) {
@@ -73,30 +81,36 @@ public class PcWorldRssParser extends AsyncTask {
 //              ++RssService.x;
                 Log.d(TAG, "date: " + date + "i     " + RssService.x);
             }
+
+//            if(name.equals("description"))          // works fine and good with economic time only!!!
+//            {
+//                String desc = readDesc(parser);
+//                title = desc;
+//                Log.d(TAG,"desc   "+desc);
+//            }
+
             if (name.trim().equals("description")) {
                 thumbnail = parser.getAttributeValue(null, "img");
                 Log.d(TAG, "src  " + thumbnail);
             }
-            if (name.trim().equals("media:thumbnail")) {
-                thumbnail = parser.getAttributeValue(null, "url");
-                Log.d(TAG, "pictureLink" + thumbnail);
-            }
+
             if (name.trim().equals("thumbnail")) {
                 thumbnail = parser.getAttributeValue(null, "url");
                 Log.d(TAG, "thumb " + thumbnail);
             }
 
+            if (name.trim().equals("media:thumbnail")) {
+                thumbnail = parser.getAttributeValue(null, "url");
+                Log.d(TAG, "pictureLink" + thumbnail);
+            }
+
             if (name.trim().equals("media:content")) {
-                if (thumbnail == null) {
+                {
                     thumbnail = parser.getAttributeValue(null, "url");
                     Log.d(TAG, "VideoContent " + thumbnail);
                 }
             }
-//            if(thumbnail == null)
-//            {
-//                thumbnail = readThumbnail(parser);
-//                Log.d(TAG,"readThumbnail "+ thumbnail);
-//            }
+
             if (title != null && link != null) {
                 Log.d(TAG, "links: " + link);
                 RssItem item = new RssItem(title, link, date, category, thumbnail);
@@ -110,6 +124,14 @@ public class PcWorldRssParser extends AsyncTask {
         }
         return items;
     }
+
+    private String readDesc(XmlPullParser parser) throws XmlPullParserException, IOException {
+        parser.require(XmlPullParser.START_TAG, ns, "description");
+        String link = readText(parser);
+        parser.require(XmlPullParser.END_TAG, ns, "description");
+        return link;
+    }
+
 
     private String readLink(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, ns, "link");

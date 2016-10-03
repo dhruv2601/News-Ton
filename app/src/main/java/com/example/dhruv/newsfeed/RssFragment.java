@@ -1,18 +1,30 @@
 package com.example.dhruv.newsfeed;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.speech.tts.TextToSpeech;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,6 +34,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by dhruv on 7/8/16.
@@ -35,9 +48,14 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     public static ListView listViewTech;
     public static ListView listViewWold;
     public static ListView savedArticle;
+    public Dialog loading;
+    public AVLoadingIndicatorView avi;
     private View view;
+    private View vPre;
+    private View vCurr;
     public static Uri uri;
     public static int pos;
+    private Animation animation;
 
 
     public String passTopic[] = new String[]
@@ -64,6 +82,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         pos = MainActivity.position;
+        animation = AnimationUtils.loadAnimation(getContext(), R.anim.hyper_space);
 //        if (MainActivity.flag[pos] == 0) {
 //            startService();       //_________________________________________
 //        }
@@ -89,6 +108,16 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
             savedArticle = (ListView) view.findViewById(R.id.savedArticle);
 
+            loading = new Dialog(getContext(),R.style.MyInvisibleDialog);
+            loading.setCancelable(false);
+            loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            loading.setContentView(R.layout.);           // agar nhi chla to add soething here
+            loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+//            loading = new AlertDialog.Builder(getContext(), R.style.MyInvisibleDialog);
+
+            avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+
 //            else
             {
                 final List<RssItem> items = new ArrayList<RssItem>();
@@ -109,26 +138,40 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                 }
 //            }
 
-                final Button listenToAll = (Button) view.findViewById(R.id.listenToAll);
+                final FloatingActionButton pause = (FloatingActionButton) view.findViewById(R.id.stop);
+                pause.setBackgroundTintList(
+                        ColorStateList.valueOf(Color.parseColor("#43a047"))
+                );
+
+                final FloatingActionButton listenToAll = (FloatingActionButton) view.findViewById(R.id.listenToAll);
+                listenToAll.setBackgroundTintList(
+                        ColorStateList.valueOf(Color.parseColor("#c62828"))
+                );
+
                 listenToAll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
                         Toast.makeText(getContext(), "Touch Again To Stop Playing News", Toast.LENGTH_SHORT).show();
 
+                        pause.setVisibility(View.VISIBLE);
+                        listenToAll.setVisibility(View.GONE);
+
                         for (int i = 0; i < items.size(); i++) {
                             Log.d(TAG, "listening");
                             MainActivity.t1.speak(items.get(i).getTitle().toString() + ", , , , , ,", TextToSpeech.QUEUE_ADD, null);
                             Log.d(TAG, "i   " + i);
 
-                            listenToAll.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    MainActivity.t1.stop();
-                                    Toast.makeText(getContext(), "News Stopped Playing", Toast.LENGTH_SHORT).show();
-                                    listenToAll.clearFocus();
-                                }
-                            });
+//                            listenToAll.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    MainActivity.t1.stop();
+//                                    pause.setVisibility(View.GONE);
+//                                    listenToAll.setVisibility(View.VISIBLE);
+//                                    Toast.makeText(getContext(), "News Stopped Playing", Toast.LENGTH_SHORT).show();
+//                                    listenToAll.clearFocus();
+//                                }
+//                            });
                             //MainActivity.t1.speak(finalNews, TextToSpeech.QUEUE_FLUSH, null);
                             Log.d(TAG, "afterListen");
                         }
@@ -136,10 +179,24 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     }
                 });
 
+                pause.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pause.setVisibility(View.GONE);
+                        listenToAll.setVisibility(View.VISIBLE);
+                        MainActivity.t1.stop();
+                        pause.setVisibility(View.GONE);
+                        listenToAll.setVisibility(View.VISIBLE);
+                        Toast.makeText(getContext(), "News Stopped Playing", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
                 RssAdapter adapter = new RssAdapter(getActivity(), items);
 //                avi.hide();
 
                 if (pos == 1) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
                     listViewTopStories.setAdapter(adapter);
                     listViewTopStories.setVisibility(View.VISIBLE);
                     listViewTech.setVisibility(View.GONE);
@@ -149,6 +206,8 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                 }
 
                 if (pos == 2) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
                     listViewTech.setAdapter(adapter);
                     listViewTech.setVisibility(View.VISIBLE);
                     listViewTopStories.setVisibility(View.GONE);
@@ -157,6 +216,8 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     savedArticle.setVisibility(View.GONE);
                 }
                 if (pos == 3) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
                     listViewSports.setAdapter(adapter);
                     listViewSports.setVisibility(View.VISIBLE);
                     listViewTopStories.setVisibility(View.GONE);
@@ -165,6 +226,8 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     savedArticle.setVisibility(View.GONE);
                 }
                 if (pos == 4) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
                     listViewWold.setAdapter(adapter);
                     listViewWold.setVisibility(View.VISIBLE);
                     listViewTech.setVisibility(View.GONE);
@@ -181,14 +244,29 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         return view;
     }
 
+    public View getViewByPos(int pos, ListView lv) {
+        final int first = lv.getFirstVisiblePosition();
+        final int last = first + lv.getChildCount();
+
+        if (pos < first || pos > last) {
+            return lv.getAdapter().getView(pos, null, lv);
+        } else {
+            final int childInd = pos - first;
+            return lv.getChildAt(childInd);
+        }
+    }
+
     private void startService() {
-//        avi.show();
+        avi.show();
+        loading.show();
+//        listViewTopStories.requestDisallowInterceptTouchEvent(true);
         Intent intent = new Intent(getActivity(), RssService.class);
         intent.putExtra(RssService.RECEIVER, resultReceiver);
         Log.d(TAG, "positionAtRssFrag " + MainActivity.position);
         intent.putExtra("topic", MainActivity.position);
         getActivity().startService(intent);
     }
+
 
     /**
      * Once the {@link RssService} finishes its task, the result is sent to this ResultReceiver.
@@ -199,6 +277,9 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         @SuppressWarnings("unchecked")
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
+
+            loading.hide();
+            avi.hide();
 
             MainActivity.flag[pos] = 1;
             List<RssItem> items = (List<RssItem>) resultData.getSerializable(RssService.ITEMS);
@@ -295,7 +376,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                 Toast.makeText(getActivity(), "An error occured while downloading the rss feed.",
                         Toast.LENGTH_LONG).show();
             }
-//            avi.hide();
+            avi.hide();
         }
     };
 

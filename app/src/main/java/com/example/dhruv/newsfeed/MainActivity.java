@@ -106,9 +106,9 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
                 }
             }
         });
+
+
         t1.setSpeechRate(0.8f);
-
-
         Log.d(TAG, "beforeTabLayout");
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("SEARCH")); //0
@@ -174,51 +174,48 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                onTabChanged();
+//                onTabChanged();
                 return false;
             }
 
-            public void onTabChanged() {
-//                viewPager.setAnimation(inFromRightAnimation());
-                viewPager.setAnimation(outToLeftAnimation());
-                viewPager.animate();
-            }
+//            public void onTabChanged() {
+////                viewPager.animate();
+//            }
 
-            public Animation inFromRightAnimation() {
-
-                TranslateAnimation animate = new TranslateAnimation(0, viewPager.getHeight(), 0, 0);
-                animate.setDuration(700);
-                animate.setFillAfter(true);
-                viewPager.startAnimation(animate);
-
-//                Animation inFromRight = new TranslateAnimation(
-//                        Animation.RELATIVE_TO_PARENT, +1.0f,
-//                        Animation.RELATIVE_TO_PARENT, 0.0f,
-//                        Animation.RELATIVE_TO_PARENT, 0.0f,
-//                        Animation.RELATIVE_TO_PARENT, 0.0f);
-//                inFromRight.setDuration(200);
-//                inFromRight.setInterpolator(new AccelerateInterpolator());
-                return animate;
-            }
-
-            public Animation outToLeftAnimation() {
-
-                TranslateAnimation animate = new TranslateAnimation(viewPager.getHeight(), 0, 0, 0);
-                animate.setDuration(700);
-                animate.setFillAfter(true);
-                viewPager.startAnimation(animate);
-
-//                Animation outtoLeft = new TranslateAnimation(
-//                        Animation.RELATIVE_TO_PARENT, 0.0f,
-//                        Animation.RELATIVE_TO_PARENT, -2.0f,
-//                        Animation.RELATIVE_TO_PARENT, 0.0f,
-//                        Animation.RELATIVE_TO_PARENT, 0.0f);
-//                outtoLeft.setDuration(200);
-//                outtoLeft.setInterpolator(new AccelerateInterpolator());
-//                return outtoLeft;
-                return animate;
-            }
-
+//            public Animation inFromRightAnimation() {
+//
+//                TranslateAnimation animate = new TranslateAnimation(0,viewPager.getHeight(), 0, 0);
+//                animate.setDuration(200);
+//                animate.setFillAfter(true);
+//                viewPager.startAnimation(animate);
+//
+////                Animation inFromRight = new TranslateAnimation(
+////                        Animation.RELATIVE_TO_PARENT, +1.0f,
+////                        Animation.RELATIVE_TO_PARENT, 0.0f,
+////                        Animation.RELATIVE_TO_PARENT, 0.0f,
+////                        Animation.RELATIVE_TO_PARENT, 0.0f);
+////                inFromRight.setDuration(200);
+////                inFromRight.setInterpolator(new AccelerateInterpolator());
+//                return animate;
+//            }
+//
+//            public Animation outToLeftAnimation() {
+//
+//                TranslateAnimation animate = new TranslateAnimation(0,0, viewPager.getHeight(), 0);
+//                animate.setDuration(500);
+//                animate.setFillAfter(true);
+//                viewPager.startAnimation(animate);
+//
+////                Animation outtoLeft = new TranslateAnimation(
+////                        Animation.RELATIVE_TO_PARENT, 0.0f,
+////                        Animation.RELATIVE_TO_PARENT, -2.0f,
+////                        Animation.RELATIVE_TO_PARENT, 0.0f,
+////                        Animation.RELATIVE_TO_PARENT, 0.0f);
+////                outtoLeft.setDuration(200);
+////                outtoLeft.setInterpolator(new AccelerateInterpolator());
+////                return outtoLeft;
+//                return animate;
+//            }
         });
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -226,8 +223,8 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
 //                viewPager.setAdapter(adapter);
 //                viewPager.setOffscreenPageLimit(1);
 
-                viewPager.setAnimation(inFromRightAnimation());
-                viewPager.setAnimation(outToLeftAnimation());
+//                viewPager.setAnimation(inFromRightAnimation());
+//                viewPager.setAnimation(outToLeftAnimation());
                 viewPager.animate();
             }
 
@@ -238,7 +235,7 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
                         Animation.RELATIVE_TO_PARENT, 0.0f,
                         Animation.RELATIVE_TO_PARENT, 0.0f,
                         Animation.RELATIVE_TO_PARENT, 0.0f);
-                inFromRight.setDuration(700);
+                inFromRight.setDuration(1300);
                 inFromRight.setInterpolator(new AccelerateInterpolator());
                 return inFromRight;
             }
@@ -249,7 +246,7 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
                         Animation.RELATIVE_TO_PARENT, -2.0f,
                         Animation.RELATIVE_TO_PARENT, 0.0f,
                         Animation.RELATIVE_TO_PARENT, 0.0f);
-                outtoLeft.setDuration(700);
+                outtoLeft.setDuration(1300);
                 outtoLeft.setInterpolator(new AccelerateInterpolator());
                 return outtoLeft;
             }
@@ -273,7 +270,7 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                onTabChanged();
+//                onTabChanged();
 
             }
         });
@@ -294,13 +291,16 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_BACK:
                     if (Search_class.webView.canGoBack()) {
+                        Log.d(TAG, "searchClassCanGoBack");
                         Search_class.webView.goBack();
                     } else if (TopStoryReference.wb.canGoBack()) {
                         eye = 1;
+                        Log.d(TAG, "topCanGoBack");
                         TopStoryReference.wb.goBack();
                     } else if (SportsReference.wb.canGoBack()) {
                         eye = 2;
@@ -308,20 +308,6 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
                     } else if (HindiReference.wb.canGoBack()) {
                         eye = 3;
                         HindiReference.wb.goBack();
-                    }
-                    if (eye == 1) {
-                        TopStoryReference.rlWithTop.setVisibility(View.VISIBLE);
-                        TopStoryReference.getRlWithTopWb.setVisibility(View.GONE);
-                    }
-                    if (eye == 2) {
-                        SportsReference.rlWithTop.setVisibility(View.VISIBLE);
-                        SportsReference.getRlWithTopWb.setVisibility(View.GONE);
-                    }
-                    if (eye == 3) {
-                        HindiReference.rlWithTop.setVisibility(View.VISIBLE);
-                        HindiReference.getRlWithTopWb.setVisibility(View.GONE);
-                    } else {
-                        onBackPressed();
                     }
                     return true;
             }
@@ -348,9 +334,9 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
     @Override
     public void onBackPressed() {
         Log.d(TAG, "backPressedCalled");
-        Toast.makeText(MainActivity.this, "Press Again To Exit News Feed", Toast.LENGTH_SHORT).show();
-        t1.shutdown();
-        super.onBackPressed();
+//        Toast.makeText(MainActivity.this, "Press Again To Exit News Feed", Toast.LENGTH_SHORT).show();
+//        t1.shutdown();
+//        super.onBackPressed();
     }
 
     @Override
@@ -382,13 +368,10 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
                     (getSupportFragmentManager(), tabLayout.getTabCount());
 
             Log.d(TAG, "setAdapter");
-            if (viewPager != null)
-            {
+            if (viewPager != null) {
                 Log.d(TAG, "viewPagerKeAndar");
                 viewPager.setAdapter(adapter);
-            }
-            else
-            {
+            } else {
                 Log.d(TAG, "viewPagerNotEntered");
             }
 //            viewPager.setOffscreenPageLimit(1);

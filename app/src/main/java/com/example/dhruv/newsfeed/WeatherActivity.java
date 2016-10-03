@@ -51,6 +51,7 @@ import rx.subscriptions.CompositeSubscription;
  * Displays the current weather as well as a 7 day forecast for our location. Data is loaded
  * from a web service.
  */
+
 public class WeatherActivity extends Fragment {
 
     private static final String KEY_CURRENT_WEATHER = "key_current_weather";

@@ -3,6 +3,8 @@ package com.example.dhruv.newsfeed.Services;
 /**
  * Created by dhruv on 6/9/16.
  */
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 import org.apache.http.HttpException;
@@ -22,7 +24,7 @@ import rx.functions.Func1;
 public class WeatherService {
     // We are implementing against version 2.5 of the Open Weather Map web service.
     private static final String WEB_SERVICE_BASE_URL = "http://api.openweathermap.org/data/2.5";
-    private static final String API_KEY = "ba0c27c6d7ceb1d4452997a97a65815a";
+    private static final String API_KEY = "5d3915bf1f1c72a032181a696d8c7020";
     private final OpenWeatherMapWebService mWebService;
 
     public WeatherService() {

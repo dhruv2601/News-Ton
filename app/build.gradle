@@ -42,4 +42,6 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.1.+'
     compile 'de.keyboardsurfer.android.widget:crouton:1.8.5@jar'
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.android.support:cardview-v7:24.1.1'
+    compile 'com.android.support:gridlayout-v7:24.1.1'
 }
