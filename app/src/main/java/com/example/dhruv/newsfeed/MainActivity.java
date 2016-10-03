@@ -10,7 +10,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.speech.tts.TextToSpeech;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -150,19 +152,12 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
         tabLayout.getTabAt(2).setText("TOP STORIES");
         tabLayout.getTabAt(3).setText("PAPERS");
         tabLayout.getTabAt(4).setText("SPORTS");
-//        tabLayout.getTabAt(1).setIcon(R.drawable.topstories);
-//        tabLayout.getTabAt(2).setIcon(R.drawable.sportshindi);
-//        tabLayout.getTabAt(3).setIcon(R.drawable.tech);
-//        tabLayout.getTabAt(4).setIcon(R.drawable.world);
         tabLayout.getTabAt(5).setText("PAPERS");
         tabLayout.getTabAt(6).setText("TECH");
         tabLayout.getTabAt(8).setText("HINDI");
         tabLayout.getTabAt(9).setText("PAPERS");
         tabLayout.getTabAt(10).setText("WEATHER");
 
-//        tabLayout.getTabAt(2).setCustomView(R.layout.activity_main_two);
-//        tabLayout.getTabAt(4).setCustomView(R.layout.activity_main_two);
-//        tabLayout.getTabAt(6).setCustomView(R.layout.activity_main_two);
 
 //        tabLayout.setBackgroundColor(getResources().getColor(R.color.black));
 //        tabLayout.setBackgroundColor(R.style.MyCustomTabLayout);
@@ -174,106 +169,55 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-//                onTabChanged();
+                Log.d(TAG,"viewPagerCalled");
                 return false;
             }
+        });
 
+        tabLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d(TAG,"tabLayoutKa");
+                return false;
+            }
+        });
+
+//        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager){
+//
 //            public void onTabChanged() {
-////                viewPager.animate();
-//            }
-
-//            public Animation inFromRightAnimation() {
-//
-//                TranslateAnimation animate = new TranslateAnimation(0,viewPager.getHeight(), 0, 0);
-//                animate.setDuration(200);
-//                animate.setFillAfter(true);
-//                viewPager.startAnimation(animate);
-//
-////                Animation inFromRight = new TranslateAnimation(
-////                        Animation.RELATIVE_TO_PARENT, +1.0f,
-////                        Animation.RELATIVE_TO_PARENT, 0.0f,
-////                        Animation.RELATIVE_TO_PARENT, 0.0f,
-////                        Animation.RELATIVE_TO_PARENT, 0.0f);
-////                inFromRight.setDuration(200);
-////                inFromRight.setInterpolator(new AccelerateInterpolator());
-//                return animate;
+//                Log.d(TAG,"onTabChangedCalled");
+////                viewPager.setAdapter(adapter);
+////                viewPager.setOffscreenPageLimit(1);
+//                viewPager.animate();
 //            }
 //
-//            public Animation outToLeftAnimation() {
 //
-//                TranslateAnimation animate = new TranslateAnimation(0,0, viewPager.getHeight(), 0);
-//                animate.setDuration(500);
-//                animate.setFillAfter(true);
-//                viewPager.startAnimation(animate);
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
 //
-////                Animation outtoLeft = new TranslateAnimation(
-////                        Animation.RELATIVE_TO_PARENT, 0.0f,
-////                        Animation.RELATIVE_TO_PARENT, -2.0f,
-////                        Animation.RELATIVE_TO_PARENT, 0.0f,
-////                        Animation.RELATIVE_TO_PARENT, 0.0f);
-////                outtoLeft.setDuration(200);
-////                outtoLeft.setInterpolator(new AccelerateInterpolator());
-////                return outtoLeft;
-//                return animate;
+//                TabLayout.Tab tabs = tabLayout.getTabAt(tab.getPosition());
+//                tabs.select();
+////                MainActivity.position = tab.getPosition();
+////                Log.d(TAG," changedPos "+MainActivity.position);
+////                PagerAdapter pgAd = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+////                viewPager.setAdapter(pgAd);
+//
+//////                viewPager.arrowScroll(View.FOCUS_RIGHT);
 //            }
-        });
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-
-            public void onTabChanged() {
-//                viewPager.setAdapter(adapter);
-//                viewPager.setOffscreenPageLimit(1);
-
-//                viewPager.setAnimation(inFromRightAnimation());
-//                viewPager.setAnimation(outToLeftAnimation());
-                viewPager.animate();
-            }
-
-            public Animation inFromRightAnimation() {
-
-                Animation inFromRight = new TranslateAnimation(
-                        Animation.RELATIVE_TO_PARENT, +1.0f,
-                        Animation.RELATIVE_TO_PARENT, 0.0f,
-                        Animation.RELATIVE_TO_PARENT, 0.0f,
-                        Animation.RELATIVE_TO_PARENT, 0.0f);
-                inFromRight.setDuration(1300);
-                inFromRight.setInterpolator(new AccelerateInterpolator());
-                return inFromRight;
-            }
-
-            public Animation outToLeftAnimation() {
-                Animation outtoLeft = new TranslateAnimation(
-                        Animation.RELATIVE_TO_PARENT, 0.0f,
-                        Animation.RELATIVE_TO_PARENT, -2.0f,
-                        Animation.RELATIVE_TO_PARENT, 0.0f,
-                        Animation.RELATIVE_TO_PARENT, 0.0f);
-                outtoLeft.setDuration(1300);
-                outtoLeft.setInterpolator(new AccelerateInterpolator());
-                return outtoLeft;
-            }
-
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                viewPager.setAdapter(adapter);
-                viewPager.setOffscreenPageLimit(1);
-
-                MainActivity.position = tab.getPosition();
-                onTabChanged();
-                viewPager.setCurrentItem(tab.getPosition());
-//                viewPager.arrowScroll(View.FOCUS_RIGHT);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                onTabChanged();
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-//                onTabChanged();
-
-            }
-        });
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//                TabLayout.Tab tabs = tabLayout.getTabAt(tab.getPosition());
+//                tabs.select();
+////                onTabChanged();
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+////                onTabChanged();
+//
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

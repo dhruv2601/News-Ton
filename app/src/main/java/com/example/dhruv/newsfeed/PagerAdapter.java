@@ -33,8 +33,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
 
     public Fragment getItem(int position) {
 
+        Log.d(TAG," changedPos222 "+position);
+        Log.d(TAG," changedPosMAIN "+MainActivity.position );
         Log.d(TAG, "mNumTabs " + getCount());
-        switch (position) {
+
+            switch (position) {
             case 0:
                 MainActivity.position = 0;
                 return new Search_class();
