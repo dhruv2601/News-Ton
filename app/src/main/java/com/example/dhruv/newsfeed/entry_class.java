@@ -52,7 +52,7 @@ public class entry_class extends AppCompatActivity {
                 Intent i =  new Intent(entry_class.this, MainActivity.class);
                 startActivity(i);
             }
-        }, 3900);
+        }, 3500);
 
     }
 }
