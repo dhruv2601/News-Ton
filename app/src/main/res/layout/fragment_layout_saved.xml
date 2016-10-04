@@ -37,7 +37,7 @@
         android:layout_height="fill_parent"
         android:background="@drawable/shadow"
         android:divider="@drawable/greyback"
-        android:dividerHeight="18dp"
+        android:dividerHeight="5dp"
         android:visibility="gone">
 
     </ListView>
@@ -48,7 +48,7 @@
         android:layout_height="fill_parent"
         android:background="@drawable/shadow"
         android:divider="@drawable/greyback"
-        android:dividerHeight="18dp"
+        android:dividerHeight="5dp"
         android:visibility="gone">
 
     </ListView>
@@ -59,7 +59,7 @@
         android:layout_height="fill_parent"
         android:background="@drawable/shadow"
         android:divider="@drawable/greyback"
-        android:dividerHeight="18dp"
+        android:dividerHeight="5dp"
         android:visibility="gone">
 
     </ListView>
