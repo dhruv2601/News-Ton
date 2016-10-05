@@ -1,25 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
+    <item android:title="T O P   S T O R I E S">
+        <menu>
+            <item
+                android:id="@+id/toiTop"
+                android:title="Times Of India" />
+            <item
+                android:id="@+id/india_todayTop"
+                android:title="India Today" />
+            <item
+                android:id="@+id/ndtvTop"
+                android:title="NDTV" />
+            <item
+                android:id="@+id/hinduTop"
+                android:title="The Hindu" />
+            <item
+                android:id="@+id/abcTop"
+                android:title="ABC News" />
+            <item
+                android:id="@+id/telegraphTop"
+                android:title="The Telegraph" />
+        </menu>
+    </item>
 
+    <item android:title="S P O R T S">
+        <menu>
+            <item
+                android:id="@+id/espnSports"
+                android:title="ESPN" />
+            <item
+                android:id="@+id/mirrorSports"
+                android:title="The Mirror" />
+            <item
+                android:id="@+id/newSportsSports"
+                android:title="New Sports" />
+            <item
+                android:id="@+id/tenSportsSports"
+                android:title="Ten Sports" />
+            <item
+                android:id="@+id/ndtvSportsSports"
+                android:title="NDTV Sports" />
+            <item
+                android:id="@+id/crickBuzzSports"
+                android:title="CRICKBUZZ" />
+        </menu>
+
+    </item>
     <item android:title="Communicate">
         <menu>
             <item

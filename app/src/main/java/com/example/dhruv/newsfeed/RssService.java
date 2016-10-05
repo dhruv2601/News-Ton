@@ -32,8 +32,6 @@ public class RssService extends IntentService implements java.io.Serializable {
     public static long millis[] = new long[300];
     public static List<RssItem> rssItems = new ArrayList<RssItem>();
     public List<RssItem> temp = Collections.synchronizedList(new ArrayList<RssItem>());
-    public List<RssItem> temp2 = Collections.synchronizedList(new ArrayList<RssItem>());
-    public static String[] dateString = new String[300];
 
     public static final String TAG = "RssService";
     public int pos;
@@ -47,6 +45,8 @@ public class RssService extends IntentService implements java.io.Serializable {
     public static int techCount;
     public static int worldCount;
     public static int count = 0;
+    public int totalNewsCount = 0;
+
 
     public String passTopic[] = new String[]
             {
@@ -135,6 +135,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                         topStoriesCount++;
                         count++;
                         ++l;
+                        totalNewsCount++;
                     }
                     ++j;
 
@@ -153,7 +154,6 @@ public class RssService extends IntentService implements java.io.Serializable {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();
                     temp = parser.parse(getInputStream(sports[i]));
-
                     int l = 2;
                     for (int k = j; k < temp.size() - 3; k++) {
                         Log.d(TAG, "temp: " + temp.get(l).getTitle());
@@ -161,6 +161,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                         sportsCount++;
                         count++;
                         ++l;
+                        totalNewsCount++;
                     }
                     ++j;
 
@@ -186,6 +187,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                         techCount++;
                         count++;
                         ++l;
+                        totalNewsCount++;
                     }
                     ++j;
 
@@ -233,6 +235,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                         Log.d(TAG, "hinditemp: " + temp);
                         rssItems.add(k, temp.get(l));
                         ++l;
+                        totalNewsCount++;
                     }
                     ++j;
                 } catch (XmlPullParserException e) {
@@ -253,6 +256,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                 for (int k = j; k < temp.size() - 2; k++) {
                     rssItems.add(k, temp.get(l));
                     ++l;
+                    totalNewsCount++;
                 }
                 ++j;
             } catch (XmlPullParserException e) {
@@ -270,6 +274,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                 for (int k = j; k < temp.size(); k++) {
                     rssItems.add(k, temp.get(l));
                     ++l;
+                    totalNewsCount++;
                 }
                 ++j;
             } catch (XmlPullParserException e) {
@@ -286,6 +291,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                 for (int k = j; k < temp.size(); k++) {
                     rssItems.add(k, temp.get(l));
                     ++l;
+                    totalNewsCount++;
                 }
                 ++j;
             } catch (XmlPullParserException e) {
@@ -303,6 +309,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                     for (int k = j; k < temp.size(); k++) {
                         rssItems.add(k, temp.get(l));
                         ++l;
+                        totalNewsCount++;
                     }
                     ++j;
                 } catch (XmlPullParserException e) {
@@ -320,6 +327,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                 for (int k = j; k < temp.size(); k++) {
                     rssItems.add(k, temp.get(l));
                     ++l;
+                    totalNewsCount++;
                 }
                 ++j;
             } catch (XmlPullParserException e) {
@@ -337,6 +345,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                 for (int k = j; k < temp.size(); k++) {
                     rssItems.add(k, temp.get(l));
                     ++l;
+                    totalNewsCount++;
                 }
                 ++j;
             } catch (XmlPullParserException e) {
@@ -346,6 +355,22 @@ public class RssService extends IntentService implements java.io.Serializable {
             }
         }
 
+        Log.d(TAG, "timeInd " + MainActivity.timeInd);
+        Log.d(TAG, "timeHolder" + MainActivity.timeholder[10]);
+        for (int g = 0; g < totalNewsCount; g++) {
+            Log.d(TAG, "timeDiff " + MainActivity.timeholder[g]);
+        }
+
+        bubble();
+        for (int g = 0; g < totalNewsCount; g++) {
+            Log.d(TAG, "SortedTimeDiff " + MainActivity.timeholder[g]);
+        }
+
+        for (int g = 0; g <= MainActivity.timeInd; g++) {
+            MainActivity.timeholder[g] = 0;
+        }
+
+        MainActivity.timeInd = 0;
         Log.d(TAG, "lenOfArrayList " + rssItems.size());
         Bundle bundle = new Bundle();
         bundle.putSerializable(ITEMS, (Serializable) rssItems);
@@ -365,6 +390,23 @@ public class RssService extends IntentService implements java.io.Serializable {
             }
         }
         return h;
+    }
+
+
+    private void bubble() {
+        for (int i = 0; i < totalNewsCount - 1; i++) {
+            for (int j = 0; j < totalNewsCount - i - 1; j++) {
+                if (MainActivity.timeholder[j] > MainActivity.timeholder[j + 1]) {
+                    RssItem itemTemp = rssItems.get(j);
+                    long tempTime = MainActivity.timeholder[j];
+                    rssItems.set(j, rssItems.get(j + 1));
+                    MainActivity.timeholder[j] = MainActivity.timeholder[j+1];
+//                    rssItems.add(j,rssItems.get(j+1));
+                    MainActivity.timeholder[j+1] = tempTime;
+                    rssItems.set(j + 1, itemTemp);
+                }
+            }
+        }
     }
 
 

@@ -12,7 +12,13 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,11 +81,42 @@ public class PcWorldRssParser extends AsyncTask {
                 category = readCategory(parser);
                 Log.d(TAG, "channelname " + category + " link " + link);
             }
+
             if (name.equals("pubDate")) {
                 date = readDate(parser);
+
+                Date d1 = null;
+                Date currD = null;
+                SimpleDateFormat format = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss Z");
+                try {
+                    d1 = format.parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Calendar c = Calendar.getInstance();
+                Log.d(TAG, "calendar " + c);
+                Log.d(TAG, "calendarTime " + c.getTime());
+
+                String date2 = format.format(c.getTime());
+                Log.d(TAG, "calendarDate2 " + date2);
+                java.sql.Time ppsTime = null;
+                java.sql.Time currTime = new java.sql.Time(c.getTime().getTime());
+                if (d1 != null) {
+                    ppsTime = new java.sql.Time(d1.getTime());
+                    if (ppsTime != null) {
+                        Log.d(TAG, "ppsTime.getTime  " + ppsTime.getTime());
+                        MainActivity.timeholder[MainActivity.timeInd] = currTime.getTime() - ppsTime.getTime();
+//                    Log.d(TAG,"diffff "+(currTime.getTime() - ppsTime.getTime()));
+                        MainActivity.timeInd++;
+                    }
+                }
+                Log.d(TAG, "ppsTime  " + ppsTime);
+
+
 //                RssService.dateString[RssService.x] = date;
 //              ++RssService.x;
-                Log.d(TAG, "date: " + date + "i     " + RssService.x);
+//                Log.d(TAG, "date: " + date + "i     " + RssService.x);
             }
 
 //            if(name.equals("description"))          // works fine and good with economic time only!!!
