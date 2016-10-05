@@ -16,7 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ public class SavedArticleClass extends Fragment {
     public static ListView listViewSports;
     public static ListView listViewTech;
     public static ListView listViewWold;
+    public static TextView noSavedArt;
     private Button delThis;
 
 
@@ -45,6 +49,7 @@ public class SavedArticleClass extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_layout_saved, container, false);
 
+            noSavedArt = (TextView) view.findViewById(R.id.noSavedArt);
             savedArticle = (ListView) view.findViewById(R.id.savedArticle);
 
             listViewTopStories = (ListView) view.findViewById(R.id.listViewTopStories);
@@ -59,6 +64,11 @@ public class SavedArticleClass extends Fragment {
             List<RssItem> rssItem = new ArrayList<RssItem>();
 
             int l = 0;
+
+            if(MainActivity.savedArticleSize==0)
+            {
+                noSavedArt.setVisibility(View.VISIBLE);
+            }
 
             for (int i = MainActivity.savedArticleSize - 1; i >= 0; i--)    // check if initial should be -1
             {
@@ -90,6 +100,7 @@ public class SavedArticleClass extends Fragment {
                 @Override
                 public void onClick(View v) {
 
+                    noSavedArt.setVisibility(View.VISIBLE);
                     View dialogLayout = inflater.inflate(R.layout.dialogue_alert, null);
 
                     Log.d(TAG,"inside onClick");

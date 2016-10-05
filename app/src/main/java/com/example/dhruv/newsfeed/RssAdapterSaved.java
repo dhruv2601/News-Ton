@@ -54,6 +54,7 @@ public class RssAdapterSaved extends BaseAdapter {
     public static WebView wv;
     public static ProgressBar progressBar;
     Random rnd;
+    public TextView onItemClickSubs1;
 
 
     public RssAdapterSaved(Context context, List<RssItem> items) {
@@ -83,6 +84,7 @@ public class RssAdapterSaved extends BaseAdapter {
         final ViewHolder holder;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.rss_item_saved, null);
+            onItemClickSubs1 = (TextView) convertView.findViewById(R.id.itemTitle);
             holder = new ViewHolder();
             holder.itemTitle = (TextView) convertView.findViewById(R.id.itemTitle);
             holder.rand = (ImageView) convertView.findViewById(R.id.rand);
@@ -150,6 +152,45 @@ public class RssAdapterSaved extends BaseAdapter {
                 Log.d(TAG, "Article Added To Reading List");
             }
         });
+
+        onItemClickSubs1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyDialogTheme);
+                alert.setTitle(RssAdapter.items.get(position).getTitle());
+
+                wv = new WebView(RssAdapter.context);
+                wv.setInitialScale(1);
+                wv.getSettings().setJavaScriptEnabled(true);
+                wv.getSettings().setLoadWithOverviewMode(true);
+                wv.getSettings().setUseWideViewPort(true);
+                wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+                wv.setScrollbarFadingEnabled(false);
+
+                wv.getSettings().setBuiltInZoomControls(true);
+                wv.getSettings().setDisplayZoomControls(false);
+
+                wv.loadUrl(RssAdapter.items.get(position).getLink());
+                wv.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(url);
+
+                        return true;
+                    }
+                });
+
+                alert.setView(wv);
+                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+            }
+        });
+
 
         Button share = (Button) convertView.findViewById(R.id.share);
         share.setOnClickListener(new View.OnClickListener() {

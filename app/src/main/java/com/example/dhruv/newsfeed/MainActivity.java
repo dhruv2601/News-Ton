@@ -3,6 +3,7 @@ package com.example.dhruv.newsfeed;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -10,10 +11,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -42,8 +45,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.io.File;
 import java.util.Locale;
 
-public class
-MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     static ViewPager viewPager;
     private static final String TAG = "MainAct";
@@ -62,6 +64,9 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
     public static int position;
     public static boolean b;
     public static TextToSpeech t1;
+    public static long timeholder[] = new long[1000];
+    public static int timeInd;
+    public ActionBarDrawerToggle toggle;
     public static final String appDirectoryName = "News Feed";
     public static final File imageRoot = new File(Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES), appDirectoryName);
@@ -86,7 +91,7 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
 
 // finally change the color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.red));
+            window.setStatusBarColor(getResources().getColor(R.color.black));
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.myToolbar);
@@ -107,6 +112,11 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
 
         SharedPreferences saved = MainActivity.this.getSharedPreferences("savedArticle", 0);
         savedArticleSize = saved.getInt("size", 0);
+
+        if(savedArticleSize>0)
+        {
+            SavedArticleClass.noSavedArt.setVisibility(View.GONE);
+        }
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -153,8 +163,6 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
         tabLayout.addTab(tabLayout.newTab().setText("Weather")); //weather      //10
 
         tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 11
-
-
         tabLayout.post(tabLayoutConfig);
 //        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -168,16 +176,16 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
         viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
 
-        tabLayout.getTabAt(0).setText("SEARCH");
-        tabLayout.getTabAt(1).setText("SAVED ARTICLES");
-        tabLayout.getTabAt(2).setText("TOP STORIES");
-        tabLayout.getTabAt(3).setText("PAPERS");
-        tabLayout.getTabAt(4).setText("SPORTS");
-        tabLayout.getTabAt(5).setText("PAPERS");
-        tabLayout.getTabAt(6).setText("TECH");
-        tabLayout.getTabAt(8).setText("HINDI");
-        tabLayout.getTabAt(9).setText("PAPERS");
-        tabLayout.getTabAt(10).setText("WEATHER");
+        tabLayout.getTabAt(0).setText("SAVED");
+        tabLayout.getTabAt(1).setText("TOP STORIES");
+        tabLayout.getTabAt(2).setText("PAPERS");
+        tabLayout.getTabAt(3).setText("SPORTS");
+        tabLayout.getTabAt(4).setText("PAPERS");
+        tabLayout.getTabAt(5).setText("TECH");
+        tabLayout.getTabAt(7).setText("HINDI");
+        tabLayout.getTabAt(8).setText("PAPERS");
+        tabLayout.getTabAt(9).setText("WEATHER");
+        tabLayout.getTabAt(10).setText("SEARCH");
 
 
 //        tabLayout.setBackgroundColor(getResources().getColor(R.color.black));
@@ -190,7 +198,7 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.d(TAG,"viewPagerCalled");
+                Log.d(TAG, "viewPagerCalled");
                 return false;
             }
         });
@@ -198,50 +206,16 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
         tabLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.d(TAG,"tabLayoutKa");
+                Log.d(TAG, "tabLayoutKa");
                 return false;
             }
         });
 
-//        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager){
-//
-//            public void onTabChanged() {
-//                Log.d(TAG,"onTabChangedCalled");
-////                viewPager.setAdapter(adapter);
-////                viewPager.setOffscreenPageLimit(1);
-//                viewPager.animate();
-//            }
-//
-//
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//
-//                TabLayout.Tab tabs = tabLayout.getTabAt(tab.getPosition());
-//                tabs.select();
-////                MainActivity.position = tab.getPosition();
-////                Log.d(TAG," changedPos "+MainActivity.position);
-////                PagerAdapter pgAd = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-////                viewPager.setAdapter(pgAd);
-//
-//////                viewPager.arrowScroll(View.FOCUS_RIGHT);
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//                TabLayout.Tab tabs = tabLayout.getTabAt(tab.getPosition());
-//                tabs.select();
-////                onTabChanged();
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-////                onTabChanged();
-//
-//            }
-//        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
@@ -249,6 +223,8 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        toggle.setDrawerIndicatorEnabled(true);
+        drawer.setDrawerListener(toggle);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -309,15 +285,26 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        if(toggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        toggle.syncState();
+    }
+
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -326,35 +313,21 @@ MainActivity extends AppCompatActivity implements NavigationView.OnNavigationIte
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-
-            MainActivity.position = 4;
-            PagerAdapterTwo adapter = new PagerAdapterTwo
-                    (getSupportFragmentManager(), tabLayout.getTabCount());
-
-            Log.d(TAG, "setAdapter");
-            if (viewPager != null) {
-                Log.d(TAG, "viewPagerKeAndar");
-                viewPager.setAdapter(adapter);
-            } else {
-                Log.d(TAG, "viewPagerNotEntered");
-            }
-//            viewPager.setOffscreenPageLimit(1);
-//            tabLayout.setupWithViewPager(viewPager1);
-
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        if (id == R.id.toiTop || id == R.id.india_todayTop || id == R.id.ndtvTop || id == R.id.hinduTop || id == R.id.abcTop || id == R.id.telegraphTop) {
+            viewPager.setCurrentItem(2);
+        }
+        if (id == R.id.espnSports || id == R.id.mirrorSports || id == R.id.newSportsSports || id == R.id.tenSportsSports || id == R.id.ndtvSportsSports || id == R.id.crickBuzzSports) {
+            viewPager.setCurrentItem(4);
+        }
+//        if (id == R.id.nav_slideshow) {
+//            viewPager.setCurrentItem(8);
+//        } else if (id == R.id.nav_manage) {
+//     }
+        else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
