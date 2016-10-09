@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -67,12 +68,11 @@ public class SavedArticleClass extends Fragment {
             listViewEnter = (ListView) view.findViewById(R.id.listViewEnter);
 
             final SharedPreferences savedArtPref = getContext().getSharedPreferences("savedArticle", 0);
-            List<RssItem> rssItem = new ArrayList<RssItem>();
+            final List<RssItem> rssItem = new ArrayList<RssItem>();
 
             int l = 0;
 
-            if(MainActivity.savedArticleSize==0)
-            {
+            if (MainActivity.savedArticleSize == 0) {
                 noSavedArt.setVisibility(View.VISIBLE);
             }
 
@@ -92,16 +92,41 @@ public class SavedArticleClass extends Fragment {
             listViewTech.setVisibility(View.GONE);
             listViewEnter.setVisibility(View.GONE);
 
-            FloatingActionButton listen = (FloatingActionButton) view.findViewById(R.id.play);
+            final FloatingActionButton listen = (FloatingActionButton) view.findViewById(R.id.play);
             listen.setBackgroundTintList(
                     ColorStateList.valueOf(Color.parseColor("#f44336"))
             );
 
-            FloatingActionButton del  = (FloatingActionButton) view.findViewById(R.id.deleteAll);
+            FloatingActionButton del = (FloatingActionButton) view.findViewById(R.id.deleteAll);
 
             del.setBackgroundTintList(
                     ColorStateList.valueOf(Color.parseColor("#f44336"))
             );
+
+            listen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(getContext(), "Touch Again To Stop Playing News", Toast.LENGTH_SHORT).show();
+
+                    for (int i = 0; i < rssItem.size(); i++) {
+                        Log.d(TAG, "listening");
+                        listen.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                MainActivity.t1.stop();
+                                Toast.makeText(getContext(), "News Stopped Playing", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        MainActivity.t1.speak(rssItem.get(i).getTitle().toString() + ", , , , , ,", TextToSpeech.QUEUE_ADD, null);
+                        Log.d(TAG, "i   " + i);
+                        Log.d(TAG, "afterListen");
+                    }
+                    listen.clearFocus();
+                }
+            });
+
 
             del.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -110,7 +135,7 @@ public class SavedArticleClass extends Fragment {
                     noSavedArt.setVisibility(View.VISIBLE);
                     View dialogLayout = inflater.inflate(R.layout.dialogue_alert, null);
 
-                    Log.d(TAG,"inside onClick");
+                    Log.d(TAG, "inside onClick");
                     AlertDialog.Builder delAlert = new AlertDialog.Builder(getContext());
                     delAlert.setTitle("Delete All Saved Articles ?");
                     delAlert.setView(dialogLayout);

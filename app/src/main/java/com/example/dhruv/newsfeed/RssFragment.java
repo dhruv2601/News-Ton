@@ -130,7 +130,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             listViewAutombile.setOnItemClickListener(this);
 
             listViewPolitics = (ListView) view.findViewById(R.id.listViewPolitics);
-            listViewAutombile.setOnItemClickListener(this);
+            listViewPolitics.setOnItemClickListener(this);
 
             savedArticle = (ListView) view.findViewById(R.id.savedArticle);
 
@@ -247,7 +247,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
-                if (pos == 3) {
+                if (pos == 2) {
                     animation.setDuration(500);
                     view.startAnimation(animation);
                     listViewSports.setAdapter(adapter);
@@ -275,7 +275,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
-                if (pos == 2) {
+                if (pos == 5) {
                     animation.setDuration(500);
                     view.startAnimation(animation);
                     view.clearAnimation();
@@ -442,41 +442,123 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                 }
 
                 if (pos == 1) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
                     listViewTopStories.setAdapter(adapter);
                     listViewTopStories.setVisibility(View.VISIBLE);
                     listViewTech.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
                     listViewSports.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+                if (pos == 5) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    view.clearAnimation();
+                    listViewEnter.setAdapter(adapter);
+                    listViewEnter.setVisibility(View.VISIBLE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
 
                 if (pos == 2) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewSports.setAdapter(adapter);
+                    listViewSports.setVisibility(View.VISIBLE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+                if (pos == 4) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewWold.setAdapter(adapter);
+                    listViewWold.setVisibility(View.VISIBLE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+
+                if (pos == 3) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
                     listViewTech.setAdapter(adapter);
                     listViewTech.setVisibility(View.VISIBLE);
                     listViewTopStories.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
                     listViewSports.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
-                if (pos == 3) {
-                    listViewSports.setAdapter(adapter);
-                    listViewSports.setVisibility(View.VISIBLE);
-                    listViewTopStories.setVisibility(View.GONE);
+
+                if (pos == 6) {
+                    Log.d(TAG, "ImmediateBusiness");
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewBusiness.setAdapter(adapter);
+                    listViewBusiness.setVisibility(View.VISIBLE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
-                    listViewTech.setVisibility(View.GONE);
-                    savedArticle.setVisibility(View.GONE);
-                }
-                if (pos == 4) {
-                    listViewWold.setAdapter(adapter);
-                    listViewWold.setVisibility(View.VISIBLE);
-                    listViewTech.setVisibility(View.GONE);
                     listViewTopStories.setVisibility(View.GONE);
                     listViewTech.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
 
-                if (pos == 5) {
+                if (pos == 7) {
+                    Log.d(TAG, "ImmediateAuto");
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewAutombile.setAdapter(adapter);
+                    listViewAutombile.setVisibility(View.VISIBLE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
 
+                if (pos == 8) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewPolitics.setAdapter(adapter);
+                    listViewPolitics.setVisibility(View.VISIBLE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
                 }
 
 

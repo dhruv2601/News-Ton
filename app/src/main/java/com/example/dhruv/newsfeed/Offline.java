@@ -183,7 +183,7 @@ public class Offline extends Fragment {
                 savedArticle.setVisibility(View.GONE);
             }
 
-            if (pos == 2) {
+            if (pos == 3) {
                 listViewTech.setAdapter(adapter);
                 listViewTech.setVisibility(View.VISIBLE);
                 listViewTopStories.setVisibility(View.GONE);
@@ -195,7 +195,7 @@ public class Offline extends Fragment {
                 listViewPolitics.setVisibility(View.GONE);
                 savedArticle.setVisibility(View.GONE);
             }
-            if (pos == 3) {
+            if (pos == 2) {
                 listViewSports.setAdapter(adapter);
                 listViewSports.setVisibility(View.VISIBLE);
                 listViewTopStories.setVisibility(View.GONE);
@@ -271,7 +271,6 @@ public class Offline extends Fragment {
                 listViewBusiness.setVisibility(View.GONE);
                 savedArticle.setVisibility(View.GONE);
             }
-
         } else {
             // If we are returning from a configuration change:
             // "view" is still attached to the previous view hierarchy

@@ -203,7 +203,7 @@ public class RssService extends IntentService implements java.io.Serializable {
             }
         }
 
-        if (pos == 5) {
+        if (pos == 3) {
             techCount = 0;
             count = 0;
             for (int i = 0; i < tech.length; i++) {
@@ -251,7 +251,7 @@ public class RssService extends IntentService implements java.io.Serializable {
             }
         }
 
-        if (pos == 3) {
+        if (pos == 5) {
             for (int i = 0; i < entertainment.length; i++) {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();

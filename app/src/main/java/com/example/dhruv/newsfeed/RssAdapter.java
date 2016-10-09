@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -71,6 +72,7 @@ public class RssAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
+        Log.d(TAG, "getItem " + position);
         return items.get(position);
     }
 
@@ -118,7 +120,7 @@ public class RssAdapter extends BaseAdapter {
         mShortAnimationDuration = convertView.getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
-        de.hdodenhof.circleimageview.CircleImageView addImg = (CircleImageView) convertView.findViewById(R.id.addBtn);
+        final de.hdodenhof.circleimageview.CircleImageView addImg = (CircleImageView) convertView.findViewById(R.id.addBtn);
 
         onItemClickSubs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,11 +169,52 @@ public class RssAdapter extends BaseAdapter {
                 addToList = context.getSharedPreferences("savedArticle", 0);
                 SharedPreferences.Editor editor = addToList.edit();
 
-                editor.putString("title" + MainActivity.savedArticleSize, items.get(globalPos).getTitle());
-                editor.putString("link" + MainActivity.savedArticleSize, items.get(globalPos).getLink());
-                editor.putString("date" + MainActivity.savedArticleSize, items.get(globalPos).getDate());
-                editor.putString("category" + MainActivity.savedArticleSize, items.get(globalPos).getCategory());
-                editor.putString("thumbnail" + MainActivity.savedArticleSize, items.get(globalPos).getThumbnail());
+                int pos = 0;
+
+                if (MainActivity.position == 1) {
+                    Log.d(TAG, "onClick: " + 1);
+                    pos = RssFragment.listViewTopStories.getSelectedItemPosition();
+                    pos = RssFragment.listViewTopStories.getPositionForView(v);
+                }
+                if (MainActivity.position == 2) {
+                    Log.d(TAG, "onClick: " + 2);
+                    pos = RssFragment.listViewEnter.getSelectedItemPosition();
+                    pos = RssFragment.listViewEnter.getPositionForView(v);
+
+                }
+                if (MainActivity.position == 3) {
+                    Log.d(TAG, "onClick: " + 3);
+                    pos = RssFragment.listViewSports.getSelectedItemPosition();
+                    pos = RssFragment.listViewSports.getPositionForView(v);
+                }
+                if (MainActivity.position == 4) {
+                    Log.d(TAG, "onClick: " + 4);
+                    pos = RssFragment.listViewWold.getSelectedItemPosition();
+                }
+                if (MainActivity.position == 5) {
+                    Log.d(TAG, "onClick: " + 5);
+                    pos = RssFragment.listViewTech.getSelectedItemPosition();
+                }
+                if (MainActivity.position == 6) {
+                    Log.d(TAG, "onClick: " + 6);
+                    pos = RssFragment.listViewBusiness.getSelectedItemPosition();
+                }
+                if (MainActivity.position == 7) {
+                    Log.d(TAG, "onClick: " + 7);
+                    pos = RssFragment.listViewAutombile.getSelectedItemPosition();
+                }
+                if (MainActivity.position == 8) {
+                    Log.d(TAG, "onClick: " + 8);
+                    pos = RssFragment.listViewPolitics.getSelectedItemPosition();
+                }
+
+                Log.d(TAG, "posFind:: " + pos);
+                Log.d(TAG, "posFind::: " + addImg.getVerticalScrollbarPosition());
+                editor.putString("title" + MainActivity.savedArticleSize, items.get(addImg.getVerticalScrollbarPosition()).getTitle());
+                editor.putString("link" + MainActivity.savedArticleSize, items.get(pos).getLink());
+                editor.putString("date" + MainActivity.savedArticleSize, items.get(pos).getDate());
+                editor.putString("category" + MainActivity.savedArticleSize, items.get(pos).getCategory());
+                editor.putString("thumbnail" + MainActivity.savedArticleSize, items.get(pos).getThumbnail());
 
                 MainActivity.savedArticleSize++;
                 editor.putInt("size", MainActivity.savedArticleSize);

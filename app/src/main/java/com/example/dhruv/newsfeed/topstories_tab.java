@@ -96,7 +96,7 @@ public class topstories_tab extends Fragment implements Serializable {
             startActivity(i);
         } else {
             RssFragment fragment = new RssFragment();
-            transaction.add(R.id.topStoriesContainer, fragment);
+//            transaction.add(R.id.topStoriesContainer, fragment);
             transaction.commit();
 //            manager.executePendingTransactions();
         }
@@ -131,10 +131,10 @@ public class topstories_tab extends Fragment implements Serializable {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        getActivity().setContentView(R.layout.tab_topstoris);
+//        getActivity().setContentView(R.layout.tab_topstoris);
         Log.d(TAG, "afterOnCreate");
 
-        if (getActivity().findViewById(R.id.topStoriesContainer) != null) {
+//        if (getActivity().findViewById(R.id.topStoriesContainer) != null) {
 
             if (savedInstanceState == null) {
                 Log.d(TAG, "beforeCallingARF");
@@ -146,22 +146,22 @@ public class topstories_tab extends Fragment implements Serializable {
 
         }
 
-        t1 = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int i) {
-                if (i != TextToSpeech.ERROR) {
-                    if (MainActivity.position < 0) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            t1.setLanguage(Locale.forLanguageTag("values-hi-rIN"));
-                        } else {
-                            t1.setLanguage(Locale.ENGLISH);
-                        }
-                    }
-                }
-            }
-        });
-        t1.setSpeechRate(0.8f);
-
-        MainActivity.position = 0;    // for topStories
-    }
+//        t1 = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+//            @Override
+//            public void onInit(int i) {
+//                if (i != TextToSpeech.ERROR) {
+//                    if (MainActivity.position < 0) {
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                            t1.setLanguage(Locale.forLanguageTag("values-hi-rIN"));
+//                        } else {
+//                            t1.setLanguage(Locale.ENGLISH);
+//                        }
+//                    }
+//                }
+//            }
+//        });
+//        t1.setSpeechRate(0.8f);
+//
+//        MainActivity.position = 0;    // for topStories
+//    }
 }
