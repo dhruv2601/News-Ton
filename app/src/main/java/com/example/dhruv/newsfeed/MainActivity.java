@@ -219,13 +219,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        tabLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.d(TAG, "tabLayoutKa");
-                return false;
-            }
-        });
+
+//        ----->>>>>>>>>>          DISABLING THE TAB LAYOUT SE PAGE CHANGE KRNA          <<<<<<<<--------
+
+//        tabLayout.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                Log.d(TAG, "tabLayoutKa");
+//                return false;
+//            }
+//        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -269,9 +272,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     } else if (HindiReference.wb.canGoBack()) {
                         eye = 3;
                         HindiReference.wb.goBack();
-                    } else {
-                        onBackPressed();       //------------ CHECK --------------------
                     }
+//                    else {
+//                        onBackPressed();       //------------ CHECK --------------------
+//                    }
                     return true;
             }
         }

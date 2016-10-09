@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/rlWithSports"
+        android:id="@+id/rlWithEnter"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,7 +19,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="146dp"
             app:civ_border_width="3dp"
-            android:src="@drawable/espn" />
+            android:src="@drawable/dna" />
 
         <TextView
             android:id="@+id/textView2"
@@ -29,14 +29,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/espn"
             android:layout_marginTop="10dp"
-            android:text="     E S P N"
+            android:text="     DNA India"
             android:textSize="18dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/mirror"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:src="@drawable/mirrortwo"
+            android:src="@drawable/billboard"
             android:layout_alignBottom="@+id/textView3"
             android:layout_toLeftOf="@+id/crickBuzz"
             android:layout_toStartOf="@+id/crickBuzz" />
@@ -50,7 +50,7 @@
             android:textStyle="bold"
             android:layout_alignStart="@+id/mirror"
             android:layout_alignTop="@+id/textView2"
-            android:text="   The Mirror"
+            android:text=" "
             android:textSize="18dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -61,7 +61,7 @@
             android:layout_alignParentRight="true"
             app:civ_border_width="3dp"
             android:layout_alignTop="@+id/mirror"
-            android:src="@drawable/newsports" />
+            android:src="@drawable/hindustant" />
 
         <TextView
             android:layout_width="100dp"
@@ -71,7 +71,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/textView3"
-            android:text=" Neo Sports"
+            android:text=" Hindustan Times"
             android:textSize="18dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -83,13 +83,13 @@
             android:layout_below="@+id/textView2"
             app:civ_border_width="3dp"
             android:layout_marginTop="56dp"
-            android:src="@drawable/tensports" />
+            android:src="@drawable/latimes" />
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text=" Ten Sports"
-            android:textSize="18dp"
+            android:text="   LA Times "
+            android:textSize="20dp"
             android:id="@+id/textView5"
             android:fontFamily="sans-serif-condensed"
             android:textStyle="bold"
@@ -102,7 +102,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:civ_border_width="3dp"
-            android:src="@drawable/ndtvsports"
+            android:src="@drawable/toi"
             android:layout_alignTop="@+id/tenSports"
             android:layout_alignLeft="@+id/textView4"
             android:layout_alignStart="@+id/textView4" />
@@ -111,7 +111,7 @@
             android:id="@+id/textView4"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="NDTV Sports"
+            android:text="       TOI"
             android:textSize="18dp"
             android:fontFamily="sans-serif-condensed"
             android:textStyle="bold"
@@ -125,7 +125,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/ndtvSports"
-            android:src="@drawable/crickbuzzone" />
+            android:src="@drawable/telegraph" />
 
         <TextView
             android:layout_width="100dp"
@@ -133,7 +133,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/crickBuzz"
-            android:text="CrickBuzz"
+            android:text="  Telegraph"
             android:textSize="18dp"
             android:fontFamily="sans-serif-condensed"
             android:textStyle="bold"
@@ -141,7 +141,7 @@
 
         <TextView
             android:textAlignment="center"
-            android:text=" SPORTS NEWS"
+            android:text="ENTERTAINMENT "
             android:textSize="28sp"
             android:fontFamily="sans-serif-condensed"
             android:textStyle="bold"

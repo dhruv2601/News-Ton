@@ -86,7 +86,7 @@ public class PagerAdapterTwo extends FragmentStatePagerAdapter implements java.i
 
             case 6:
                 MainActivity.position = 0;
-                return new EntryPage();
+                return new techReference();
 
             case 7:
                 MainActivity.position = 4;              //do it after 5th tab properly

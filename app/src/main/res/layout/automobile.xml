@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/rlWithSports"
+        android:id="@+id/rlWithAuto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,40 +18,19 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="146dp"
-            app:civ_border_width="3dp"
-            android:src="@drawable/espn" />
+            android:src="@drawable/autocar"
+            app:civ_border_width="3dp" />
 
         <TextView
             android:id="@+id/textView2"
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/espn"
             android:layout_marginTop="10dp"
-            android:text="     E S P N"
-            android:textSize="18dp" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/mirror"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:src="@drawable/mirrortwo"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_toLeftOf="@+id/crickBuzz"
-            android:layout_toStartOf="@+id/crickBuzz" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/mirror"
             android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
-            android:layout_alignStart="@+id/mirror"
-            android:layout_alignTop="@+id/textView2"
-            android:text="   The Mirror"
-            android:textSize="18dp" />
+            android:text="   AutoCar"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/newSports"
@@ -59,20 +38,9 @@
             android:layout_height="100dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            app:civ_border_width="3dp"
             android:layout_alignTop="@+id/mirror"
-            android:src="@drawable/newsports" />
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/textView3"
-            android:text=" Neo Sports"
-            android:textSize="18dp" />
+            android:src="@drawable/automag"
+            app:civ_border_width="3dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/tenSports"
@@ -81,42 +49,42 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView2"
-            app:civ_border_width="3dp"
             android:layout_marginTop="56dp"
-            android:src="@drawable/tensports" />
+            android:src="@drawable/automobile"
+            app:civ_border_width="3dp" />
 
         <TextView
+            android:id="@+id/textView5"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text=" Ten Sports"
-            android:textSize="18dp"
-            android:id="@+id/textView5"
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
-            android:layout_alignTop="@+id/textView4"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/textView4"
+            android:fontFamily="sans-serif-condensed"
+            android:text="   Auto-Mobile "
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ndtvSports"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:civ_border_width="3dp"
-            android:src="@drawable/ndtvsports"
-            android:layout_alignTop="@+id/tenSports"
             android:layout_alignLeft="@+id/textView4"
-            android:layout_alignStart="@+id/textView4" />
+            android:layout_alignStart="@+id/textView4"
+            android:layout_alignTop="@+id/tenSports"
+            android:src="@drawable/toi"
+            app:civ_border_width="3dp" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="NDTV Sports"
-            android:textSize="18dp"
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
             android:layout_below="@+id/ndtvSports"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-condensed"
+            android:text="       TOI"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/crickBuzz"
@@ -125,52 +93,87 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/ndtvSports"
-            android:src="@drawable/crickbuzzone" />
+            android:src="@drawable/autosiam"
+            app:civ_border_width="3dp" />
 
         <TextView
+            android:id="@+id/textView6"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/crickBuzz"
-            android:text="CrickBuzz"
-            android:textSize="18dp"
             android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
-            android:id="@+id/textView6" />
+            android:text="  SIAM"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <TextView
-            android:textAlignment="center"
-            android:text=" SPORTS NEWS"
-            android:textSize="28sp"
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/mirror"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="48dp" />
+            android:layout_marginBottom="48dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="AUTOMOBILE "
+            android:textAlignment="center"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/avi"
             style="@style/AVLoadingIndicatorView"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_alignLeft="@+id/ndtvSports"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/ndtvSports"
+            android:layout_marginTop="14dp"
             android:visibility="gone"
             app:indicatorColor="@color/red"
-            app:indicatorName="TriangleSkewSpinIndicator"
-            android:layout_alignParentTop="true"
+            app:indicatorName="TriangleSkewSpinIndicator" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/mirror"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_alignTop="@+id/espn"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/autonews"
+            app:civ_border_width="3dp" />
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/ndtvSports"
             android:layout_alignStart="@+id/ndtvSports"
-            android:layout_marginTop="14dp" />
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif-condensed"
+            android:text=" AutoNews "
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:fontFamily="sans-serif-condensed"
+            android:text=" Auto Mag"
+            android:textSize="18dp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rlWithSportsWV"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <WebView
             android:id="@+id/webViewForSports"

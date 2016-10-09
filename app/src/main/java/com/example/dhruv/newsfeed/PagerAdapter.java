@@ -89,7 +89,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
 
             case 6:
                 MainActivity.position = 0;       // add enterN ref
-                return new EntryPage();
+                return new techReference();
 
             case 7:
                 MainActivity.position = 4;              //hindi
@@ -115,7 +115,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                 }
 
             case 10:
-                return new EntryPage();             // tech reference
+                return new entertainmentRef();             // tech reference
 
             case 11:                                // business
                 MainActivity.position = 6;
@@ -126,8 +126,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                     RssFragment frag4 = new RssFragment();
                     return frag4;
                 }
+
             case 12:
-                return new EntryPage();             // business reference
+                return new businessRef();             // business reference
 
             case 13:                                // auto
                 MainActivity.position = 7;
@@ -140,7 +141,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                 }
 
             case 14:
-                return new EntryPage();             // auto reference
+                return new automobileRef();             // auto reference
 
             case 15:                                // politics
                 MainActivity.position = 8;
@@ -152,7 +153,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                     return frag4;
                 }
             case 16:
-                return new EntryPage();             // politics reference
+                return new politicsRef();             // politics reference
 
             case 17:
                 WeatherActivity weather = new WeatherActivity();
