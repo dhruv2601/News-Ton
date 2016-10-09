@@ -38,6 +38,9 @@ public class SavedArticleClass extends Fragment {
     public static ListView listViewTech;
     public static TextView noSavedArt;
     public static ListView listViewEnter;
+    public static ListView listViewBusiness;
+    public static ListView listViewAutombile;
+    public static ListView listViewPolitics;
     public static ListView listViewWold;
     private Button delThis;
 

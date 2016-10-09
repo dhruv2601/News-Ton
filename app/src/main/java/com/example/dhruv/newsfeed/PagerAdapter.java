@@ -78,7 +78,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                 return new SportsReference();
 
             case 5:
-                MainActivity.position = 5;           // entertainment
+                MainActivity.position = 5;           // tech
                 if (MainActivity.b == false) {
                     MainActivity.position = 2;
                     return new Offline();
@@ -105,7 +105,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                 return new HindiReference();
 
             case 9:
-                MainActivity.position = 3;           // tech
+                MainActivity.position = 3;           // entertainment
                 if (MainActivity.b == false) {
                     MainActivity.position = 2;
                     return new Offline();
@@ -113,18 +113,54 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                     RssFragment frag2 = new RssFragment();
                     return frag2;
                 }
+
             case 10:
                 return new EntryPage();             // tech reference
 
-            case 11:
+            case 11:                                // business
+                MainActivity.position = 6;
+                if (MainActivity.b == false) {
+                    MainActivity.position = 5;
+                    return new Offline();
+                } else {
+                    RssFragment frag4 = new RssFragment();
+                    return frag4;
+                }
+            case 12:
+                return new EntryPage();             // business reference
+
+            case 13:                                // auto
+                MainActivity.position = 7;
+                if (MainActivity.b == false) {
+                    MainActivity.position = 5;
+                    return new Offline();
+                } else {
+                    RssFragment frag4 = new RssFragment();
+                    return frag4;
+                }
+
+            case 14:
+                return new EntryPage();             // auto reference
+
+            case 15:                                // politics
+                MainActivity.position = 8;
+                if (MainActivity.b == false) {
+                    MainActivity.position = 5;
+                    return new Offline();
+                } else {
+                    RssFragment frag4 = new RssFragment();
+                    return frag4;
+                }
+            case 16:
+                return new EntryPage();             // politics reference
+
+            case 17:
                 WeatherActivity weather = new WeatherActivity();
                 return weather;
-            case 12:
+            case 18:
                 MainActivity.position = 0;
                 return new Search_class();
 
-            case 13:
-                return new EntryPage();
             default:
                 return null;
         }

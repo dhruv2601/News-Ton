@@ -33,6 +33,10 @@ public class Offline extends Fragment {
     public static ListView listViewSports;
     public static ListView listViewTech;
     public static ListView listViewWold;
+    public static ListView listViewEnter;
+    public static ListView listViewBusiness;
+    public static ListView listViewAutombile;
+    public static ListView listViewPolitics;
     public static ListView savedArticle;
     private View view;
     public static Uri uri;
@@ -47,7 +51,10 @@ public class Offline extends Fragment {
                     "sports",
                     "tech",
                     "world",
-                    "hindi"  // at no. 9 though
+                    "hindi",  // at no. 9 though,
+                    "business",
+                    "automobile",
+                    "politics"
             };
 
     public String passTopicKey[] = new String[]
@@ -94,6 +101,11 @@ public class Offline extends Fragment {
 
             listViewWold = (ListView) view.findViewById(R.id.listViewWorld);
 //            listViewWold.setOnItemClickListener(this);
+            listViewEnter = (ListView) view.findViewById(R.id.listViewEnter);
+            listViewBusiness = (ListView) view.findViewById(R.id.listViewBusiness);
+            listViewPolitics = (ListView) view.findViewById(R.id.listViewPolitics);
+            listViewAutombile = (ListView) view.findViewById(R.id.listViewAutomobile);
+
 //            avi.show();
             listenToAll = (FloatingActionButton) view.findViewById(R.id.listenToAll);
             listenToAll.setBackgroundTintList(
@@ -104,7 +116,6 @@ public class Offline extends Fragment {
             stop.setBackgroundTintList(
                     ColorStateList.valueOf(Color.parseColor("#43a047"))
             );
-
 
             final List<RssItem> items = new ArrayList<RssItem>();
             int l = 0;
@@ -165,6 +176,10 @@ public class Offline extends Fragment {
                 listViewTech.setVisibility(View.GONE);
                 listViewWold.setVisibility(View.GONE);
                 listViewSports.setVisibility(View.GONE);
+                listViewEnter.setVisibility(View.GONE);
+                listViewBusiness.setVisibility(View.GONE);
+                listViewAutombile.setVisibility(View.GONE);
+                listViewPolitics.setVisibility(View.GONE);
                 savedArticle.setVisibility(View.GONE);
             }
 
@@ -174,6 +189,10 @@ public class Offline extends Fragment {
                 listViewTopStories.setVisibility(View.GONE);
                 listViewWold.setVisibility(View.GONE);
                 listViewSports.setVisibility(View.GONE);
+                listViewEnter.setVisibility(View.GONE);
+                listViewBusiness.setVisibility(View.GONE);
+                listViewAutombile.setVisibility(View.GONE);
+                listViewPolitics.setVisibility(View.GONE);
                 savedArticle.setVisibility(View.GONE);
             }
             if (pos == 3) {
@@ -182,6 +201,10 @@ public class Offline extends Fragment {
                 listViewTopStories.setVisibility(View.GONE);
                 listViewWold.setVisibility(View.GONE);
                 listViewTech.setVisibility(View.GONE);
+                listViewEnter.setVisibility(View.GONE);
+                listViewBusiness.setVisibility(View.GONE);
+                listViewAutombile.setVisibility(View.GONE);
+                listViewPolitics.setVisibility(View.GONE);
                 savedArticle.setVisibility(View.GONE);
             }
             if (pos == 4) {
@@ -190,8 +213,65 @@ public class Offline extends Fragment {
                 listViewTech.setVisibility(View.GONE);
                 listViewTopStories.setVisibility(View.GONE);
                 listViewTech.setVisibility(View.GONE);
+                listViewEnter.setVisibility(View.GONE);
+                listViewBusiness.setVisibility(View.GONE);
+                listViewAutombile.setVisibility(View.GONE);
+                listViewPolitics.setVisibility(View.GONE);
                 savedArticle.setVisibility(View.GONE);
             }
+
+            if (pos == 5) {
+                listViewEnter.setAdapter(adapter);
+                listViewEnter.setVisibility(View.VISIBLE);
+                listViewTech.setVisibility(View.GONE);
+                listViewTopStories.setVisibility(View.GONE);
+                listViewTech.setVisibility(View.GONE);
+                listViewEnter.setVisibility(View.GONE);
+                listViewWold.setVisibility(View.GONE);
+                listViewAutombile.setVisibility(View.GONE);
+                listViewPolitics.setVisibility(View.GONE);
+                savedArticle.setVisibility(View.GONE);
+            }
+
+            if (pos == 6) {
+                listViewBusiness.setAdapter(adapter);
+                listViewBusiness.setVisibility(View.VISIBLE);
+                listViewTech.setVisibility(View.GONE);
+                listViewTopStories.setVisibility(View.GONE);
+                listViewTech.setVisibility(View.GONE);
+                listViewWold.setVisibility(View.GONE);
+                listViewEnter.setVisibility(View.GONE);
+                listViewAutombile.setVisibility(View.GONE);
+                listViewPolitics.setVisibility(View.GONE);
+                savedArticle.setVisibility(View.GONE);
+            }
+
+            if (pos == 7) {
+                listViewAutombile.setAdapter(adapter);
+                listViewAutombile.setVisibility(View.VISIBLE);
+                listViewTech.setVisibility(View.GONE);
+                listViewTopStories.setVisibility(View.GONE);
+                listViewTech.setVisibility(View.GONE);
+                listViewWold.setVisibility(View.GONE);
+                listViewEnter.setVisibility(View.GONE);
+                listViewBusiness.setVisibility(View.GONE);
+                listViewPolitics.setVisibility(View.GONE);
+                savedArticle.setVisibility(View.GONE);
+            }
+
+            if (pos == 8) {
+                listViewPolitics.setAdapter(adapter);
+                listViewPolitics.setVisibility(View.VISIBLE);
+                listViewTech.setVisibility(View.GONE);
+                listViewTopStories.setVisibility(View.GONE);
+                listViewTech.setVisibility(View.GONE);
+                listViewWold.setVisibility(View.GONE);
+                listViewEnter.setVisibility(View.GONE);
+                listViewAutombile.setVisibility(View.GONE);
+                listViewBusiness.setVisibility(View.GONE);
+                savedArticle.setVisibility(View.GONE);
+            }
+
         } else {
             // If we are returning from a configuration change:
             // "view" is still attached to the previous view hierarchy

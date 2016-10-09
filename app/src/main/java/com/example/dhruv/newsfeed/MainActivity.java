@@ -172,16 +172,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(TAG, "tab3Added");
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.activity_main_two));       //7
         tabLayout.addTab(tabLayout.newTab().setText("HINDI"));      //8
-
         tabLayout.addTab(tabLayout.newTab().setText("HindiPapers"));//9
-
         tabLayout.addTab(tabLayout.newTab().setText("Weather")); //weather      //10
-
         tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 11
-
         tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 12
         tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 13
         tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 14
+        tabLayout.addTab(tabLayout.newTab().setText("SavedArticles"));  //15
+        tabLayout.addTab(tabLayout.newTab().setText("SavedArticles"));  //16
+        tabLayout.addTab(tabLayout.newTab().setText("SavedArticles"));  //17
+        tabLayout.addTab(tabLayout.newTab().setText("SavedArticles"));  //18
 
         tabLayout.post(tabLayoutConfig);
 //        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -201,15 +201,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.getTabAt(2).setText("PAPERS");
         tabLayout.getTabAt(3).setText("SPORTS");
         tabLayout.getTabAt(4).setText("PAPERS");
-        tabLayout.getTabAt(5).setText("ENTERTAINMENT");
+        tabLayout.getTabAt(5).setText("SCI-TECH");
+        tabLayout.getTabAt(6).setText("PAPERS");
         tabLayout.getTabAt(7).setText("HINDI");
         tabLayout.getTabAt(8).setText("PAPERS");
-        tabLayout.getTabAt(9).setText("SCI-TECH");
-        tabLayout.getTabAt(10).setText("SEARCH");
-        tabLayout.getTabAt(11).setText("WEATHER");
-        tabLayout.getTabAt(12).setText("SEARCH");
-        tabLayout.getTabAt(13).setText("SEARCH");
-
+        tabLayout.getTabAt(9).setText("ENTERTAINMENT");
+        tabLayout.getTabAt(10).setText("PAPERS");
+        tabLayout.getTabAt(11).setText("BUSINESS");
+        tabLayout.getTabAt(12).setText("PAPERS");
+        tabLayout.getTabAt(13).setText("AUTOMOBILES");
+        tabLayout.getTabAt(14).setText("PAPERS");
+        tabLayout.getTabAt(15).setText("POLITICS");
+        tabLayout.getTabAt(16).setText("PAPERS");
+        tabLayout.getTabAt(17).setText("WEATHER");
+        tabLayout.getTabAt(18).setText("SEARCH");
 
 //        tabLayout.setBackgroundColor(getResources().getColor(R.color.black));
 //        tabLayout.setBackgroundColor(R.style.MyCustomTabLayout);
@@ -418,17 +423,3 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        return super.onOptionsItemSelected(item);
 //    }
 }
-
-//class introTimeCalc extends AsyncTask
-//{
-//    @Override
-//    protected Object doInBackground(Object[] params) {
-//
-//        while(SystemClock.uptimeMillis()-MainActivity.currTime<=6000)
-//        {
-//
-//        }
-////        MainActivity.layoutDisappear();
-//        return null;
-//    }
-//}

@@ -38,9 +38,9 @@
         <ListView
             android:id="@+id/listViewTopStories"
             android:layout_width="fill_parent"
-            android:descendantFocusability="blocksDescendants"
             android:layout_height="fill_parent"
             android:background="@drawable/shadow"
+            android:descendantFocusability="blocksDescendants"
             android:divider="@drawable/greyback"
             android:dividerHeight="5dp"
             android:visibility="gone">
@@ -51,8 +51,8 @@
             android:id="@+id/listViewSports"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:descendantFocusability="blocksDescendants"
             android:background="@drawable/shadow"
+            android:descendantFocusability="blocksDescendants"
             android:divider="@drawable/greyback"
             android:dividerHeight="5dp"
             android:visibility="gone">
@@ -64,6 +64,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@drawable/shadow"
+            android:descendantFocusability="blocksDescendants"
             android:divider="@drawable/greyback"
             android:dividerHeight="5dp"
             android:visibility="gone">
@@ -75,6 +76,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@drawable/shadow"
+            android:descendantFocusability="blocksDescendants"
             android:divider="@drawable/greyback"
             android:dividerHeight="5dp"
             android:visibility="gone">
@@ -86,6 +88,43 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@drawable/shadow"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@drawable/greyback"
+            android:dividerHeight="5dp"
+            android:visibility="gone">
+
+        </ListView>
+
+        <ListView
+            android:id="@+id/listViewBusiness"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shadow"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@drawable/greyback"
+            android:dividerHeight="5dp"
+            android:visibility="gone">
+
+        </ListView>
+
+        <ListView
+            android:id="@+id/listViewAutomobile"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shadow"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@drawable/greyback"
+            android:dividerHeight="5dp"
+            android:visibility="gone">
+
+        </ListView>
+
+        <ListView
+            android:id="@+id/listViewPolitics"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shadow"
+            android:descendantFocusability="blocksDescendants"
             android:divider="@drawable/greyback"
             android:dividerHeight="5dp"
             android:visibility="gone">
@@ -97,6 +136,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@drawable/shadow"
+            android:descendantFocusability="blocksDescendants"
             android:divider="@drawable/greyback"
             android:dividerHeight="5dp"
             android:visibility="gone">
@@ -105,12 +145,12 @@
 
 
         <!--<com.ldoublem.loadingviewlib.LVGhost-->
-            <!--android:id="@+id/ghost"-->
-            <!--android:layout_marginBottom="102dp"-->
-            <!--android:layout_above="@+id/listenToAll"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_width="60dp"-->
-            <!--android:layout_height="60dp" />-->
+        <!--android:id="@+id/ghost"-->
+        <!--android:layout_marginBottom="102dp"-->
+        <!--android:layout_above="@+id/listenToAll"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="60dp" />-->
 
 
         <android.support.design.widget.FloatingActionButton
@@ -141,12 +181,12 @@
             style="@style/AVLoadingIndicatorView"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_above="@+id/listenToAll"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="102dp"
             android:visibility="gone"
             app:indicatorColor="@color/red"
-            app:indicatorName="TriangleSkewSpinIndicator"
-            android:layout_marginBottom="102dp"
-            android:layout_above="@+id/listenToAll"
-            android:layout_centerHorizontal="true" />
+            app:indicatorName="TriangleSkewSpinIndicator" />
 
         <!---->
         <!--<ProgressBar-->
