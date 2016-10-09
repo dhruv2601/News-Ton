@@ -23,6 +23,8 @@
 
         <TextView
             android:id="@+id/textView2"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/espn"
@@ -44,6 +46,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/mirror"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:layout_alignStart="@+id/mirror"
             android:layout_alignTop="@+id/textView2"
             android:text="   The Mirror"
@@ -62,6 +66,8 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/textView3"
@@ -85,6 +91,8 @@
             android:text=" Ten Sports"
             android:textSize="18dp"
             android:id="@+id/textView5"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:layout_alignTop="@+id/textView4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -105,6 +113,8 @@
             android:layout_height="wrap_content"
             android:text="NDTV Sports"
             android:textSize="18dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:layout_below="@+id/ndtvSports"
             android:layout_centerHorizontal="true" />
 
@@ -125,13 +135,16 @@
             android:layout_below="@+id/crickBuzz"
             android:text="CrickBuzz"
             android:textSize="18dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:id="@+id/textView6" />
 
         <TextView
             android:textAlignment="center"
             android:text="READ FOR SPORTS "
             android:textSize="28sp"
-            android:fontFamily="monospace"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/mirror"
@@ -139,6 +152,18 @@
             android:layout_alignParentStart="true"
             android:layout_marginBottom="48dp" />
 
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="gone"
+            app:indicatorColor="@color/red"
+            app:indicatorName="TriangleSkewSpinIndicator"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/ndtvSports"
+            android:layout_alignStart="@+id/ndtvSports"
+            android:layout_marginTop="14dp" />
     </RelativeLayout>
 
     <RelativeLayout

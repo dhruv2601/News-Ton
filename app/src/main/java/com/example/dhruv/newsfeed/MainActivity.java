@@ -1,9 +1,11 @@
 package com.example.dhruv.newsfeed;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -11,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -41,6 +44,7 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+//import com.google.firebase.crash.FirebaseCrash;
 
 import java.io.File;
 import java.util.Locale;
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static ListView listViewSports;
     public static ListView listViewTech;
     public static ListView listViewWold;
+    public int hasBeenOpened = 0;
     public TabLayout tabLayout;
     public int eye = 0;
     public static int savedArticleSize;
@@ -83,6 +88,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Window window = getWindow();
 
+//        if(hasBeenOpened==0)
+//        {
+//            Intent i = new Intent(this, IntroActivity.class);
+//            startActivity(i);
+//        }
+
+
 // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
@@ -93,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
+
+//        FirebaseCrash.report(new Exception("My first Android non-fatal error"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
@@ -113,16 +127,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences saved = MainActivity.this.getSharedPreferences("savedArticle", 0);
         savedArticleSize = saved.getInt("size", 0);
 
-        if(savedArticleSize>0)
-        {
-            SavedArticleClass.noSavedArt.setVisibility(View.GONE);
-        }
+//        if(savedArticleSize>0)
+//        {
+//            SavedArticleClass.noSavedArt.setVisibility(View.GONE);
+//        }
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
         b = (activeNetworkInfo != null && activeNetworkInfo.isConnected());
         if (!b) {
-            Toast.makeText(MainActivity.this, "A P P  R U N N I N G  I N  O F F L I N E   M O D E", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "A P P   R U N N I N G  I N  O F F L I N E   M O D E", Toast.LENGTH_LONG).show();
         }
 
         t1 = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -163,6 +178,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.addTab(tabLayout.newTab().setText("Weather")); //weather      //10
 
         tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 11
+
+        tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 12
+        tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 13
+        tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 14
+
         tabLayout.post(tabLayoutConfig);
 //        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -181,11 +201,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.getTabAt(2).setText("PAPERS");
         tabLayout.getTabAt(3).setText("SPORTS");
         tabLayout.getTabAt(4).setText("PAPERS");
-        tabLayout.getTabAt(5).setText("TECH");
+        tabLayout.getTabAt(5).setText("ENTERTAINMENT");
         tabLayout.getTabAt(7).setText("HINDI");
         tabLayout.getTabAt(8).setText("PAPERS");
-        tabLayout.getTabAt(9).setText("WEATHER");
+        tabLayout.getTabAt(9).setText("SCI-TECH");
         tabLayout.getTabAt(10).setText("SEARCH");
+        tabLayout.getTabAt(11).setText("WEATHER");
+        tabLayout.getTabAt(12).setText("SEARCH");
+        tabLayout.getTabAt(13).setText("SEARCH");
 
 
 //        tabLayout.setBackgroundColor(getResources().getColor(R.color.black));
@@ -233,8 +256,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
+        Log.d(TAG, "onKeyDownCalled");
+        boolean b = true;
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            Log.d(TAG, "onKeyDownActionDown");
             switch (keyCode) {
+
                 case KeyEvent.KEYCODE_BACK:
                     if (Search_class.webView.canGoBack()) {
                         Log.d(TAG, "searchClassCanGoBack");
@@ -249,10 +276,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     } else if (HindiReference.wb.canGoBack()) {
                         eye = 3;
                         HindiReference.wb.goBack();
+                    } else {
+                        onBackPressed();       //------------ CHECK --------------------
                     }
                     return true;
             }
         }
+        Log.d(TAG, "outsideLoop");
         return super.onKeyDown(keyCode, event);
     }
 
@@ -277,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(TAG, "backPressedCalled");
 //        Toast.makeText(MainActivity.this, "Press Again To Exit News Feed", Toast.LENGTH_SHORT).show();
 //        t1.shutdown();
-//        super.onBackPressed();
+        super.onBackPressed();
     }
 
     @Override
@@ -285,8 +315,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        if(toggle.onOptionsItemSelected(item))
-        {
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
 
@@ -304,7 +333,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onPostCreate(savedInstanceState);
         toggle.syncState();
     }
-
 
 
     @SuppressWarnings("StatementWithEmptyBody")

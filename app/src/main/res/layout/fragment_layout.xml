@@ -60,6 +60,17 @@
         </ListView>
 
         <ListView
+            android:id="@+id/listViewEnter"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shadow"
+            android:divider="@drawable/greyback"
+            android:dividerHeight="5dp"
+            android:visibility="gone">
+
+        </ListView>
+
+        <ListView
             android:id="@+id/listViewTech"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -91,6 +102,7 @@
             android:visibility="gone">
 
         </ListView>
+
 
         <!--<com.ldoublem.loadingviewlib.LVGhost-->
             <!--android:id="@+id/ghost"-->

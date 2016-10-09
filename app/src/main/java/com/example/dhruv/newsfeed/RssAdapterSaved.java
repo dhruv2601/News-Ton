@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.speech.tts.TextToSpeech;
@@ -116,10 +117,11 @@ public class RssAdapterSaved extends BaseAdapter {
         mShortAnimationDuration = convertView.getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
-        de.hdodenhof.circleimageview.CircleImageView delImg = (CircleImageView) convertView.findViewById(R.id.delBtn);
+        final de.hdodenhof.circleimageview.CircleImageView delImg = (CircleImageView) convertView.findViewById(R.id.delBtn);
         delImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                delImg.setBackgroundColor(Color.BLACK);
                 SharedPreferences addToList;
                 addToList = context.getSharedPreferences("savedArticle", 0);
                 SharedPreferences.Editor editor = addToList.edit();

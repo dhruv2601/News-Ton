@@ -54,6 +54,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     public static ListView listViewTech;
     public static ListView listViewWold;
     public static ListView savedArticle;
+    public static ListView listViewEnter;
     public Dialog loading;
     public AVLoadingIndicatorView avi;
     //    public LVGhost ghost;
@@ -67,11 +68,12 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
     public String passTopic[] = new String[]
             {
+                    "noUseJustToIncreaseIndexBy1",
                     "topstories",
                     "sports",
-                    "tech",
-                    "world",
-                    "hindi"  // at no. 9 though
+                    "entertainment",
+                    "hindi",
+                    "tech"
             };
 
     public String passTopicKey[] = new String[]
@@ -108,6 +110,9 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
             listViewWold = (ListView) view.findViewById(R.id.listViewWorld);
             listViewWold.setOnItemClickListener(this);
+
+            listViewEnter = (ListView) view.findViewById(R.id.listViewEnter);
+            listViewEnter.setOnItemClickListener(this);
 
             savedArticle = (ListView) view.findViewById(R.id.savedArticle);
 
@@ -203,6 +208,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     listViewTech.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
                     listViewSports.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
 
@@ -214,6 +220,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     listViewTopStories.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
                     listViewSports.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
                 if (pos == 3) {
@@ -223,6 +230,7 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     listViewSports.setVisibility(View.VISIBLE);
                     listViewTopStories.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
                     listViewTech.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
@@ -232,6 +240,18 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     listViewWold.setAdapter(adapter);
                     listViewWold.setVisibility(View.VISIBLE);
                     listViewTech.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+                if (pos == 5) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewEnter.setAdapter(adapter);
+                    listViewEnter.setVisibility(View.VISIBLE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
                     listViewTopStories.setVisibility(View.GONE);
                     listViewTech.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
@@ -373,6 +393,12 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     listViewTech.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
+
+                if(pos==5)
+                {
+
+                }
+
 
             } else {
                 Toast.makeText(getActivity(), "An error occured while downloading the rss feed.",

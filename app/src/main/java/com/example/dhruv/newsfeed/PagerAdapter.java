@@ -48,7 +48,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                 MainActivity.position = 1;
 
                 if (MainActivity.b == false) {
-                    MainActivity.position = 1;
+                    MainActivity.position = 0;
                     Log.d(TAG, "appIsOffline");
                     return new Offline();
                 } else {
@@ -78,7 +78,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                 return new SportsReference();
 
             case 5:
-                MainActivity.position = 3;
+                MainActivity.position = 5;           // entertainment
                 if (MainActivity.b == false) {
                     MainActivity.position = 2;
                     return new Offline();
@@ -88,11 +88,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                 }
 
             case 6:
-                MainActivity.position = 0;
+                MainActivity.position = 0;       // add enterN ref
                 return new EntryPage();
 
             case 7:
-                MainActivity.position = 4;              //do it after 5th tab properly
+                MainActivity.position = 4;              //hindi
                 if (MainActivity.b == false) {
                     MainActivity.position = 3;
                     return new Offline();
@@ -105,13 +105,25 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                 return new HindiReference();
 
             case 9:
+                MainActivity.position = 3;           // tech
+                if (MainActivity.b == false) {
+                    MainActivity.position = 2;
+                    return new Offline();
+                } else {
+                    RssFragment frag2 = new RssFragment();
+                    return frag2;
+                }
+            case 10:
+                return new EntryPage();             // tech reference
+
+            case 11:
                 WeatherActivity weather = new WeatherActivity();
                 return weather;
-            case 10:
+            case 12:
                 MainActivity.position = 0;
                 return new Search_class();
 
-            case 11:
+            case 13:
                 return new EntryPage();
             default:
                 return null;

@@ -36,8 +36,9 @@ public class SavedArticleClass extends Fragment {
     public static ListView listViewTopStories;
     public static ListView listViewSports;
     public static ListView listViewTech;
-    public static ListView listViewWold;
     public static TextView noSavedArt;
+    public static ListView listViewEnter;
+    public static ListView listViewWold;
     private Button delThis;
 
 
@@ -59,6 +60,8 @@ public class SavedArticleClass extends Fragment {
             listViewTech = (ListView) view.findViewById(R.id.listViewTech);
 
             listViewWold = (ListView) view.findViewById(R.id.listViewWorld);
+
+            listViewEnter = (ListView) view.findViewById(R.id.listViewEnter);
 
             final SharedPreferences savedArtPref = getContext().getSharedPreferences("savedArticle", 0);
             List<RssItem> rssItem = new ArrayList<RssItem>();
@@ -84,6 +87,7 @@ public class SavedArticleClass extends Fragment {
             listViewTopStories.setVisibility(View.GONE);
             listViewWold.setVisibility(View.GONE);
             listViewTech.setVisibility(View.GONE);
+            listViewEnter.setVisibility(View.GONE);
 
             FloatingActionButton listen = (FloatingActionButton) view.findViewById(R.id.play);
             listen.setBackgroundTintList(
@@ -149,7 +153,6 @@ public class SavedArticleClass extends Fragment {
         Log.d(TAG, "SavedOnCreate");
         setRetainInstance(true);
         pos = MainActivity.position;
-
 //        startService();       //_________________________________________
     }
 }
