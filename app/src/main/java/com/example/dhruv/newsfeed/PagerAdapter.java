@@ -33,26 +33,22 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
 
     public Fragment getItem(int position) {
 
-        Log.d(TAG," changedPos222 "+position);
-        Log.d(TAG," changedPosMAIN "+MainActivity.position );
+        Log.d(TAG, " changedPos222 " + position);
+        Log.d(TAG, " changedPosMAIN " + MainActivity.position);
         Log.d(TAG, "mNumTabs " + getCount());
 
-            switch (position) {
+        switch (position) {
             case 0:
-                MainActivity.position = 0;
-                return new Search_class();
-
-            case 1:
                 MainActivity.position = 0;
                 SavedArticleClass savedArticleClass = new SavedArticleClass();
                 return savedArticleClass;
 
-            case 2:
+            case 1:
                 Log.d(TAG, "beforeTab1");
                 MainActivity.position = 1;
 
                 if (MainActivity.b == false) {
-                    MainActivity.position = 1;
+//                    MainActivity.position = 0;
                     Log.d(TAG, "appIsOffline");
                     return new Offline();
                 } else {
@@ -60,16 +56,16 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                     return frag;
                 }
 
-            case 3:
+            case 2:
                 MainActivity.position = 0;
                 return new TopStoryReference();
 
-            case 4:
+            case 3:
                 Log.d(TAG, "beforeTab2");
                 //sports_tab tab2 = new sports_tab();
                 MainActivity.position = 2;
                 if (MainActivity.b == false) {
-                    MainActivity.position = 1;
+//                    MainActivity.position = 1;
                     return new Offline();
                 } else {
                     RssFragment frag1 = new RssFragment();
@@ -77,43 +73,95 @@ public class PagerAdapter extends FragmentStatePagerAdapter implements java.io.S
                     return frag1;
                 }
 
-            case 5:
+            case 4:
                 MainActivity.position = 0;
                 return new SportsReference();
 
-            case 6:
-                MainActivity.position = 3;
+            case 5:
+                MainActivity.position = 3;           // tech
                 if (MainActivity.b == false) {
-                    MainActivity.position = 2;
+//                    MainActivity.position = 2;
                     return new Offline();
                 } else {
                     RssFragment frag2 = new RssFragment();
                     return frag2;
                 }
 
-            case 7:
-                MainActivity.position = 0;
-                return new EntryPage();
+            case 6:
+                MainActivity.position = 0;       // add enterN ref
+                return new techReference();
 
-            case 8:
-                MainActivity.position = 4;              //do it after 5th tab properly
+            case 7:
+                MainActivity.position = 4;              //hindi
                 if (MainActivity.b == false) {
-                    MainActivity.position = 3;
+//                    MainActivity.position = 3;
                     return new Offline();
                 } else {
                     RssFragment frag3 = new RssFragment();
                     return frag3;
                 }
 
-            case 9:
+            case 8:
                 return new HindiReference();
 
+            case 9:
+                MainActivity.position = 5;           // entertainment
+                if (MainActivity.b == false) {
+//                    MainActivity.position = 2;
+                    return new Offline();
+                } else {
+                    RssFragment frag2 = new RssFragment();
+                    return frag2;
+                }
+
             case 10:
+                return new entertainmentRef();             // tech reference
+
+            case 11:                                // business
+                MainActivity.position = 6;
+                if (MainActivity.b == false) {
+//                    MainActivity.position = 5;
+                    return new Offline();
+                } else {
+                    RssFragment frag4 = new RssFragment();
+                    return frag4;
+                }
+
+            case 12:
+                return new businessRef();             // business reference
+
+            case 13:                                // auto
+                MainActivity.position = 7;
+                if (MainActivity.b == false) {
+//                    MainActivity.position = 5;
+                    return new Offline();
+                } else {
+                    RssFragment frag4 = new RssFragment();
+                    return frag4;
+                }
+
+            case 14:
+                return new automobileRef();             // auto reference
+
+            case 15:                                // politics
+                MainActivity.position = 8;
+                if (MainActivity.b == false) {
+//                    MainActivity.position = 5;
+                    return new Offline();
+                } else {
+                    RssFragment frag4 = new RssFragment();
+                    return frag4;
+                }
+            case 16:
+                return new politicsRef();             // politics reference
+
+            case 17:
                 WeatherActivity weather = new WeatherActivity();
                 return weather;
+            case 18:
+                MainActivity.position = 0;
+                return new Search_class();
 
-            case 11:
-                return new EntryPage();
             default:
                 return null;
         }

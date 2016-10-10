@@ -13,7 +13,7 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:indicatorColor="@color/common_signin_btn_default_background"
+        app:indicatorColor="@color/red"
         app:indicatorName="BallClipRotatePulseIndicator"
         android:layout_gravity="center" />
 

@@ -28,6 +28,8 @@
             android:layout_below="@+id/toi"
             android:layout_marginTop="10dp"
             android:text=" AMAR  UJALA"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
             android:textSize="18dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -44,6 +46,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/india_today"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
             android:layout_alignStart="@+id/india_today"
             android:layout_alignTop="@+id/textView2"
             android:text=" DAINIK JAGRAN"
@@ -63,6 +67,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="NAVBHARAT TIMES"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
             android:textSize="18dp"
             android:layout_alignBottom="@+id/textView3"
             android:layout_alignParentRight="true"
@@ -84,6 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/hindu"
             android:layout_alignStart="@+id/hindu"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
             android:layout_below="@+id/hindu"
             android:text="DAINIK BHASKAR"
             android:textSize="18dp" />
@@ -101,6 +109,8 @@
         <TextView
             android:id="@+id/textView4"
             android:layout_width="100dp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/abc"
             android:layout_alignStart="@+id/abc"
@@ -120,6 +130,8 @@
 
         <TextView
             android:layout_width="100dp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -131,13 +143,28 @@
             android:textAlignment="center"
             android:text="HINDI PAPERS "
             android:textSize="28sp"
-            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/india_today"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="56dp" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_above="@+id/india_today"
+            android:layout_alignLeft="@+id/india_today"
+            android:layout_alignStart="@+id/india_today"
+            android:layout_marginBottom="14dp"
+            android:visibility="gone"
+            app:indicatorColor="@color/red"
+            app:indicatorName="TriangleSkewSpinIndicator" />
+
 
     </RelativeLayout>
 

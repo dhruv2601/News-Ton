@@ -32,8 +32,6 @@ public class RssService extends IntentService implements java.io.Serializable {
     public static long millis[] = new long[300];
     public static List<RssItem> rssItems = new ArrayList<RssItem>();
     public List<RssItem> temp = Collections.synchronizedList(new ArrayList<RssItem>());
-    public List<RssItem> temp2 = Collections.synchronizedList(new ArrayList<RssItem>());
-    public static String[] dateString = new String[300];
 
     public static final String TAG = "RssService";
     public int pos;
@@ -47,14 +45,20 @@ public class RssService extends IntentService implements java.io.Serializable {
     public static int techCount;
     public static int worldCount;
     public static int count = 0;
+    public int totalNewsCount = 0;
+
 
     public String passTopic[] = new String[]
             {
+                    "noUseJustToIncreaseIndexBy1",
                     "topstories",
                     "sports",
+                    "entertainment",
+                    "hindi",
                     "tech",
-                    "world",
-                    "hindi"  // at no. 9 though
+                    "business",
+                    "automobile",
+                    "politics"
             };
 
 
@@ -81,11 +85,6 @@ public class RssService extends IntentService implements java.io.Serializable {
                     "http://www.pcworld.com/reviews/index.rss"
             };
 
-    public String world[] = new String[]
-            {
-                    "https://news.google.com/?output=rss"
-            };
-
     public String hindi[] = new String[]
             {
                     "http://www.amarujala.com/rss/national-news.xml",
@@ -94,11 +93,42 @@ public class RssService extends IntentService implements java.io.Serializable {
                     "http://www.amarujala.com/rss/entertainment.xml"
             };
 
-    public String bollywood[] = new String[]
+    public String entertainment[] = new String[]
             {
-                    "http://www.amarujala.com/rss/entertainment.xml",
-                    "http://www.bharatstudent.com/cafebharat/hindi_rss.php"
+                    "http://www.music-news.com/rss/UK/news",
+                    "http://english.newstracklive.com/rss-feed/bollywood.xml",
+                    "http://feeds.reuters.com/reuters/entertainment?format=xml",
+                    "http://feeds.feedburner.com/thr/television"
             };
+    public String business[] = new String[]
+            {
+                    "http://feeds.feedburner.com/ndtvprofit-latest",
+                    "http://www.businessinsider.in/rss_section_feeds/2147477994.cms",
+                    "http://www.business-standard.com/rss/markets-106.rss",
+                    "http://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms"
+            };
+
+    public String automobiles[] = new String[]
+            {
+                    "http://www.autocarindia.com/RSS/rss.ashx",
+                    "http://feeds.feedburner.com/AutomotiveNewsFutureProductPipelineFeed",
+                    "http://feeds.highgearmedia.com/?sites=TheCarConnection&type=all",
+                    "http://feeds.feedburner.com/autonews/BreakingNews"
+            };
+
+    public String politics[] = new String[]
+            {
+                    "http://www.livemint.com/rss/economy_politics",
+                    "http://feeds.washingtonpost.com/rss/rss_election-2012",
+                    "http://feeds.feedburner.com/realclearpolitics/qlMj"
+            };
+
+//    public String education[] = new String[]
+//            {
+//                    "http://www.hindustantimes.com/rss/education/rssfeed.xml",
+//                    "http://educationnext.org/feed/",
+//                    "http://feeds.bbci.co.uk/news/education/rss.xml?edition=uk",
+//            };
 
 
     public static final String ITEMS = "items";
@@ -135,6 +165,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                         topStoriesCount++;
                         count++;
                         ++l;
+                        totalNewsCount++;
                     }
                     ++j;
 
@@ -153,7 +184,6 @@ public class RssService extends IntentService implements java.io.Serializable {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();
                     temp = parser.parse(getInputStream(sports[i]));
-
                     int l = 2;
                     for (int k = j; k < temp.size() - 3; k++) {
                         Log.d(TAG, "temp: " + temp.get(l).getTitle());
@@ -161,6 +191,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                         sportsCount++;
                         count++;
                         ++l;
+                        totalNewsCount++;
                     }
                     ++j;
 
@@ -186,6 +217,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                         techCount++;
                         count++;
                         ++l;
+                        totalNewsCount++;
                     }
                     ++j;
 
@@ -196,31 +228,6 @@ public class RssService extends IntentService implements java.io.Serializable {
                 }
             }
         }
-
-//        if (pos == 4) {
-//            worldCount=0;
-//            count=0;
-//            for (int i = 0; i < world.length; i++) {
-//                try {
-//                    PcWorldRssParser parser = new PcWorldRssParser();
-//                    temp = parser.parse(getInputStream(tech[i]));
-//                    int l = 2;
-//                    for (int k = j; k < temp.size() - 3; k++) {
-//                        Log.d(TAG, "temp: " + temp.get(l).getTitle());
-//                        rssItems.add(k, temp.get(l));
-//                        worldCount++;
-//                        count++;
-//                        ++l;
-//                    }
-//                    ++j;
-//
-//                } catch (XmlPullParserException e) {
-//                    Log.w(e.getMessage(), e);
-//                } catch (IOException e) {
-//                    Log.w(e.getMessage(), e);
-//                }
-//            }
-//        }
 
         if (pos == 4) {
             for (int i = 0; i < hindi.length; i++) {
@@ -233,6 +240,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                         Log.d(TAG, "hinditemp: " + temp);
                         rssItems.add(k, temp.get(l));
                         ++l;
+                        totalNewsCount++;
                     }
                     ++j;
                 } catch (XmlPullParserException e) {
@@ -243,66 +251,18 @@ public class RssService extends IntentService implements java.io.Serializable {
             }
         }
 
-        //especially for hindi news
-
-        if (pos == -1) {
-            PcWorldRssParser parser = new PcWorldRssParser();
-            try {
-                temp = parser.parse(getInputStream("http://www.amarujala.com/rss/national-news.xml"));
-                int l = 2;
-                for (int k = j; k < temp.size() - 2; k++) {
-                    rssItems.add(k, temp.get(l));
-                    ++l;
-                }
-                ++j;
-            } catch (XmlPullParserException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (pos == -2) {
-            PcWorldRssParser parser = new PcWorldRssParser();
-            try {
-                temp = parser.parse(getInputStream("http://www.amarujala.com/rss/sports-news.xml"));
-                int l = 2;
-                for (int k = j; k < temp.size(); k++) {
-                    rssItems.add(k, temp.get(l));
-                    ++l;
-                }
-                ++j;
-            } catch (XmlPullParserException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if (pos == -3) {
-            PcWorldRssParser parser = new PcWorldRssParser();
-            try {
-                temp = parser.parse(getInputStream("http://www.amarujala.com/rss/automobiles-news.xml"));
-                int l = 2;
-                for (int k = j; k < temp.size(); k++) {
-                    rssItems.add(k, temp.get(l));
-                    ++l;
-                }
-                ++j;
-            } catch (XmlPullParserException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if (pos == -4) {
-            for (int i = 0; i < bollywood.length; i++) {
+        if (pos == 5) {
+            for (int i = 0; i < entertainment.length; i++) {
                 try {
                     PcWorldRssParser parser = new PcWorldRssParser();
-                    temp = parser.parse(getInputStream(bollywood[i]));
+                    temp = parser.parse(getInputStream(entertainment[i]));
                     int l = 2;
-                    for (int k = j; k < temp.size(); k++) {
+                    for (int k = j; k < temp.size() - 3; k++) {
+                        Log.d(TAG, "EntertainmentTemp: " + temp);
                         rssItems.add(k, temp.get(l));
+                        Log.d(TAG, "Entertainment_turtle " + temp.get(l).getLink());
                         ++l;
+                        totalNewsCount++;
                     }
                     ++j;
                 } catch (XmlPullParserException e) {
@@ -312,40 +272,90 @@ public class RssService extends IntentService implements java.io.Serializable {
                 }
             }
         }
-        if (pos == -5) {
-            PcWorldRssParser parser = new PcWorldRssParser();
-            try {
-                temp = parser.parse(getInputStream("http://www.amarujala.com/rss/astrology-news.xml"));
-                int l = 2;
-                for (int k = j; k < temp.size(); k++) {
-                    rssItems.add(k, temp.get(l));
-                    ++l;
+
+        if (pos == 6) {
+            for (int i = 0; i < business.length; i++) {
+                try {
+                    PcWorldRssParser parser = new PcWorldRssParser();
+                    temp = parser.parse(getInputStream(business[i]));
+                    int l = 2;
+                    for (int k = j; k < temp.size() - 3; k++) {
+                        Log.d(TAG, "EntertainmentTemp: " + temp);
+                        rssItems.add(k, temp.get(l));
+                        Log.d(TAG, "Entertainment_turtle " + temp.get(l).getLink());
+                        ++l;
+                        totalNewsCount++;
+                    }
+                    ++j;
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                ++j;
-            } catch (XmlPullParserException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
 
-        if (pos == -6) {
-            PcWorldRssParser parser = new PcWorldRssParser();
-            try {
-                temp = parser.parse(getInputStream("http://hi.gadgets360.com/rss/news"));
-                int l = 2;
-                for (int k = j; k < temp.size(); k++) {
-                    rssItems.add(k, temp.get(l));
-                    ++l;
+        if (pos == 7) {
+            for (int i = 0; i < automobiles.length; i++) {
+                try {
+                    PcWorldRssParser parser = new PcWorldRssParser();
+                    temp = parser.parse(getInputStream(automobiles[i]));
+                    int l = 2;
+                    for (int k = j; k < temp.size() - 3; k++) {
+                        Log.d(TAG, "EntertainmentTemp: " + temp);
+                        rssItems.add(k, temp.get(l));
+                        Log.d(TAG, "Entertainment_turtle " + temp.get(l).getLink());
+                        ++l;
+                        totalNewsCount++;
+                    }
+                    ++j;
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                ++j;
-            } catch (XmlPullParserException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
 
+        if (pos == 8) {
+            for (int i = 0; i < politics.length; i++) {
+                try {
+                    PcWorldRssParser parser = new PcWorldRssParser();
+                    temp = parser.parse(getInputStream(politics[i]));
+                    int l = 2;
+                    for (int k = j; k < temp.size() - 3; k++) {
+                        Log.d(TAG, "EntertainmentTemp: " + temp);
+                        rssItems.add(k, temp.get(l));
+                        Log.d(TAG, "Entertainment_turtle " + temp.get(l).getLink());
+                        ++l;
+                        totalNewsCount++;
+                    }
+                    ++j;
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        Log.d(TAG, "timeInd " + MainActivity.timeInd);
+        Log.d(TAG, "timeHolder" + MainActivity.timeholder[10]);
+        for (int g = 0; g < totalNewsCount; g++) {
+            Log.d(TAG, "timeDiff " + MainActivity.timeholder[g]);
+        }
+
+        bubble();
+        for (int g = 0; g < totalNewsCount; g++) {
+            Log.d(TAG, "SortedTimeDiff " + MainActivity.timeholder[g]);
+        }
+
+        for (int g = 0; g <= MainActivity.timeInd; g++) {
+            MainActivity.timeholder[g] = 0;
+        }
+
+        MainActivity.timeInd = 0;
         Log.d(TAG, "lenOfArrayList " + rssItems.size());
         Bundle bundle = new Bundle();
         bundle.putSerializable(ITEMS, (Serializable) rssItems);
@@ -365,6 +375,23 @@ public class RssService extends IntentService implements java.io.Serializable {
             }
         }
         return h;
+    }
+
+
+    private void bubble() {
+        for (int i = 0; i < totalNewsCount - 1; i++) {
+            for (int j = 0; j < totalNewsCount - i - 1; j++) {
+                if (MainActivity.timeholder[j] > MainActivity.timeholder[j + 1]) {
+                    RssItem itemTemp = rssItems.get(j);
+                    long tempTime = MainActivity.timeholder[j];
+                    rssItems.set(j, rssItems.get(j + 1));
+                    MainActivity.timeholder[j] = MainActivity.timeholder[j + 1];
+//                    rssItems.add(j,rssItems.get(j+1));
+                    MainActivity.timeholder[j + 1] = tempTime;
+                    rssItems.set(j + 1, itemTemp);
+                }
+            }
+        }
     }
 
 

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlWithBusiness"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/espn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="146dp"
+            app:civ_border_width="3dp"
+            android:src="@drawable/economict" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/espn"
+            android:layout_marginTop="10dp"
+            android:text="     DNA India"
+            android:textSize="18dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/newSports"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            app:civ_border_width="3dp"
+            android:layout_alignTop="@+id/mirror"
+            android:src="@drawable/businessstandard" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/tenSports"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView2"
+            app:civ_border_width="3dp"
+            android:layout_marginTop="56dp"
+            android:src="@drawable/ft" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="   Financial Times "
+            android:textSize="20dp"
+            android:id="@+id/textView5"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:layout_alignTop="@+id/textView4"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ndtvSports"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:civ_border_width="3dp"
+            android:src="@drawable/toi"
+            android:layout_alignTop="@+id/tenSports"
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_alignStart="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="       TOI"
+            android:textSize="18dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:layout_below="@+id/ndtvSports"
+            android:layout_centerHorizontal="true" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/crickBuzz"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/ndtvSports"
+            android:src="@drawable/telegraph" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/crickBuzz"
+            android:text="  Telegraph"
+            android:textSize="18dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:id="@+id/textView6" />
+
+        <TextView
+            android:textAlignment="center"
+            android:text="BUSINESS "
+            android:textSize="28sp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/mirror"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="48dp" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="gone"
+            app:indicatorColor="@color/red"
+            app:indicatorName="TriangleSkewSpinIndicator"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/ndtvSports"
+            android:layout_alignStart="@+id/ndtvSports"
+            android:layout_marginTop="14dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/mirror"
+            app:civ_border_width="3dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/businessinssider"
+            android:layout_alignTop="@+id/espn"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:text=" "
+            android:textSize="18dp"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/ndtvSports"
+            android:layout_alignStart="@+id/ndtvSports" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:text=" Business Standard"
+            android:textSize="18dp"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlWithSportsWV"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/webViewForSports"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </WebView>
+
+    </RelativeLayout>
+
+</RelativeLayout
+    >

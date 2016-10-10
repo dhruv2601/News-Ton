@@ -1,6 +1,8 @@
 package com.example.dhruv.newsfeed;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -25,15 +27,21 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+//import com.ldoublem.loadingviewlib.LVGhost;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.dhruv.newsfeed.RssAdapter.context;
+import static com.example.dhruv.newsfeed.RssAdapter.wv;
 
 
 /**
@@ -47,9 +55,15 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     public static ListView listViewSports;
     public static ListView listViewTech;
     public static ListView listViewWold;
+    public static ListView listViewBusiness;
+    public static ListView listViewAutombile;
+    public static ListView listViewPolitics;
     public static ListView savedArticle;
+    public static ListView listViewEnter;
     public Dialog loading;
     public AVLoadingIndicatorView avi;
+    public AVLoadingIndicatorView avi2;
+    //    public LVGhost ghost;
     private View view;
     private View vPre;
     private View vCurr;
@@ -60,11 +74,15 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
     public String passTopic[] = new String[]
             {
+                    "noUseJustToIncreaseIndexBy1",
                     "topstories",
                     "sports",
+                    "entertainment",
+                    "hindi",
                     "tech",
-                    "world",
-                    "hindi"  // at no. 9 though
+                    "business",
+                    "automobile",
+                    "politics"
             };
 
     public String passTopicKey[] = new String[]
@@ -83,10 +101,6 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
         setRetainInstance(true);
         pos = MainActivity.position;
         animation = AnimationUtils.loadAnimation(getContext(), R.anim.hyper_space);
-//        if (MainActivity.flag[pos] == 0) {
-//            startService();       //_________________________________________
-//        }
-        // check if else is needed
     }
 
     @Override
@@ -106,17 +120,27 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
             listViewWold = (ListView) view.findViewById(R.id.listViewWorld);
             listViewWold.setOnItemClickListener(this);
 
+            listViewEnter = (ListView) view.findViewById(R.id.listViewEnter);
+            listViewEnter.setOnItemClickListener(this);
+
+            listViewBusiness = (ListView) view.findViewById(R.id.listViewBusiness);
+            listViewBusiness.setOnItemClickListener(this);
+
+            listViewAutombile = (ListView) view.findViewById(R.id.listViewAutomobile);
+            listViewAutombile.setOnItemClickListener(this);
+
+            listViewPolitics = (ListView) view.findViewById(R.id.listViewPolitics);
+            listViewPolitics.setOnItemClickListener(this);
+
             savedArticle = (ListView) view.findViewById(R.id.savedArticle);
 
-            loading = new Dialog(getContext(),R.style.MyInvisibleDialog);
+            loading = new Dialog(getContext(), R.style.MyInvisibleDialog);
             loading.setCancelable(false);
             loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            loading.setContentView(R.layout.);           // agar nhi chla to add soething here
             loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-//            loading = new AlertDialog.Builder(getContext(), R.style.MyInvisibleDialog);
-
             avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+//            ghost = (LVGhost) view.findViewById(R.id.ghost);
 
 //            else
             {
@@ -202,10 +226,14 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     listViewTech.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
                     listViewSports.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
 
-                if (pos == 2) {
+                if (pos == 5) {
                     animation.setDuration(500);
                     view.startAnimation(animation);
                     listViewTech.setAdapter(adapter);
@@ -213,16 +241,24 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     listViewTopStories.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
                     listViewSports.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
-                if (pos == 3) {
+                if (pos == 2) {
                     animation.setDuration(500);
                     view.startAnimation(animation);
                     listViewSports.setAdapter(adapter);
                     listViewSports.setVisibility(View.VISIBLE);
                     listViewTopStories.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
                     listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
                 if (pos == 4) {
@@ -231,11 +267,75 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                     listViewWold.setAdapter(adapter);
                     listViewWold.setVisibility(View.VISIBLE);
                     listViewTech.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
                     listViewTopStories.setVisibility(View.GONE);
                     listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+                if (pos == 5) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    view.clearAnimation();
+                    listViewEnter.setAdapter(adapter);
+                    listViewEnter.setVisibility(View.VISIBLE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
 
+                if (pos == 6) {
+                    Log.d(TAG, "ImmediateBusiness");
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewBusiness.setAdapter(adapter);
+                    listViewBusiness.setVisibility(View.VISIBLE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+
+                if (pos == 7) {
+                    Log.d(TAG, "ImmediateAuto");
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewAutombile.setAdapter(adapter);
+                    listViewAutombile.setVisibility(View.VISIBLE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+
+                if (pos == 8) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewPolitics.setAdapter(adapter);
+                    listViewPolitics.setVisibility(View.VISIBLE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
             }
             if (MainActivity.flag[pos] == 0) {
                 startService();
@@ -259,6 +359,8 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
     private void startService() {
         loading.show();
         avi.show();
+//        avi2.show();
+//        ghost.startAnim();
 //        listViewTopStories.requestDisallowInterceptTouchEvent(true);
         Intent intent = new Intent(getActivity(), RssService.class);
         intent.putExtra(RssService.RECEIVER, resultReceiver);
@@ -280,13 +382,14 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
 
             loading.hide();
             avi.hide();
+//            avi2.hide();
 
             MainActivity.flag[pos] = 1;
             List<RssItem> items = (List<RssItem>) resultData.getSerializable(RssService.ITEMS);
 
             List<RssItem> temp = new ArrayList<RssItem>();
-            for (int i = 0; i < RssService.count; i++) {
-                temp.add(i, items.get(i));
+            for (int i = 1; i < RssService.count; i++) {
+                temp.add(i - 1, items.get(i));
             }
 
             Log.d(TAG, "onResult " + pos);
@@ -339,52 +442,141 @@ public class RssFragment extends Fragment implements AdapterView.OnItemClickList
                 }
 
                 if (pos == 1) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
                     listViewTopStories.setAdapter(adapter);
                     listViewTopStories.setVisibility(View.VISIBLE);
                     listViewTech.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
                     listViewSports.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+                if (pos == 5) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    view.clearAnimation();
+                    listViewEnter.setAdapter(adapter);
+                    listViewEnter.setVisibility(View.VISIBLE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
 
                 if (pos == 2) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewSports.setAdapter(adapter);
+                    listViewSports.setVisibility(View.VISIBLE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+                if (pos == 4) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewWold.setAdapter(adapter);
+                    listViewWold.setVisibility(View.VISIBLE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+
+                if (pos == 3) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
                     listViewTech.setAdapter(adapter);
                     listViewTech.setVisibility(View.VISIBLE);
                     listViewTopStories.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
                     listViewSports.setVisibility(View.GONE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
-                if (pos == 3) {
-                    listViewSports.setAdapter(adapter);
-                    listViewSports.setVisibility(View.VISIBLE);
-                    listViewTopStories.setVisibility(View.GONE);
+
+                if (pos == 6) {
+                    Log.d(TAG, "ImmediateBusiness");
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewBusiness.setAdapter(adapter);
+                    listViewBusiness.setVisibility(View.VISIBLE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
                     listViewWold.setVisibility(View.GONE);
-                    listViewTech.setVisibility(View.GONE);
-                    savedArticle.setVisibility(View.GONE);
-                }
-                if (pos == 4) {
-                    listViewWold.setAdapter(adapter);
-                    listViewWold.setVisibility(View.VISIBLE);
-                    listViewTech.setVisibility(View.GONE);
                     listViewTopStories.setVisibility(View.GONE);
                     listViewTech.setVisibility(View.GONE);
+                    listViewAutombile.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
                     savedArticle.setVisibility(View.GONE);
                 }
+
+                if (pos == 7) {
+                    Log.d(TAG, "ImmediateAuto");
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewAutombile.setAdapter(adapter);
+                    listViewAutombile.setVisibility(View.VISIBLE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    listViewPolitics.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+
+                if (pos == 8) {
+                    animation.setDuration(500);
+                    view.startAnimation(animation);
+                    listViewPolitics.setAdapter(adapter);
+                    listViewPolitics.setVisibility(View.VISIBLE);
+                    listViewEnter.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewWold.setVisibility(View.GONE);
+                    listViewTopStories.setVisibility(View.GONE);
+                    listViewTech.setVisibility(View.GONE);
+                    listViewBusiness.setVisibility(View.GONE);
+                    savedArticle.setVisibility(View.GONE);
+                }
+
 
             } else {
                 Toast.makeText(getActivity(), "An error occured while downloading the rss feed.",
                         Toast.LENGTH_LONG).show();
             }
             avi.hide();
+//            ghost.stopAnim();
         }
     };
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-        RssAdapter adapter = (RssAdapter) parent.getAdapter();
-        RssItem item = (RssItem) adapter.getItem(i);
-        uri = Uri.parse(item.getLink());
-        Intent intent = new Intent(RssFragment.super.getContext(), FullArticle.class);
+        Log.d(TAG, "onItemClikWhy");
+//        RssAdapter adapter = (RssAdapter) parent.getAdapter();
+//        RssItem item = (RssItem) adapter.getItem(i);
+//        uri = Uri.parse(item.getLink());
+//        Intent intent = new Intent(RssFragment.super.getContext(), FullArticle.class);
     }
 }
