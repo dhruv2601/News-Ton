@@ -19,6 +19,7 @@
         android:background="@android:color/holo_red_dark"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TabLayout
@@ -59,5 +60,16 @@
         android:textColor="@android:color/white"
         android:textSize="23dp"
         android:textStyle="bold" />
+
+    <ImageButton
+        android:layout_marginRight="4dp"
+        android:layout_width="20dp"
+        android:layout_height="50dp"
+        android:src="@drawable/threedotss"
+        android:contentDescription=""
+        android:onClick="showPopup"
+        android:background="@android:color/holo_red_dark"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
