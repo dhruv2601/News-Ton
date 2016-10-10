@@ -132,7 +132,6 @@ public class SavedArticleClass extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    noSavedArt.setVisibility(View.VISIBLE);
                     View dialogLayout = inflater.inflate(R.layout.dialogue_alert, null);
 
                     Log.d(TAG, "inside onClick");
@@ -150,7 +149,7 @@ public class SavedArticleClass extends Fragment {
                             RssAdapter adapter1 = new RssAdapter(getActivity(), empty);
                             savedArticle.setAdapter(adapter1);
                             MainActivity.savedArticleSize = 0;
-
+                            noSavedArt.setVisibility(View.VISIBLE);
                             Toast.makeText(getContext(), "Cleared Saved Article", Toast.LENGTH_SHORT).show();
 
                         }

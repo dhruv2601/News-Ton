@@ -147,7 +147,7 @@ public class Offline extends Fragment {
 
                     for (int i = 0; i < items.size(); i++) {
                         Log.d(TAG, "listening");
-                        MainActivity.t1.speak(items.get(i).getTitle().toString() + ", , , , , ,", TextToSpeech.QUEUE_ADD, null);
+                        MainActivity.t1.speak(items.get(i).getTitle().toString() + ". . . . . . .", TextToSpeech.QUEUE_ADD, null);
                         Log.d(TAG, "i   " + i);
                         Log.d(TAG, "afterListen");
                     }

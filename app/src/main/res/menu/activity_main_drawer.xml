@@ -45,8 +45,150 @@
                 android:id="@+id/crickBuzzSports"
                 android:title="CRICKBUZZ" />
         </menu>
-
     </item>
+
+
+    <item android:title="SCIENCE - TECHNOLOGY">
+        <menu>
+            <item
+                android:id="@+id/pcWorld"
+                android:title="PC World" />
+            <item
+                android:id="@+id/techCrunch"
+                android:title="Tech Cruch" />
+            <item
+                android:id="@+id/techNews"
+                android:title="Tech News" />
+            <item
+                android:id="@+id/bbc"
+                android:title="B B C" />
+            <item
+                android:id="@+id/reuters"
+                android:title="Reuters" />
+            <item
+                android:id="@+id/nyTimes"
+                android:title="New York Times" />
+        </menu>
+    </item>
+
+    <item android:title="H I N D I">
+        <menu>
+            <item
+                android:id="@+id/amarujala"
+                android:title="Amar Ujala" />
+            <item
+                android:id="@+id/dainik"
+                android:title="Dainik Jagran" />
+            <item
+                android:id="@+id/nbt"
+                android:title="Nav Bharat Times" />
+            <item
+                android:id="@+id/dainikbhaskar"
+                android:title="Dainik Bhaskar" />
+            <item
+                android:id="@+id/dailythanthi"
+                android:title="Daily Thanthi" />
+            <item
+                android:id="@+id/dainikaran"
+                android:title="Dinakaran" />
+        </menu>
+    </item>
+
+
+    <item android:title="E N T E R T A I N M E N T">
+        <menu>
+            <item
+                android:id="@+id/dna1"
+                android:title="DNA India" />
+            <item
+                android:id="@+id/billboard"
+                android:title="Billboard" />
+            <item
+                android:id="@+id/ht"
+                android:title="Hindustan Times" />
+            <item
+                android:id="@+id/lat"
+                android:title="Los Angles Times" />
+            <item
+                android:id="@+id/toi"
+                android:title="TOI" />
+            <item
+                android:id="@+id/telegraph"
+                android:title="Telegraph" />
+        </menu>
+    </item>
+
+    <item android:title="B U S I N E S S">
+        <menu>
+            <item
+                android:id="@+id/dna"
+                android:title="DNA India" />
+            <item
+                android:id="@+id/bi"
+                android:title="Business Insider" />
+            <item
+                android:id="@+id/bs"
+                android:title="Business Standard" />
+            <item
+                android:id="@+id/ft"
+                android:title="Financial Times" />
+            <item
+                android:id="@+id/toi1"
+                android:title="TOI" />
+            <item
+                android:id="@+id/telegraph1"
+                android:title="Telegraph" />
+        </menu>
+    </item>
+
+
+    <item android:title="A U T O M O B I L E S">
+        <menu>
+            <item
+                android:id="@+id/autocar"
+                android:title="Auto Car" />
+            <item
+                android:id="@+id/an"
+                android:title="Auto News" />
+            <item
+                android:id="@+id/automag"
+                android:title="Auto Mag" />
+            <item
+                android:id="@+id/automob"
+                android:title="Automobile" />
+            <item
+                android:id="@+id/toi2"
+                android:title="TOI" />
+            <item
+                android:id="@+id/siam"
+                android:title="SIAM" />
+        </menu>
+    </item>
+
+
+    <item android:title="P O L I T I C S">
+        <menu>
+            <item
+                android:id="@+id/hindu1"
+                android:title="The Hindu" />
+            <item
+                android:id="@+id/iexpress"
+                android:title="Indian Express" />
+            <item
+                android:id="@+id/bbc1"
+                android:title="B B C  " />
+            <item
+                android:id="@+id/guardian"
+                android:title="The Guardian" />
+            <item
+                android:id="@+id/toi3"
+                android:title="TOI" />
+            <item
+                android:id="@+id/ndtv"
+                android:title="NDTV" />
+        </menu>
+    </item>
+
     <item android:title="Communicate">
         <menu>
             <item

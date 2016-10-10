@@ -104,7 +104,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/crickBuzz"
             android:fontFamily="sans-serif-condensed"
-            android:text="  SIAM"
+            android:text="  NDTV"
             android:textSize="18dp"
             android:textStyle="bold" />
 

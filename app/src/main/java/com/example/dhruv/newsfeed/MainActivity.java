@@ -30,9 +30,11 @@ import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.io.File;
 import java.util.Locale;
 //import com.google.firebase.crash.FirebaseCrash;
@@ -209,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         viewPager.setOffscreenPageLimit(1);           //look into it once all tabs set
         Log.d(TAG, "adapterAllSet");
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -259,29 +261,164 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             switch (keyCode) {
 
                 case KeyEvent.KEYCODE_BACK:
-                    if (Search_class.webView.canGoBack()) {
-                        Log.d(TAG, "searchClassCanGoBack");
-                        Search_class.webView.goBack();
-                    } else if (TopStoryReference.wb.canGoBack()) {
-                        eye = 1;
-                        Log.d(TAG, "topCanGoBack");
-                        TopStoryReference.wb.goBack();
-                    } else if (SportsReference.wb.canGoBack()) {
-                        eye = 2;
-                        SportsReference.wb.goBack();
-                    } else if (HindiReference.wb.canGoBack()) {
-                        eye = 3;
-                        HindiReference.wb.goBack();
-                    }
-//                    else {
-//                        onBackPressed();       //------------ CHECK --------------------
+//                    if (Search_class.webView.canGoBack()) {
+//                        Log.d(TAG, "searchClassCanGoBack");
+//                        Search_class.webView.goBack();
+//                        onPause();
 //                    }
+                    if (TopStoryReference.wb != null) {
+
+                        if (TopStoryReference.wb.canGoBack()) {
+                            eye = 1;
+                            Log.d(TAG, "topCanGoBack");
+                            TopStoryReference.wb.goBack();
+                            onPause();
+                        } else {
+                            if (eye == 1) {
+                                Log.d(TAG, "onKeyDown: topBackPressed");
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+                    if (SportsReference.wb != null) {
+
+
+                        if (SportsReference.wb.canGoBack()) {
+                            eye = 2;
+                            Log.d(TAG, "topCanGoBack");
+                            SportsReference.wb.goBack();
+//                            onPause();
+                        } else {
+                            if (eye == 2) {
+                                Log.d(TAG, "onKeyDown: topBackPressed");
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+                    Log.d(TAG, "onKeyDown: SportsRef");
+
+                    if (techReference.wb != null) {
+
+
+                        if (techReference.wb.canGoBack()) {
+                            eye = 3;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            techReference.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 3) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+                    if (HindiReference.wb != null) {
+
+
+                        if (HindiReference.wb.canGoBack()) {
+                            eye = 4;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            HindiReference.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 4) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+                    if (entertainmentRef.wb != null) {
+                        if (entertainmentRef.wb.canGoBack()) {
+                            eye = 5;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            entertainmentRef.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 5) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+
+                    if (businessRef.wb != null) {
+                        if (businessRef.wb.canGoBack()) {
+                            eye = 6;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            businessRef.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 6) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+                    if (automobileRef.wb != null) {
+
+
+                        if (automobileRef.wb.canGoBack()) {
+                            eye = 7;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            automobileRef.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 7) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+                    if (politicsRef.wb != null) {
+                        if (politicsRef.wb.canGoBack()) {
+                            eye = 8;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            politicsRef.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 8) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
                     return true;
             }
         }
         Log.d(TAG, "outsideLoop");
         return super.onKeyDown(keyCode, event);
     }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "onPause: Called");
+        super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "backPressedCalled");
+//        Toast.makeText(MainActivity.this, "Press Again To Exit News Feed", Toast.LENGTH_SHORT).show();
+//        t1.shutdown();
+        super.onBackPressed();
+    }
+
 
     Runnable tabLayoutConfig = new Runnable() {
         @Override
@@ -298,14 +435,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     };
-
-    @Override
-    public void onBackPressed() {
-        Log.d(TAG, "backPressedCalled");
-//        Toast.makeText(MainActivity.this, "Press Again To Exit News Feed", Toast.LENGTH_SHORT).show();
-//        t1.shutdown();
-        super.onBackPressed();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -344,6 +473,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.espnSports || id == R.id.mirrorSports || id == R.id.newSportsSports || id == R.id.tenSportsSports || id == R.id.ndtvSportsSports || id == R.id.crickBuzzSports) {
             viewPager.setCurrentItem(4);
         }
+        if (id == R.id.pcWorld || id == R.id.techCrunch || id == R.id.techNews || id == R.id.bbc || id == R.id.reuters || id == R.id.nyTimes) {
+            viewPager.setCurrentItem(6);
+        }
+        if (id == R.id.amarujala || id == R.id.dainik || id == R.id.nbt || id == R.id.dailythanthi || id == R.id.dainikbhaskar || id == R.id.dainikaran) {
+            viewPager.setCurrentItem(8);
+        }
+        if (id == R.id.dna1 || id == R.id.billboard || id == R.id.ht || id == R.id.lat || id == R.id.toi || id == R.id.telegraph) {
+            viewPager.setCurrentItem(10);
+        }
+        if (id == R.id.dna || id == R.id.bi || id == R.id.bs || id == R.id.ft || id == R.id.toi1 || id == R.id.telegraph1) {
+            viewPager.setCurrentItem(12);
+        }
+        if (id == R.id.autocar || id == R.id.an || id == R.id.automag || id == R.id.automob || id == R.id.toi2 || id == R.id.siam) {
+            viewPager.setCurrentItem(14);
+        }
+        if (id == R.id.hindu1 || id == R.id.iexpress || id == R.id.bbc1 || id == R.id.guardian || id == R.id.toi3 || id == R.id.ndtv) {
+            viewPager.setCurrentItem(16);
+        }
+
 //        if (id == R.id.nav_slideshow) {
 //            viewPager.setCurrentItem(8);
 //        } else if (id == R.id.nav_manage) {
