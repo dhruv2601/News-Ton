@@ -23,6 +23,7 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -40,6 +41,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.File;
 import java.util.Locale;
+
+import static com.example.dhruv.newsfeed.R.menu.action_settings;
 //import com.google.firebase.crash.FirebaseCrash;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -236,7 +239,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        });
 
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -255,19 +257,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        sref = MainActivity.this.getSharedPreferences("entered",0);
+        sref = MainActivity.this.getSharedPreferences("entered", 0);
         SharedPreferences.Editor editor = sref.edit();
 
-        if(sref.getBoolean("entered",false)==false)
-        {
+        if (sref.getBoolean("entered", false) == false) {
             Intent i = new Intent(this, AppIntro.class);
-            editor.putBoolean("entered",true);
+            editor.putBoolean("entered", true);
             editor.apply();
             startActivity(i);
         }
 
-        Log.d(TAG,"sharedPref "+sref.getBoolean("entered",true));
+        Log.d(TAG, "sharedPref " + sref.getBoolean("entered", true));
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(action_settings, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.usingTheApp);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent i = new Intent(MainActivity.this, AppIntro.class);
+                startActivity(i);
+                return false;
+            }
+        });
+
+        MenuItem aboutMe = menu.findItem(R.id.aboutMe);
+        aboutMe.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent i = new Intent(MainActivity.this, AboutDeveloper.class);
+                startActivity(i);
+                return false;
+            }
+        });
+
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -425,7 +454,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
     @Override
     protected void onPause() {
         Log.d(TAG, "onPause: Called");
@@ -463,15 +491,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         if (toggle.onOptionsItemSelected(item)) {
-            return true;
+           return true;
         }
 
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.usingTheApp) {
+            Log.d(TAG, "onOptionsItemSelected: action_settings");
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -512,15 +541,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.hindu1 || id == R.id.iexpress || id == R.id.bbc1 || id == R.id.guardian || id == R.id.toi3 || id == R.id.ndtv) {
             viewPager.setCurrentItem(16);
         }
-
 //        if (id == R.id.nav_slideshow) {
 //            viewPager.setCurrentItem(8);
 //        } else if (id == R.id.nav_manage) {
 //     }
         else if (id == R.id.nav_share) {
+            // put the playstore link here
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.aboutMeNav) {
+            Intent i = new Intent(MainActivity.this, AboutDeveloper.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

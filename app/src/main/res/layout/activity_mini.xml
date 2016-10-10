@@ -61,13 +61,12 @@
         android:textSize="23dp"
         android:textStyle="bold" />
 
-    <ImageButton
-        android:layout_marginRight="4dp"
-        android:layout_width="20dp"
-        android:layout_height="50dp"
-        android:src="@drawable/threedotss"
-        android:contentDescription=""
-        android:onClick="showPopup"
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_marginRight="-10dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_web_asset_white"
         android:background="@android:color/holo_red_dark"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
