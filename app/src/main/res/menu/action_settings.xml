@@ -2,8 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/Share"
+        android:orderInCategory="100"
+        android:title="Share"
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/usingTheApp"
+        android:orderInCategory="100"
+        android:title="Using The App"
+        app:showAsAction="collapseActionView" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="About Developer"
+        app:showAsAction="collapseActionView" />
 </menu>

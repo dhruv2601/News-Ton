@@ -1,6 +1,7 @@
 package com.example.dhruv.newsfeed;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
@@ -18,9 +19,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -232,6 +235,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            }
 //        });
 
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -249,6 +254,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        sref = MainActivity.this.getSharedPreferences("entered",0);
+        SharedPreferences.Editor editor = sref.edit();
+
+        if(sref.getBoolean("entered",false)==false)
+        {
+            Intent i = new Intent(this, AppIntro.class);
+            editor.putBoolean("entered",true);
+            editor.apply();
+            startActivity(i);
+        }
+
+        Log.d(TAG,"sharedPref "+sref.getBoolean("entered",true));
+
     }
 
     @Override
@@ -404,6 +423,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(TAG, "outsideLoop");
         return super.onKeyDown(keyCode, event);
     }
+
+
 
     @Override
     protected void onPause() {
