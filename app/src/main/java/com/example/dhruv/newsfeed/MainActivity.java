@@ -1,9 +1,9 @@
 package com.example.dhruv.newsfeed;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -12,28 +12,24 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -44,6 +40,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.File;
 import java.util.Locale;
+//import com.google.firebase.crash.FirebaseCrash;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -54,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static ListView listViewSports;
     public static ListView listViewTech;
     public static ListView listViewWold;
+    public int hasBeenOpened = 0;
     public TabLayout tabLayout;
     public int eye = 0;
     public static int savedArticleSize;
@@ -83,6 +81,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Window window = getWindow();
 
+//        if(hasBeenOpened==0)
+//        {
+//            Intent i = new Intent(this, IntroActivity.class);
+//            startActivity(i);
+//        }
+
+
 // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
@@ -93,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
+
+//        FirebaseCrash.report(new Exception("My first Android non-fatal error"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.myToolbar);
         setSupportActionBar(toolbar);
@@ -113,16 +120,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences saved = MainActivity.this.getSharedPreferences("savedArticle", 0);
         savedArticleSize = saved.getInt("size", 0);
 
-        if(savedArticleSize>0)
-        {
-            SavedArticleClass.noSavedArt.setVisibility(View.GONE);
-        }
+//        if(savedArticleSize>0)
+//        {
+//            SavedArticleClass.noSavedArt.setVisibility(View.GONE);
+//        }
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
         b = (activeNetworkInfo != null && activeNetworkInfo.isConnected());
         if (!b) {
-            Toast.makeText(MainActivity.this, "A P P  R U N N I N G  I N  O F F L I N E   M O D E", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "A P P   R U N N I N G  I N  O F F L I N E   M O D E", Toast.LENGTH_LONG).show();
         }
 
         t1 = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -157,12 +165,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(TAG, "tab3Added");
         tabLayout.addTab(tabLayout.newTab().setCustomView(R.layout.activity_main_two));       //7
         tabLayout.addTab(tabLayout.newTab().setText("HINDI"));      //8
-
         tabLayout.addTab(tabLayout.newTab().setText("HindiPapers"));//9
-
         tabLayout.addTab(tabLayout.newTab().setText("Weather")); //weather      //10
-
         tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 11
+        tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 12
+        tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 13
+        tabLayout.addTab(tabLayout.newTab().setText("Saved Articles")); // 14
+        tabLayout.addTab(tabLayout.newTab().setText("SavedArticles"));  //15
+        tabLayout.addTab(tabLayout.newTab().setText("SavedArticles"));  //16
+        tabLayout.addTab(tabLayout.newTab().setText("SavedArticles"));  //17
+        tabLayout.addTab(tabLayout.newTab().setText("SavedArticles"));  //18
+
         tabLayout.post(tabLayoutConfig);
 //        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -181,19 +194,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.getTabAt(2).setText("PAPERS");
         tabLayout.getTabAt(3).setText("SPORTS");
         tabLayout.getTabAt(4).setText("PAPERS");
-        tabLayout.getTabAt(5).setText("TECH");
+        tabLayout.getTabAt(5).setText("SCI-TECH");
+        tabLayout.getTabAt(6).setText("PAPERS");
         tabLayout.getTabAt(7).setText("HINDI");
         tabLayout.getTabAt(8).setText("PAPERS");
-        tabLayout.getTabAt(9).setText("WEATHER");
-        tabLayout.getTabAt(10).setText("SEARCH");
-
+        tabLayout.getTabAt(9).setText("ENTERTAINMENT");
+        tabLayout.getTabAt(10).setText("PAPERS");
+        tabLayout.getTabAt(11).setText("BUSINESS");
+        tabLayout.getTabAt(12).setText("PAPERS");
+        tabLayout.getTabAt(13).setText("AUTOMOBILES");
+        tabLayout.getTabAt(14).setText("PAPERS");
+        tabLayout.getTabAt(15).setText("POLITICS");
+        tabLayout.getTabAt(16).setText("PAPERS");
+        tabLayout.getTabAt(17).setText("WEATHER");
+        tabLayout.getTabAt(18).setText("SEARCH");
 
 //        tabLayout.setBackgroundColor(getResources().getColor(R.color.black));
 //        tabLayout.setBackgroundColor(R.style.MyCustomTabLayout);
 
         viewPager.setOffscreenPageLimit(1);           //look into it once all tabs set
         Log.d(TAG, "adapterAllSet");
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -203,13 +224,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        tabLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.d(TAG, "tabLayoutKa");
-                return false;
-            }
-        });
+
+//        ----->>>>>>>>>>          DISABLING THE TAB LAYOUT SE PAGE CHANGE KRNA          <<<<<<<<--------
+
+//        tabLayout.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                Log.d(TAG, "tabLayoutKa");
+//                return false;
+//            }
+//        });
+
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -228,33 +254,192 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        sref = MainActivity.this.getSharedPreferences("entered",0);
+        SharedPreferences.Editor editor = sref.edit();
+
+        if(sref.getBoolean("entered",false)==false)
+        {
+            Intent i = new Intent(this, AppIntro.class);
+            editor.putBoolean("entered",true);
+            editor.apply();
+            startActivity(i);
+        }
+
+        Log.d(TAG,"sharedPref "+sref.getBoolean("entered",true));
+
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
+        Log.d(TAG, "onKeyDownCalled");
+        boolean b = true;
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            Log.d(TAG, "onKeyDownActionDown");
             switch (keyCode) {
+
                 case KeyEvent.KEYCODE_BACK:
-                    if (Search_class.webView.canGoBack()) {
-                        Log.d(TAG, "searchClassCanGoBack");
-                        Search_class.webView.goBack();
-                    } else if (TopStoryReference.wb.canGoBack()) {
-                        eye = 1;
-                        Log.d(TAG, "topCanGoBack");
-                        TopStoryReference.wb.goBack();
-                    } else if (SportsReference.wb.canGoBack()) {
-                        eye = 2;
-                        SportsReference.wb.goBack();
-                    } else if (HindiReference.wb.canGoBack()) {
-                        eye = 3;
-                        HindiReference.wb.goBack();
+//                    if (Search_class.webView.canGoBack()) {
+//                        Log.d(TAG, "searchClassCanGoBack");
+//                        Search_class.webView.goBack();
+//                        onPause();
+//                    }
+                    if (TopStoryReference.wb != null) {
+
+                        if (TopStoryReference.wb.canGoBack()) {
+                            eye = 1;
+                            Log.d(TAG, "topCanGoBack");
+                            TopStoryReference.wb.goBack();
+                            onPause();
+                        } else {
+                            if (eye == 1) {
+                                Log.d(TAG, "onKeyDown: topBackPressed");
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+                    if (SportsReference.wb != null) {
+
+
+                        if (SportsReference.wb.canGoBack()) {
+                            eye = 2;
+                            Log.d(TAG, "topCanGoBack");
+                            SportsReference.wb.goBack();
+//                            onPause();
+                        } else {
+                            if (eye == 2) {
+                                Log.d(TAG, "onKeyDown: topBackPressed");
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+                    Log.d(TAG, "onKeyDown: SportsRef");
+
+                    if (techReference.wb != null) {
+
+
+                        if (techReference.wb.canGoBack()) {
+                            eye = 3;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            techReference.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 3) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+                    if (HindiReference.wb != null) {
+
+
+                        if (HindiReference.wb.canGoBack()) {
+                            eye = 4;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            HindiReference.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 4) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+                    if (entertainmentRef.wb != null) {
+                        if (entertainmentRef.wb.canGoBack()) {
+                            eye = 5;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            entertainmentRef.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 5) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+
+                    if (businessRef.wb != null) {
+                        if (businessRef.wb.canGoBack()) {
+                            eye = 6;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            businessRef.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 6) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+
+                    if (automobileRef.wb != null) {
+
+
+                        if (automobileRef.wb.canGoBack()) {
+                            eye = 7;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            automobileRef.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 7) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
+                    }
+                    if (politicsRef.wb != null) {
+                        if (politicsRef.wb.canGoBack()) {
+                            eye = 8;
+                            Log.d(TAG, "onKeyDown: SportsCanGoBack");
+                            politicsRef.wb.goBack();
+                        } else {
+                            Log.d(TAG, "onKeyDown: onBackPressed");
+                            if (eye == 8) {
+                                onBackPressed();
+                            }
+                        }
+                    } else {
+                        onBackPressed();
                     }
                     return true;
             }
         }
+        Log.d(TAG, "outsideLoop");
         return super.onKeyDown(keyCode, event);
     }
+
+
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "onPause: Called");
+        super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "backPressedCalled");
+//        Toast.makeText(MainActivity.this, "Press Again To Exit News Feed", Toast.LENGTH_SHORT).show();
+//        t1.shutdown();
+        super.onBackPressed();
+    }
+
 
     Runnable tabLayoutConfig = new Runnable() {
         @Override
@@ -273,20 +458,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     };
 
     @Override
-    public void onBackPressed() {
-        Log.d(TAG, "backPressedCalled");
-//        Toast.makeText(MainActivity.this, "Press Again To Exit News Feed", Toast.LENGTH_SHORT).show();
-//        t1.shutdown();
-//        super.onBackPressed();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        if(toggle.onOptionsItemSelected(item))
-        {
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
 
@@ -306,7 +482,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -319,6 +494,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.espnSports || id == R.id.mirrorSports || id == R.id.newSportsSports || id == R.id.tenSportsSports || id == R.id.ndtvSportsSports || id == R.id.crickBuzzSports) {
             viewPager.setCurrentItem(4);
         }
+        if (id == R.id.pcWorld || id == R.id.techCrunch || id == R.id.techNews || id == R.id.bbc || id == R.id.reuters || id == R.id.nyTimes) {
+            viewPager.setCurrentItem(6);
+        }
+        if (id == R.id.amarujala || id == R.id.dainik || id == R.id.nbt || id == R.id.dailythanthi || id == R.id.dainikbhaskar || id == R.id.dainikaran) {
+            viewPager.setCurrentItem(8);
+        }
+        if (id == R.id.dna1 || id == R.id.billboard || id == R.id.ht || id == R.id.lat || id == R.id.toi || id == R.id.telegraph) {
+            viewPager.setCurrentItem(10);
+        }
+        if (id == R.id.dna || id == R.id.bi || id == R.id.bs || id == R.id.ft || id == R.id.toi1 || id == R.id.telegraph1) {
+            viewPager.setCurrentItem(12);
+        }
+        if (id == R.id.autocar || id == R.id.an || id == R.id.automag || id == R.id.automob || id == R.id.toi2 || id == R.id.siam) {
+            viewPager.setCurrentItem(14);
+        }
+        if (id == R.id.hindu1 || id == R.id.iexpress || id == R.id.bbc1 || id == R.id.guardian || id == R.id.toi3 || id == R.id.ndtv) {
+            viewPager.setCurrentItem(16);
+        }
+
 //        if (id == R.id.nav_slideshow) {
 //            viewPager.setCurrentItem(8);
 //        } else if (id == R.id.nav_manage) {
@@ -390,17 +584,3 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        return super.onOptionsItemSelected(item);
 //    }
 }
-
-//class introTimeCalc extends AsyncTask
-//{
-//    @Override
-//    protected Object doInBackground(Object[] params) {
-//
-//        while(SystemClock.uptimeMillis()-MainActivity.currTime<=6000)
-//        {
-//
-//        }
-////        MainActivity.layoutDisappear();
-//        return null;
-//    }
-//}

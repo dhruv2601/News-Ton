@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1066025647192",
+    "firebase_url": "https://news-feed-2dfbf.firebaseio.com",
+    "project_id": "news-feed-2dfbf",
+    "storage_bucket": "news-feed-2dfbf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066025647192:android:df5749256282a194",
+        "android_client_info": {
+          "package_name": "com.example.dhruv.newsfeed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066025647192-h7p1lhq0lka515up7j00vamumm9dpm5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUa2zoYix9tmsohl1TiCxduxDJ6caND40"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

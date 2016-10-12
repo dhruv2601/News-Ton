@@ -15,13 +15,12 @@ public class NoInternet extends AppCompatActivity {
         setContentView(R.layout.activity_no_internet);
 
         reload = (Button) findViewById(R.id.reload);
-        reload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(NoInternet.this, TopicSelector.class);
-                startActivity(i);
-            }
-        });
-
+//        reload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(NoInternet.this, TopicSelector.class);
+//                startActivity(i);
+//            }
+//        });
     }
 }

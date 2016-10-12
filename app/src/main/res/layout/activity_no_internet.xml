@@ -18,7 +18,7 @@
         android:textSize="20dp"
         android:fontFamily="casual"
         android:textStyle="bold"
-        android:background="@color/common_signin_btn_default_background"
+        android:background="@color/red"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

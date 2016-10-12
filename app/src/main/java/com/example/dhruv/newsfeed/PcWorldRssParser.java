@@ -56,7 +56,7 @@ public class PcWorldRssParser extends AsyncTask {
         String shortDesc = null;
         String thumbnail = null;
 
-        while ((parser.next() != XmlPullParser.END_DOCUMENT) && count <= 60) {    //set a count condition to keep a check on the no.of feeds displayed
+        while ((parser.next() != XmlPullParser.END_DOCUMENT) && count <= 50) {    //set a count condition to keep a check on the no.of feeds displayed
 
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;

@@ -37,19 +37,15 @@ public class PagerAdapterTwo extends FragmentStatePagerAdapter implements java.i
         switch (MainActivity.position) {
             case 0:
                 MainActivity.position = 0;
-                return new Search_class();
-
-            case 1:
-                MainActivity.position = 0;
                 SavedArticleClass savedArticleClass = new SavedArticleClass();
                 return savedArticleClass;
 
-            case 2:
+            case 1:
                 Log.d(TAG, "beforeTab1");
                 MainActivity.position = 1;
 
                 if (MainActivity.b == false) {
-                    MainActivity.position = 1;
+                    MainActivity.position = 0; // top stories offline mode
                     Log.d(TAG, "appIsOffline");
                     return new Offline();
                 } else {
@@ -57,11 +53,11 @@ public class PagerAdapterTwo extends FragmentStatePagerAdapter implements java.i
                     return frag;
                 }
 
-            case 3:
+            case 2:
                 MainActivity.position = 0;
                 return new TopStoryReference();
 
-            case 4:
+            case 3:
                 Log.d(TAG, "beforeTab2");
                 //sports_tab tab2 = new sports_tab();
                 MainActivity.position = 2;
@@ -74,11 +70,11 @@ public class PagerAdapterTwo extends FragmentStatePagerAdapter implements java.i
                     return frag1;
                 }
 
-            case 5:
+            case 4:
                 MainActivity.position = 0;
                 return new SportsReference();
 
-            case 6:
+            case 5:
                 MainActivity.position = 3;
                 if (MainActivity.b == false) {
                     MainActivity.position = 2;
@@ -88,11 +84,11 @@ public class PagerAdapterTwo extends FragmentStatePagerAdapter implements java.i
                     return frag2;
                 }
 
-            case 7:
+            case 6:
                 MainActivity.position = 0;
-                return new EntryPage();
+                return new techReference();
 
-            case 8:
+            case 7:
                 MainActivity.position = 4;              //do it after 5th tab properly
                 if (MainActivity.b == false) {
                     MainActivity.position = 3;
@@ -102,12 +98,15 @@ public class PagerAdapterTwo extends FragmentStatePagerAdapter implements java.i
                     return frag3;
                 }
 
-            case 9:
+            case 8:
                 return new HindiReference();
 
-            case 10:
+            case 9:
                 WeatherActivity weather = new WeatherActivity();
                 return weather;
+            case 10:
+                MainActivity.position = 0;
+                return new Search_class();
 
             case 11:
                 return new EntryPage();

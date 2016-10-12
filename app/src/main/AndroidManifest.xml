@@ -37,20 +37,20 @@
         <item android:name="android:windowTitleSize">
             0dp</item>
 
-        <activity android:name=".TopicSelector" />
         <activity android:name=".NoInternet" />
         <activity android:name=".FullImageView" />
-        <activity android:name=".Photos" />
-        <activity android:name=".HindiNews" />
         <activity
             android:name=".entry_class"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity
+            android:name=".AppIntro"
+            android:theme="@style/Theme.Intro" />
     </application>
 
 </manifest>

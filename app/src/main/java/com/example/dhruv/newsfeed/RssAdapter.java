@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -71,6 +72,7 @@ public class RssAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
+        Log.d(TAG, "getItem " + position);
         return items.get(position);
     }
 
@@ -118,7 +120,7 @@ public class RssAdapter extends BaseAdapter {
         mShortAnimationDuration = convertView.getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
-        de.hdodenhof.circleimageview.CircleImageView addImg = (CircleImageView) convertView.findViewById(R.id.addBtn);
+        final de.hdodenhof.circleimageview.CircleImageView addImg = (CircleImageView) convertView.findViewById(R.id.addBtn);
 
         onItemClickSubs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +169,7 @@ public class RssAdapter extends BaseAdapter {
                 addToList = context.getSharedPreferences("savedArticle", 0);
                 SharedPreferences.Editor editor = addToList.edit();
 
+                Log.d(TAG, "posFind::: " + addImg.getVerticalScrollbarPosition());
                 editor.putString("title" + MainActivity.savedArticleSize, items.get(globalPos).getTitle());
                 editor.putString("link" + MainActivity.savedArticleSize, items.get(globalPos).getLink());
                 editor.putString("date" + MainActivity.savedArticleSize, items.get(globalPos).getDate());

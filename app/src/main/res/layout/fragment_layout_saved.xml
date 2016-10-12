@@ -12,10 +12,23 @@
     <ListView
         android:id="@+id/listViewTopStories"
         android:layout_width="fill_parent"
+        android:descendantFocusability="blocksDescendants"
         android:layout_height="fill_parent"
         android:background="@drawable/shadow"
         android:divider="@drawable/greyback"
         android:dividerHeight="18dp"
+        android:visibility="gone">
+
+    </ListView>
+
+    <ListView
+        android:id="@+id/listViewEnter"
+        android:layout_width="fill_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_height="fill_parent"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
+        android:dividerHeight="5dp"
         android:visibility="gone">
 
     </ListView>
@@ -27,6 +40,7 @@
         android:background="@drawable/shadow"
         android:divider="@drawable/greyback"
         android:dividerHeight="18dp"
+        android:descendantFocusability="blocksDescendants"
         android:visibility="gone">
 
     </ListView>
@@ -37,6 +51,7 @@
         android:layout_height="fill_parent"
         android:background="@drawable/shadow"
         android:divider="@drawable/greyback"
+        android:descendantFocusability="blocksDescendants"
         android:dividerHeight="5dp"
         android:visibility="gone">
 
@@ -48,6 +63,43 @@
         android:layout_height="fill_parent"
         android:background="@drawable/shadow"
         android:divider="@drawable/greyback"
+        android:descendantFocusability="blocksDescendants"
+        android:dividerHeight="5dp"
+        android:visibility="gone">
+
+    </ListView>
+
+    <ListView
+        android:id="@+id/listViewBusiness"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
+        android:dividerHeight="5dp"
+        android:descendantFocusability="blocksDescendants"
+        android:visibility="gone">
+
+    </ListView>
+
+    <ListView
+        android:id="@+id/listViewAutomobile"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
+        android:dividerHeight="5dp"
+        android:descendantFocusability="blocksDescendants"
+        android:visibility="gone">
+
+    </ListView>
+
+    <ListView
+        android:id="@+id/listViewPolitics"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
+        android:descendantFocusability="blocksDescendants"
         android:dividerHeight="5dp"
         android:visibility="gone">
 
@@ -59,6 +111,7 @@
         android:layout_height="fill_parent"
         android:background="@drawable/shadow"
         android:divider="@drawable/greyback"
+        android:descendantFocusability="blocksDescendants"
         android:dividerHeight="5dp"
         android:visibility="gone">
 
@@ -69,37 +122,37 @@
         android:id="@+id/deleteAll"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        app:rippleColor="@color/teal"
+        android:layout_alignLeft="@+id/play"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/play"
+        android:layout_marginBottom="21dp"
         android:clickable="true"
         android:src="@android:drawable/ic_menu_delete"
         app:fabSize="mini"
-        android:layout_marginBottom="21dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/play"
-        android:layout_alignStart="@+id/play" />
+        app:rippleColor="@color/teal" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/play"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        app:rippleColor="@color/teal"
+        android:layout_above="@+id/deleteAll"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:clickable="true"
         android:src="@android:drawable/ic_media_play"
         app:fabSize="mini"
-        android:layout_above="@+id/deleteAll"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        app:rippleColor="@color/teal" />
 
     <TextView
-        android:text="NO SAVED ARTICLES"
-        android:textSize="20dp"
-        android:fontFamily="serif"
-        android:textStyle="italic"
-        android:visibility="gone"
+        android:id="@+id/noSavedArt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/noSavedArt" />
+        android:layout_centerVertical="true"
+        android:fontFamily="serif"
+        android:text="NO SAVED ARTICLES"
+        android:textSize="20dp"
+        android:textStyle="italic"
+        android:visibility="gone" />
 
 </RelativeLayout>
