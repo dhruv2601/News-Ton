@@ -12,7 +12,7 @@
         android:title="Using The App"
         app:showAsAction="collapseActionView" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/aboutMe"
         android:orderInCategory="100"
         android:title="About Developer"
         app:showAsAction="collapseActionView" />

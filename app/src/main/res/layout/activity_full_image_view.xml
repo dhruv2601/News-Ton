@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.dhruv.newsfeed.FullImageView">
+    tools:context="dhruv.newsfeed.FullImageView">
 
     <Button
         android:id="@+id/sharePic"
