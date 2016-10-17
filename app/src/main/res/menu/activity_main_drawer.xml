@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/aboutMeNav"
+                android:icon="@drawable/ic_perm_identity_black"
+                android:title="About Developer" />
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Send" />
+        </menu>
+    </item>
+
+
     <item android:title="T O P   S T O R I E S">
         <menu>
             <item
@@ -186,19 +200,6 @@
             <item
                 android:id="@+id/ndtv"
                 android:title="NDTV" />
-        </menu>
-    </item>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
         </menu>
     </item>
 
