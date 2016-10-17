@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            return;
 //        }
 //        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
+// just adding to add new commit XD
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-4523503976646485/5363018650");
         mAdView = (AdView) findViewById(R.id.adView);
 //        AdRequest adRequest = new AdRequest.Builder().setLocation(useLocation).build();
