@@ -1,7 +1,6 @@
 package dhruv.newsfeed;
 
 import android.animation.Animator;
-import dhruv.newsfeed.R;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,13 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,308 +32,241 @@ import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Random;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 /**
  * Created by dhruv on 7/8/16.
  */
 
 public class RssAdapter extends BaseAdapter {
-
-    private static final String TAG = "RSSAdapter";
-    public static int globalPos;
-    public static List<RssItem> items;
-    public static String s;
-    public static Context context;
-    public static int mShortAnimationDuration;
-    public static View thumb1View = null;
-    public static Animator mCurrentAnimator;
-    public static View convertView;
-    public View view1 = null;
-    private GoogleApiClient client;
-    public static WebView wv;
-    public static ProgressBar progressBar;
-    Random rnd;
-    public TextView onItemClickSubs;
-
-
-    public RssAdapter(Context context, List<RssItem> items) {
-        this.items = items;
-        this.context = context;
-    }
+  private static final String TAG = "RSSAdapter";
+  public static int globalPos;
+  public static List<RssItem> items;
+  public static String s;
+  public static Context context;
+  public static int mShortAnimationDuration;
+  public static View thumb1View = null;
+  public static Animator mCurrentAnimator;
+  public static View convertView;
+  public View view1 = null;
+  private GoogleApiClient client;
+  public static WebView wv;
+  public static ProgressBar progressBar;
+  Random rnd;
+  public TextView onItemClickSubs;
 
 
-    @Override
-    public int getCount() {
-        return items.size();
-    }
+  public RssAdapter(Context context, List<RssItem> items) {
+    this.items = items;
+    this.context = context;
+  }
 
-    @Override
-    public Object getItem(int position) {
-        Log.d(TAG, "getItem " + position);
-        return items.get(position);
-    }
+  @Override
+  public int getCount() {
+    return items.size();
+  }
 
-    @Override
-    public long getItemId(int id) {
-        return id;
-    }
+  @Override
+  public Object getItem(int position) {
+    Log.d(TAG, "getItem " + position);
+    return items.get(position);
+  }
 
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+  @Override
+  public long getItemId(int id) {
+    return id;
+  }
 
-        final ViewHolder holder;
-        if (convertView == null) {
-            convertView = View.inflate(context, R.layout.rss_item, null);
+  @Override
+  public View getView(final int position, View convertView, ViewGroup parent) {
+
+
+    final ViewHolder holder;
+    if (convertView == null) {
+      convertView = View.inflate(context, R.layout.rss_item_two, null);
 //            onItemClickSubs = (Button) convertView.findViewById(R.id.onItemClickSubs);
-            onItemClickSubs = (TextView) convertView.findViewById(R.id.itemTitle);
-            holder = new ViewHolder();
-            holder.itemTitle = (TextView) convertView.findViewById(R.id.itemTitle);
-            holder.rand = (ImageView) convertView.findViewById(R.id.rand);
-            holder.category = (TextView) convertView.findViewById(R.id.channel);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-            globalPos = position;
-            Log.d(TAG, "pos==" + position);
-            s = items.get(position).getLink();
-            Log.d(TAG, "s==" + s);
-        }
+      onItemClickSubs = (TextView) convertView.findViewById(R.id.itemTitle);
+      holder = new ViewHolder();
+      holder.itemTitle = (TextView) convertView.findViewById(R.id.itemTitle);
+      holder.rand = (ImageView) convertView.findViewById(R.id.rand);
+      holder.category = (TextView) convertView.findViewById(R.id.channel);
+      convertView.setTag(holder);
+    } else {
+      holder = (ViewHolder) convertView.getTag();
+      globalPos = position;
+      Log.d(TAG, "pos==" + position);
+      s = items.get(position).getLink();
+      Log.d(TAG, "s==" + s);
+    }
 
-        this.convertView = convertView;
-        thumb1View = convertView.findViewById(R.id.rand);
-        thumb1View.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view1 = view.getRootView();
-                Log.d(TAG, "view1 " + view1);
-                globalPos = position;
-                zoomImageFromThumb(thumb1View);
-                //  default news ki jgah the downloaded image
-            }
+    this.convertView = convertView;
+    thumb1View = convertView.findViewById(R.id.rand);
+    thumb1View.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        view1 = view.getRootView();
+        Log.d(TAG, "view1 " + view1);
+        globalPos = position;
+        zoomImageFromThumb(thumb1View);
+        //  default news ki jgah the downloaded image
+      }
 
+    });
+
+    // Retrieve and cache the system's default "short" animation time.
+    mShortAnimationDuration = convertView.getResources().getInteger(
+            android.R.integer.config_shortAnimTime);
+
+    final LinearLayout llsave = (LinearLayout) convertView.findViewById(R.id.llsave);
+
+    llsave.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        SavedArticleClass.noSavedArt.setVisibility(View.GONE);
+        SharedPreferences addToList;
+        addToList = context.getSharedPreferences("savedArticle", 0);
+        SharedPreferences.Editor editor = addToList.edit();
+
+        //  Log.d(TAG, "posFind::: " + addImg.getVerticalScrollbarPosition());
+        editor.putString("title" + MainActivity.savedArticleSize, items.get(globalPos).getTitle());
+        editor.putString("link" + MainActivity.savedArticleSize, items.get(globalPos).getLink());
+        editor.putString("date" + MainActivity.savedArticleSize, items.get(globalPos).getDate());
+        editor.putString("category" + MainActivity.savedArticleSize, items.get(globalPos).getCategory());
+        editor.putString("thumbnail" + MainActivity.savedArticleSize, items.get(globalPos).getThumbnail());
+
+        MainActivity.savedArticleSize++;
+        editor.putInt("size", MainActivity.savedArticleSize);
+        editor.apply();
+
+        Toast.makeText(context, "Article Added To Reading List", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "Article Added To Reading List");
+      }
+    });
+
+    Button btSave = (Button) convertView.findViewById(R.id.save);
+    btSave.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+
+        SavedArticleClass.noSavedArt.setVisibility(View.GONE);
+        SharedPreferences addToList;
+        addToList = context.getSharedPreferences("savedArticle", 0);
+        SharedPreferences.Editor editor = addToList.edit();
+
+        editor.putString("title" + MainActivity.savedArticleSize, items.get(globalPos).getTitle());
+        editor.putString("link" + MainActivity.savedArticleSize, items.get(globalPos).getLink());
+        editor.putString("date" + MainActivity.savedArticleSize, items.get(globalPos).getDate());
+        editor.putString("category" + MainActivity.savedArticleSize, items.get(globalPos).getCategory());
+        editor.putString("thumbnail" + MainActivity.savedArticleSize, items.get(globalPos).getThumbnail());
+
+        MainActivity.savedArticleSize++;
+        editor.putInt("size", MainActivity.savedArticleSize);
+        editor.apply();
+
+        Toast.makeText(context, "Article Added To Reading List", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "Article Added To Reading List");
+
+      }
+    });
+
+    Button share = (Button) convertView.findViewById(R.id.share);
+    share.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+
+        shareIntent.setType("text/html");
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "This Article Was Sent By News Feed App" + "\n");   // instead send the description here
+
+        String articleLink = RssAdapter.items.get(position).getLink();
+        shareIntent.putExtra(Intent.EXTRA_TEXT, items.get(position).getTitle() + "\n\n" + articleLink);
+        context.startActivity(Intent.createChooser(shareIntent, "Share Article"));
+      }
+    });
+
+
+    ImageView shareimg = (ImageView) convertView.findViewById(R.id.shareimg);
+    shareimg.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+
+        shareIntent.setType("text/html");
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "This Article Was Sent By News Feed App" + "\n");   // instead send the description here
+
+        String articleLink = RssAdapter.items.get(position).getLink();    // yahan 3 ki jgah RssService ki list view mn jo bhi position p ye send vala btn hoga vo aayega
+        shareIntent.putExtra(Intent.EXTRA_TEXT, items.get(position).getTitle() + "\n" + articleLink);
+        context.startActivity(Intent.createChooser(shareIntent, "Share Article"));   // share ke badd app p nhi ja rha hai!!
+      }
+    });
+
+    onItemClickSubs.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyDialogTheme);
+        alert.setTitle(RssAdapter.items.get(position).getTitle());
+
+        wv = new WebView(RssAdapter.context);
+        wv.setInitialScale(1);
+        wv.getSettings().setJavaScriptEnabled(true);
+        wv.getSettings().setLoadWithOverviewMode(true);
+        wv.getSettings().setUseWideViewPort(true);
+        wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        wv.setScrollbarFadingEnabled(false);
+
+        wv.getSettings().setBuiltInZoomControls(true);
+        wv.getSettings().setDisplayZoomControls(false);
+
+        wv.loadUrl(RssAdapter.items.get(position).getLink());
+        wv.setWebViewClient(new WebViewClient() {
+          @Override
+          public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+
+            return true;
+          }
         });
 
-        // Retrieve and cache the system's default "short" animation time.
-        mShortAnimationDuration = convertView.getResources().getInteger(
-                android.R.integer.config_shortAnimTime);
-
-        final de.hdodenhof.circleimageview.CircleImageView addImg = (CircleImageView) convertView.findViewById(R.id.addBtn);
-
-
-        addImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                SavedArticleClass.noSavedArt.setVisibility(View.GONE);
-                SharedPreferences addToList;
-                addToList = context.getSharedPreferences("savedArticle", 0);
-                SharedPreferences.Editor editor = addToList.edit();
-
-                Log.d(TAG, "posFind::: " + addImg.getVerticalScrollbarPosition());
-                editor.putString("title" + MainActivity.savedArticleSize, items.get(globalPos).getTitle());
-                editor.putString("link" + MainActivity.savedArticleSize, items.get(globalPos).getLink());
-                editor.putString("date" + MainActivity.savedArticleSize, items.get(globalPos).getDate());
-                editor.putString("category" + MainActivity.savedArticleSize, items.get(globalPos).getCategory());
-                editor.putString("thumbnail" + MainActivity.savedArticleSize, items.get(globalPos).getThumbnail());
-
-                MainActivity.savedArticleSize++;
-                editor.putInt("size", MainActivity.savedArticleSize);
-                editor.apply();
-
-                Toast.makeText(context, "Article Added To Reading List", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Article Added To Reading List");
-            }
+        alert.setView(wv);
+        alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int id) {
+            dialog.dismiss();
+          }
         });
+        alert.show();
 
-        Button share = (Button) convertView.findViewById(R.id.share);
-        share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+      }
+    });
 
-                shareIntent.setType("text/html");
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "This Article Was Sent By a BITCHING App" + "\n");   // instead send the description here
+    ImageView listenimg = (ImageView) convertView.findViewById(R.id.listenimg);
+    listenimg.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        MainActivity.t1.speak(RssAdapter.items.get(position).getTitle().toString(), TextToSpeech.QUEUE_FLUSH, null);
+      }
+    });
 
-                String articleLink = RssAdapter.items.get(position).getLink();
-                shareIntent.putExtra(Intent.EXTRA_TEXT, items.get(position).getTitle() + "\n\n" + articleLink);
-                context.startActivity(Intent.createChooser(shareIntent, "Share Article"));
-            }
-        });
+    Button listenbtn = (Button) convertView.findViewById(R.id.listenbtn);
+    listenbtn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        MainActivity.t1.speak(RssAdapter.items.get(position).getTitle().toString(), TextToSpeech.QUEUE_FLUSH, null);
+      }
+    });
 
-
-        ImageView shareimg = (ImageView) convertView.findViewById(R.id.shareimg);
-        shareimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-
-                shareIntent.setType("text/html");
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "This Article Was Sent By a BITCHING App" + "\n");   // instead send the description here
-
-                String articleLink = RssAdapter.items.get(position).getLink();    // yahan 3 ki jgah RssService ki list view mn jo bhi position p ye send vala btn hoga vo aayega
-                shareIntent.putExtra(Intent.EXTRA_TEXT, items.get(position).getTitle() + "\n" + articleLink);
-                context.startActivity(Intent.createChooser(shareIntent, "Share Article"));   // share ke badd app p nhi ja rha hai!!
-            }
-        });
-
-        ImageView fullart = (ImageView) convertView.findViewById(R.id.full);
-        fullart.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyDialogTheme);
-                alert.setTitle(RssAdapter.items.get(position).getTitle());
-
-                wv = new WebView(RssAdapter.context);
-                wv.setInitialScale(1);
-                wv.getSettings().setJavaScriptEnabled(true);
-                wv.getSettings().setLoadWithOverviewMode(true);
-                wv.getSettings().setUseWideViewPort(true);
-                wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-                wv.setScrollbarFadingEnabled(false);
-
-                wv.getSettings().setBuiltInZoomControls(true);
-                wv.getSettings().setDisplayZoomControls(false);
-
-                wv.loadUrl(RssAdapter.items.get(position).getLink());
-                wv.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        view.loadUrl(url);
-
-                        return true;
-                    }
-                });
-
-                alert.setView(wv);
-                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                alert.show();
-
-
-//                Intent i = new Intent(context, FullArticle.class);
-//                i.putExtra("url", RssAdapter.items.get(position).getLink().toString());
-//
-// Log.d(TAG, "link==" + RssAdapter.items.get(position).getLink().toString());
-//                context.startActivity(i);
-            }
-        });
-
-//        onItemClickSubs.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyDialogTheme);
-//                alert.setTitle(RssAdapter.items.get(position).getTitle());
-//
-//                wv = new WebView(RssAdapter.context);
-//                wv.setInitialScale(1);
-//                wv.getSettings().setJavaScriptEnabled(true);
-//                wv.getSettings().setLoadWithOverviewMode(true);
-//                wv.getSettings().setUseWideViewPort(true);
-//                wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-//                wv.setScrollbarFadingEnabled(false);
-//
-//                wv.getSettings().setBuiltInZoomControls(true);
-//                wv.getSettings().setDisplayZoomControls(false);
-//
-//                wv.loadUrl(RssAdapter.items.get(position).getLink());
-//                wv.setWebViewClient(new WebViewClient() {
-//                    @Override
-//                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//                        view.loadUrl(url);
-//
-//                        return true;
-//                    }
-//                });
-//
-//                alert.setView(wv);
-//                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//                alert.show();
-//
-//            }
-//        });
-
-
-        Button readFull = (Button) convertView.findViewById(R.id.readFull);
-        readFull.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyDialogTheme);
-                alert.setTitle(RssAdapter.items.get(position).getTitle());
-
-                wv = new WebView(RssAdapter.context);
-                wv.setInitialScale(1);
-                wv.getSettings().setJavaScriptEnabled(true);
-                wv.getSettings().setLoadWithOverviewMode(true);
-                wv.getSettings().setUseWideViewPort(true);
-                wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-                wv.setScrollbarFadingEnabled(false);
-
-                wv.getSettings().setBuiltInZoomControls(true);
-                wv.getSettings().setDisplayZoomControls(false);
-
-                wv.loadUrl(RssAdapter.items.get(position).getLink());
-                wv.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        view.loadUrl(url);
-
-                        return true;
-                    }
-                });
-
-                alert.setView(wv);
-                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                alert.show();
-
-
-            }
-        });
-
-        ImageView listenimg = (ImageView) convertView.findViewById(R.id.listenimg);
-        listenimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.t1.speak(RssAdapter.items.get(position).getTitle().toString(), TextToSpeech.QUEUE_FLUSH, null);
-            }
-        });
-
-        Button listenbtn = (Button) convertView.findViewById(R.id.listenbtn);
-        listenbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.t1.speak(RssAdapter.items.get(position).getTitle().toString(), TextToSpeech.QUEUE_FLUSH, null);
-            }
-        });
-
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //globalPos = position;
+    convertView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        //globalPos = position;
 //                Intent i = new Intent(context, MainActivity.class);
-                Log.d(TAG, "pos::" + position);
+        Log.d(TAG, "pos::" + position);
 //                i.putExtra("position", position);
-            }
-        });
+      }
+    });
 
 //        ----->>>>>    CAUTION  ::::::   DO NOT DELETE    <<<<<-------         //
 
@@ -359,106 +289,106 @@ public class RssAdapter extends BaseAdapter {
 //        ----->>>>>    CAUTION  ::::::   DO NOT DELETE    <<<<<-------         //
 
 
-        holder.itemTitle.setText(items.get(position).getTitle());
+    holder.itemTitle.setText(items.get(position).getTitle());
 
-        if (items.get(position).getCategory() != "") {
-            holder.category.setText(items.get(position).getCategory());
-        } else {
-            holder.category.setText("News");
-        }
-
-        if (items.get(position).getThumbnail() == null) {
-            holder.rand.setBackgroundResource(R.drawable.defaulttwo);
-        }
-        Log.d(TAG, "thumbnail is " + items.get(position).getThumbnail());
-
-        Picasso.with(RssAdapter.this.context).load(items.get(position).getThumbnail()).into(holder.rand);
-        return convertView;
+    if (items.get(position).getCategory() != "") {
+      holder.category.setText(items.get(position).getCategory());
+    } else {
+      holder.category.setText("News");
     }
 
-    private void zoomImageFromThumb(final View thumbView) {
+    if (items.get(position).getThumbnail() == null) {
+      holder.rand.setBackgroundResource(R.drawable.news_feed_photo);
+    }
 
-        if (mCurrentAnimator != null) {
-            mCurrentAnimator.cancel();
-        }
+
+    Picasso.with(RssAdapter.this.context).load(items.get(position).getThumbnail()).into(holder.rand);
+    return convertView;
+  }
+
+  private void zoomImageFromThumb(final View thumbView) {
+
+    if (mCurrentAnimator != null) {
+      mCurrentAnimator.cancel();
+    }
 
 //        final Dialog dialog = new Dialog(RssAdapter.context);
 //        dialog.setContentView(R.layout.expand_image);
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyImageTheme);
-        alert.setTitle("Image");
+    AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyImageTheme);
+    alert.setTitle("Image");
 
-        ImageView img = new ImageView(RssAdapter.context);
-        alert.setView(img);
+    ImageView img = new ImageView(RssAdapter.context);
+    alert.setView(img);
 
-        Picasso.with(RssAdapter.this.context).load(items.get(globalPos).getThumbnail()).resize(800, 600).into(img);
+    Picasso.with(RssAdapter.this.context).load(items.get(globalPos).getThumbnail()).resize(800, 600).into(img);
 
-        alert.setPositiveButton("     Close  ", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
-
-
-        alert.setNegativeButton("DOWNLOAD    ", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                final File direct = new File(Environment.getExternalStorageDirectory() + "/NewsFeed");
-
-                if (!direct.exists()) {
-                    File wallpaperDirectory = new File("/sdcard/NewsFeed/");
-                    wallpaperDirectory.mkdirs();
-                }
+    alert.setPositiveButton("     Close  ", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int id) {
+        dialog.dismiss();
+      }
+    });
 
 
-                Target target = new Target() {
-                    @Override
-                    public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                File file = new File(
-                                        Environment.getExternalStorageDirectory().getPath() + "/Download"
-                                                + "/saved" + System.currentTimeMillis() % 10000 + ".jpg");
+    alert.setNegativeButton("DOWNLOAD    ", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+
+        final File direct = new File(Environment.getExternalStorageDirectory() + "/NewsFeed");
+
+        if (!direct.exists()) {
+          File wallpaperDirectory = new File("/sdcard/NewsFeed/");
+          wallpaperDirectory.mkdirs();
+        }
+
+
+        Target target = new Target() {
+          @Override
+          public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+            new Thread(new Runnable() {
+              @Override
+              public void run() {
+                File file = new File(
+                        Environment.getExternalStorageDirectory().getPath() + "/Download"
+                                + "/saved" + System.currentTimeMillis() % 10000 + ".jpg");
 
 //                                File file = new File(new File("/sdcard/NewsFeed/"), direct.toString()+System.currentTimeMillis()%10000+".jpg");
 
-                                Log.d(TAG, "fileName " + file);
-                                try {
-                                    file.createNewFile();
-                                    FileOutputStream ostream = new FileOutputStream(file);
-                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-                                    Log.d(TAG, "bitmap " + bitmap);
-                                    ostream.close();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).start();
-                        Toast.makeText(context, "Image Saved In Downloads", Toast.LENGTH_SHORT).show();
-                    }
+                Log.d(TAG, "fileName " + file);
+                try {
+                  file.createNewFile();
+                  FileOutputStream ostream = new FileOutputStream(file);
+                  bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
+                  Log.d(TAG, "bitmap " + bitmap);
+                  ostream.close();
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
+            }).start();
+            Toast.makeText(context, "Image Saved In Downloads", Toast.LENGTH_SHORT).show();
+          }
 
-                    @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {
-                    }
+          @Override
+          public void onBitmapFailed(Drawable errorDrawable) {
+          }
 
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-                    }
-                };
+          @Override
+          public void onPrepareLoad(Drawable placeHolderDrawable) {
+          }
+        };
 
-                Log.d(TAG, "target " + target);
-                Picasso.with(RssAdapter.this.context).load(
-                        items.get(globalPos).getThumbnail()).into(target);
-            }
-        });
+        Log.d(TAG, "target " + target);
+        Picasso.with(RssAdapter.this.context).load(
+                items.get(globalPos).getThumbnail()).into(target);
+      }
+    });
 
-        alert.show();
+    alert.show();
 
-        // Calculate the starting and ending bounds for the zoomed-in image.
-        // This step involves lots of math. Yay, math.
+    // Calculate the starting and ending bounds for the zoomed-in image.
+    // This step involves lots of math. Yay, math.
 //        final Rect startBounds = new Rect();
 //        final Rect finalBounds = new Rect();
 //        final Point globalOffset = new Point();
@@ -583,28 +513,32 @@ public class RssAdapter extends BaseAdapter {
 //            }
 //        });
 
-    }
+  }
 
-    private String calcTime(long x) {
-        String ret;
-        x /= (1000 * 60);
-        if (x > (1440)) {
-            x /= 1440;
-            ret = String.valueOf(x) + " Day";
-        } else if (x > 60) {
-            x /= 60;
-            ret = String.valueOf(x) + " Hr.";
-        } else {
-            ret = String.valueOf(x) + " Min";
-        }
-        return ret;
+  private void rssTime() {
+
+  }
+
+  private String calcTime(long x) {
+    String ret;
+    x /= (1000 * 60);
+    if (x > (1440)) {
+      x /= 1440;
+      ret = String.valueOf(x) + " Day";
+    } else if (x > 60) {
+      x /= 60;
+      ret = String.valueOf(x) + " Hr.";
+    } else {
+      ret = String.valueOf(x) + " Min";
     }
+    return ret;
+  }
 
 
-    static class ViewHolder {
-        TextView itemTitle;
-        ImageView rand;
-        TextView category;
-        TextView showDate;
-    }
+  static class ViewHolder {
+    TextView itemTitle;
+    ImageView rand;
+    TextView category;
+    TextView showDate;
+  }
 }
