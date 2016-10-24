@@ -82,7 +82,6 @@ public class RssAdapter extends BaseAdapter {
     final ViewHolder holder;
     if (convertView == null) {
       convertView = View.inflate(context, R.layout.rss_item_two, null);
-//            onItemClickSubs = (Button) convertView.findViewById(R.id.onItemClickSubs);
       onItemClickSubs = (TextView) convertView.findViewById(R.id.itemTitle);
       holder = new ViewHolder();
       holder.itemTitle = (TextView) convertView.findViewById(R.id.itemTitle);
@@ -539,6 +538,5 @@ public class RssAdapter extends BaseAdapter {
     TextView itemTitle;
     ImageView rand;
     TextView category;
-    TextView showDate;
   }
 }
