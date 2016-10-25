@@ -9,7 +9,6 @@
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shadow"
         android:descendantFocusability="blocksDescendants"
         android:orientation="vertical">
 
@@ -39,10 +38,9 @@
             android:id="@+id/listViewTopStories"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shadow"
             android:descendantFocusability="blocksDescendants"
-            android:divider="@drawable/greyback"
-            android:dividerHeight="5dp"
+            android:divider="@color/list_view_divider"
+            android:dividerHeight="2dp"
             android:visibility="gone">
 
         </ListView>
@@ -51,10 +49,9 @@
             android:id="@+id/listViewSports"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shadow"
             android:descendantFocusability="blocksDescendants"
-            android:divider="@drawable/greyback"
-            android:dividerHeight="5dp"
+            android:divider="@color/list_view_divider"
+            android:dividerHeight="2dp"
             android:visibility="gone">
 
         </ListView>
@@ -63,10 +60,9 @@
             android:id="@+id/listViewEnter"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shadow"
             android:descendantFocusability="blocksDescendants"
-            android:divider="@drawable/greyback"
-            android:dividerHeight="5dp"
+            android:divider="@color/list_view_divider"
+            android:dividerHeight="2dp"
             android:visibility="gone">
 
         </ListView>
@@ -75,10 +71,9 @@
             android:id="@+id/listViewTech"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shadow"
             android:descendantFocusability="blocksDescendants"
-            android:divider="@drawable/greyback"
-            android:dividerHeight="5dp"
+            android:divider="@color/list_view_divider"
+            android:dividerHeight="2dp"
             android:visibility="gone">
 
         </ListView>
@@ -87,10 +82,9 @@
             android:id="@+id/listViewWorld"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shadow"
             android:descendantFocusability="blocksDescendants"
-            android:divider="@drawable/greyback"
-            android:dividerHeight="5dp"
+            android:divider="@color/list_view_divider"
+            android:dividerHeight="2dp"
             android:visibility="gone">
 
         </ListView>
@@ -99,10 +93,9 @@
             android:id="@+id/listViewBusiness"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shadow"
             android:descendantFocusability="blocksDescendants"
-            android:divider="@drawable/greyback"
-            android:dividerHeight="5dp"
+            android:divider="@color/list_view_divider"
+            android:dividerHeight="2dp"
             android:visibility="gone">
 
         </ListView>
@@ -111,10 +104,9 @@
             android:id="@+id/listViewAutomobile"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shadow"
             android:descendantFocusability="blocksDescendants"
-            android:divider="@drawable/greyback"
-            android:dividerHeight="5dp"
+            android:divider="@color/list_view_divider"
+            android:dividerHeight="2dp"
             android:visibility="gone">
 
         </ListView>
@@ -123,10 +115,9 @@
             android:id="@+id/listViewPolitics"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shadow"
             android:descendantFocusability="blocksDescendants"
-            android:divider="@drawable/greyback"
-            android:dividerHeight="5dp"
+            android:divider="@color/list_view_divider"
+            android:dividerHeight="2dp"
             android:visibility="gone">
 
         </ListView>
@@ -135,10 +126,9 @@
             android:id="@+id/savedArticle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/shadow"
             android:descendantFocusability="blocksDescendants"
-            android:divider="@drawable/greyback"
-            android:dividerHeight="5dp"
+            android:divider="@color/list_view_divider"
+            android:dividerHeight="2dp"
             android:visibility="gone">
 
         </ListView>
