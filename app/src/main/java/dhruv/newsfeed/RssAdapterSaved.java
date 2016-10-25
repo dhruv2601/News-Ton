@@ -1,13 +1,10 @@
 package dhruv.newsfeed;
 
 import android.animation.Animator;
-import dhruv.newsfeed.R;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.speech.tts.TextToSpeech;
@@ -30,11 +27,8 @@ import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dhruv on 7/8/16.
@@ -195,8 +189,8 @@ public class RssAdapterSaved extends BaseAdapter {
         });
 
 
-        Button share = (Button) convertView.findViewById(R.id.share);
-        share.setOnClickListener(new View.OnClickListener() {
+        final ImageView imgShare = (ImageView) convertView.findViewById(R.id.shareimg);
+        imgShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -205,14 +199,15 @@ public class RssAdapterSaved extends BaseAdapter {
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "This Article Was Sent By a BITCHING App" + "\n");   // instead send the description here
 
-                String articleLink = RssAdapterSaved.items.get(position).getLink();
+                String articleLink = RssAdapter.items.get(position).getLink();
                 shareIntent.putExtra(Intent.EXTRA_TEXT, items.get(position).getTitle() + "\n\n" + articleLink);
                 context.startActivity(Intent.createChooser(shareIntent, "Share Article"));
             }
         });
 
-        ImageView shareimg = (ImageView) convertView.findViewById(R.id.shareimg);
-        shareimg.setOnClickListener(new View.OnClickListener() {
+
+        final Button btnShare = (Button) convertView.findViewById(R.id.btn_share);
+        btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -221,106 +216,19 @@ public class RssAdapterSaved extends BaseAdapter {
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "This Article Was Sent By a BITCHING App" + "\n");   // instead send the description here
 
-                String articleLink = RssAdapterSaved.items.get(position).getLink();    // yahan 3 ki jgah RssService ki list view mn jo bhi position p ye send vala btn hoga vo aayega
-                shareIntent.putExtra(Intent.EXTRA_TEXT, items.get(position).getTitle() + "\n" + articleLink);
-                context.startActivity(Intent.createChooser(shareIntent, "Share Article"));   // share ke badd app p nhi ja rha hai!!
+                String articleLink = RssAdapter.items.get(position).getLink();
+                shareIntent.putExtra(Intent.EXTRA_TEXT, items.get(position).getTitle() + "\n\n" + articleLink);
+                context.startActivity(Intent.createChooser(shareIntent, "Share Article"));
             }
         });
 
-        ImageView fullart = (ImageView) convertView.findViewById(R.id.full);
-        fullart.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-
-                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context);
-                alert.setTitle(RssAdapterSaved.items.get(position).getTitle());
-
-                wv = new WebView(RssAdapterSaved.context);
-                wv.setInitialScale(1);
-                wv.getSettings().setJavaScriptEnabled(true);
-                wv.getSettings().setLoadWithOverviewMode(true);
-                wv.getSettings().setUseWideViewPort(true);
-                wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-                wv.setScrollbarFadingEnabled(false);
-
-                wv.getSettings().setBuiltInZoomControls(true);
-                wv.getSettings().setDisplayZoomControls(false);
-
-                wv.loadUrl(RssAdapterSaved.items.get(position).getLink());
-                wv.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        view.loadUrl(url);
-
-                        return true;
-                    }
-                });
-
-                alert.setView(wv);
-                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                alert.show();
-
-
-//                Intent i = new Intent(context, FullArticle.class);
-//                i.putExtra("url", RssAdapter.items.get(position).getLink().toString());
-//
-// Log.d(TAG, "link==" + RssAdapter.items.get(position).getLink().toString());
-//                context.startActivity(i);
-            }
-        });
-
-        Button readFull = (Button) convertView.findViewById(R.id.readFull);
-        readFull.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyDialogTheme);
-                alert.setTitle(RssAdapterSaved.items.get(position).getTitle());
-
-                wv = new WebView(RssAdapterSaved.context);
-                wv.setInitialScale(1);
-                wv.getSettings().setJavaScriptEnabled(true);
-                wv.getSettings().setLoadWithOverviewMode(true);
-                wv.getSettings().setUseWideViewPort(true);
-                wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-                wv.setScrollbarFadingEnabled(false);
-
-                wv.getSettings().setBuiltInZoomControls(true);
-                wv.getSettings().setDisplayZoomControls(false);
-
-                wv.loadUrl(RssAdapterSaved.items.get(position).getLink());
-                wv.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        view.loadUrl(url);
-
-                        return true;
-                    }
-                });
-
-                alert.setView(wv);
-                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                alert.show();
-
-
-            }
-        });
 
         ImageView listenimg = (ImageView) convertView.findViewById(R.id.listenimg);
         listenimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.t1.speak(RssAdapterSaved.items.get(position).getTitle().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                MainActivity.t1.speak(RssAdapter.items.get(position).getTitle().toString(), TextToSpeech.QUEUE_FLUSH, null);
             }
         });
 
@@ -328,7 +236,7 @@ public class RssAdapterSaved extends BaseAdapter {
         listenbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.t1.speak(RssAdapterSaved.items.get(position).getTitle().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                MainActivity.t1.speak(RssAdapter.items.get(position).getTitle().toString(), TextToSpeech.QUEUE_FLUSH, null);
             }
         });
 
@@ -372,7 +280,7 @@ public class RssAdapterSaved extends BaseAdapter {
         }
 
         if (items.get(position).getThumbnail() == null) {
-            holder.rand.setBackgroundResource(R.drawable.defaulttwo);
+            holder.rand.setBackgroundResource(R.drawable.news_feed_photo);
         }
         Log.d(TAG, "thumbnail is " + items.get(position).getThumbnail());
 
