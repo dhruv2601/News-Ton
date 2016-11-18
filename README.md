@@ -1,8 +1,11 @@
 # News-Feed
 
  Sharable link : https://play.google.com/store/apps/details?id=dhruv.newsfeed 
-/home/dhruv/Desktop/google-play-badge.png
-
+ 
+ 
+ <a href='https://play.google.com/store/apps/details?id=dhruv.newsfeed&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+ 
+ 
 Always want to be updated with what's going on around you? News Feed is here for you !! Intall and enjoy countless features 
 
 
