@@ -1,6 +1,7 @@
 # News-Feed
 
  Sharable link : https://play.google.com/store/apps/details?id=dhruv.newsfeed 
+/home/dhruv/Desktop/google-play-badge.png
 
 Always want to be updated with what's going on around you? News Feed is here for you !! Intall and enjoy countless features 
 
