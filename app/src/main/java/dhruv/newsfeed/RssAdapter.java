@@ -1,6 +1,7 @@
 package dhruv.newsfeed;
 
 import android.animation.Animator;
+import dhruv.newsfeed.R;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,10 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +34,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Random;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dhruv on 7/8/16.
@@ -115,8 +121,10 @@ public class RssAdapter extends BaseAdapter {
         mShortAnimationDuration = convertView.getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
 
-        final ImageView imgSave = (ImageView) convertView.findViewById(R.id.iv_save);
-        imgSave.setOnClickListener(new View.OnClickListener() {
+        final de.hdodenhof.circleimageview.CircleImageView addImg = (CircleImageView) convertView.findViewById(R.id.addBtn);
+
+
+        addImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -125,32 +133,7 @@ public class RssAdapter extends BaseAdapter {
                 addToList = context.getSharedPreferences("savedArticle", 0);
                 SharedPreferences.Editor editor = addToList.edit();
 
-                Log.d(TAG, "posFind::: " + imgSave.getVerticalScrollbarPosition());
-                editor.putString("title" + MainActivity.savedArticleSize, items.get(globalPos).getTitle());
-                editor.putString("link" + MainActivity.savedArticleSize, items.get(globalPos).getLink());
-                editor.putString("date" + MainActivity.savedArticleSize, items.get(globalPos).getDate());
-                editor.putString("category" + MainActivity.savedArticleSize, items.get(globalPos).getCategory());
-                editor.putString("thumbnail" + MainActivity.savedArticleSize, items.get(globalPos).getThumbnail());
-
-                MainActivity.savedArticleSize++;
-                editor.putInt("size", MainActivity.savedArticleSize);
-                editor.apply();
-
-                Toast.makeText(context, "Article Added To Reading List", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Article Added To Reading List");
-            }
-        });
-        final Button btnSave = (Button) convertView.findViewById(R.id.btn_save);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                SavedArticleClass.noSavedArt.setVisibility(View.GONE);
-                SharedPreferences addToList;
-                addToList = context.getSharedPreferences("savedArticle", 0);
-                SharedPreferences.Editor editor = addToList.edit();
-
-                Log.d(TAG, "posFind::: " + btnSave.getVerticalScrollbarPosition());
+                Log.d(TAG, "posFind::: " + addImg.getVerticalScrollbarPosition());
                 editor.putString("title" + MainActivity.savedArticleSize, items.get(globalPos).getTitle());
                 editor.putString("link" + MainActivity.savedArticleSize, items.get(globalPos).getLink());
                 editor.putString("date" + MainActivity.savedArticleSize, items.get(globalPos).getDate());
@@ -166,8 +149,8 @@ public class RssAdapter extends BaseAdapter {
             }
         });
 
-        final ImageView imgShare = (ImageView) convertView.findViewById(R.id.shareimg);
-        imgShare.setOnClickListener(new View.OnClickListener() {
+        Button share = (Button) convertView.findViewById(R.id.share);
+        share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -183,8 +166,8 @@ public class RssAdapter extends BaseAdapter {
         });
 
 
-        final Button btnShare = (Button) convertView.findViewById(R.id.btn_share);
-        btnShare.setOnClickListener(new View.OnClickListener() {
+        ImageView shareimg = (ImageView) convertView.findViewById(R.id.shareimg);
+        shareimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -193,15 +176,17 @@ public class RssAdapter extends BaseAdapter {
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "This Article Was Sent By a BITCHING App" + "\n");   // instead send the description here
 
-                String articleLink = RssAdapter.items.get(position).getLink();
-                shareIntent.putExtra(Intent.EXTRA_TEXT, items.get(position).getTitle() + "\n\n" + articleLink);
-                context.startActivity(Intent.createChooser(shareIntent, "Share Article"));
+                String articleLink = RssAdapter.items.get(position).getLink();    // yahan 3 ki jgah RssService ki list view mn jo bhi position p ye send vala btn hoga vo aayega
+                shareIntent.putExtra(Intent.EXTRA_TEXT, items.get(position).getTitle() + "\n" + articleLink);
+                context.startActivity(Intent.createChooser(shareIntent, "Share Article"));   // share ke badd app p nhi ja rha hai!!
             }
         });
 
-        onItemClickSubs.setOnClickListener(new View.OnClickListener() {
+        ImageView fullart = (ImageView) convertView.findViewById(R.id.full);
+        fullart.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyDialogTheme);
                 alert.setTitle(RssAdapter.items.get(position).getTitle());
@@ -235,6 +220,94 @@ public class RssAdapter extends BaseAdapter {
                     }
                 });
                 alert.show();
+
+
+//                Intent i = new Intent(context, FullArticle.class);
+//                i.putExtra("url", RssAdapter.items.get(position).getLink().toString());
+//
+// Log.d(TAG, "link==" + RssAdapter.items.get(position).getLink().toString());
+//                context.startActivity(i);
+            }
+        });
+
+//        onItemClickSubs.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyDialogTheme);
+//                alert.setTitle(RssAdapter.items.get(position).getTitle());
+//
+//                wv = new WebView(RssAdapter.context);
+//                wv.setInitialScale(1);
+//                wv.getSettings().setJavaScriptEnabled(true);
+//                wv.getSettings().setLoadWithOverviewMode(true);
+//                wv.getSettings().setUseWideViewPort(true);
+//                wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+//                wv.setScrollbarFadingEnabled(false);
+//
+//                wv.getSettings().setBuiltInZoomControls(true);
+//                wv.getSettings().setDisplayZoomControls(false);
+//
+//                wv.loadUrl(RssAdapter.items.get(position).getLink());
+//                wv.setWebViewClient(new WebViewClient() {
+//                    @Override
+//                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                        view.loadUrl(url);
+//
+//                        return true;
+//                    }
+//                });
+//
+//                alert.setView(wv);
+//                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                alert.show();
+//
+//            }
+//        });
+
+
+        Button readFull = (Button) convertView.findViewById(R.id.readFull);
+        readFull.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(RssAdapter.context, R.style.MyDialogTheme);
+                alert.setTitle(RssAdapter.items.get(position).getTitle());
+
+                wv = new WebView(RssAdapter.context);
+                wv.setInitialScale(1);
+                wv.getSettings().setJavaScriptEnabled(true);
+                wv.getSettings().setLoadWithOverviewMode(true);
+                wv.getSettings().setUseWideViewPort(true);
+                wv.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+                wv.setScrollbarFadingEnabled(false);
+
+                wv.getSettings().setBuiltInZoomControls(true);
+                wv.getSettings().setDisplayZoomControls(false);
+
+                wv.loadUrl(RssAdapter.items.get(position).getLink());
+                wv.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(url);
+
+                        return true;
+                    }
+                });
+
+                alert.setView(wv);
+                alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+
 
             }
         });
@@ -295,9 +368,9 @@ public class RssAdapter extends BaseAdapter {
         }
 
         if (items.get(position).getThumbnail() == null) {
-            holder.rand.setBackgroundResource(R.drawable.news_feed_photo);
+            holder.rand.setBackgroundResource(R.drawable.defaulttwo);
         }
-        Log.d(TAG, "thumbnail is " + items.get(position).getDate());
+        Log.d(TAG, "thumbnail is " + items.get(position).getThumbnail());
 
         Picasso.with(RssAdapter.this.context).load(items.get(position).getThumbnail()).into(holder.rand);
         return convertView;

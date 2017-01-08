@@ -5,6 +5,7 @@
     android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/shadow"
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
@@ -13,8 +14,9 @@
         android:layout_width="fill_parent"
         android:descendantFocusability="blocksDescendants"
         android:layout_height="fill_parent"
-        android:divider="@color/list_view_divider"
-        android:dividerHeight="2dp"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
+        android:dividerHeight="18dp"
         android:visibility="gone">
 
     </ListView>
@@ -24,8 +26,9 @@
         android:layout_width="fill_parent"
         android:descendantFocusability="blocksDescendants"
         android:layout_height="fill_parent"
-        android:divider="@color/list_view_divider"
-        android:dividerHeight="2dp"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
+        android:dividerHeight="5dp"
         android:visibility="gone">
 
     </ListView>
@@ -34,8 +37,9 @@
         android:id="@+id/listViewSports"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@color/list_view_divider"
-        android:dividerHeight="2dp"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
+        android:dividerHeight="18dp"
         android:descendantFocusability="blocksDescendants"
         android:visibility="gone">
 
@@ -45,9 +49,10 @@
         android:id="@+id/listViewTech"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@color/list_view_divider"
-        android:dividerHeight="2dp"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
         android:descendantFocusability="blocksDescendants"
+        android:dividerHeight="5dp"
         android:visibility="gone">
 
     </ListView>
@@ -56,9 +61,10 @@
         android:id="@+id/listViewWorld"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@color/list_view_divider"
-        android:dividerHeight="2dp"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
         android:descendantFocusability="blocksDescendants"
+        android:dividerHeight="5dp"
         android:visibility="gone">
 
     </ListView>
@@ -67,8 +73,9 @@
         android:id="@+id/listViewBusiness"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@color/list_view_divider"
-        android:dividerHeight="2dp"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
+        android:dividerHeight="5dp"
         android:descendantFocusability="blocksDescendants"
         android:visibility="gone">
 
@@ -78,8 +85,9 @@
         android:id="@+id/listViewAutomobile"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@color/list_view_divider"
-        android:dividerHeight="2dp"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
+        android:dividerHeight="5dp"
         android:descendantFocusability="blocksDescendants"
         android:visibility="gone">
 
@@ -89,9 +97,10 @@
         android:id="@+id/listViewPolitics"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@color/list_view_divider"
-        android:dividerHeight="2dp"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
         android:descendantFocusability="blocksDescendants"
+        android:dividerHeight="5dp"
         android:visibility="gone">
 
     </ListView>
@@ -100,9 +109,10 @@
         android:id="@+id/savedArticle"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@color/list_view_divider"
-        android:dividerHeight="2dp"
+        android:background="@drawable/shadow"
+        android:divider="@drawable/greyback"
         android:descendantFocusability="blocksDescendants"
+        android:dividerHeight="5dp"
         android:visibility="gone">
 
     </ListView>

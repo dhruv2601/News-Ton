@@ -6,11 +6,19 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,7 +67,7 @@ public class RssService extends IntentService implements java.io.Serializable {
                     "http://www.thehindu.com/?service=rss",
                     "http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms",
                     "http://economictimes.indiatimes.com/rssfeedstopstories.cms",
-                    "http://feeds.abcnews.com/abcnews/topstories",
+//                    "http://feeds.abcnews.com/abcnews/topstories",
 //                    "http://rss.nytimes.com/services/xml/rss/nyt/AsiaPacific.xml"
             };
 
