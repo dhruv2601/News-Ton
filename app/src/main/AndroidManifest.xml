@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dhruv.newsfeed">
 
@@ -7,10 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
 
-    <!--<uses-feature android:name="android.hardware.location.gps" />-->
-
+    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+    <!-- <uses-feature android:name="android.hardware.location.gps" /> -->
     <application
         android:name=".AppController"
         android:allowBackup="true"
@@ -19,8 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            android:name=".entry_class"
-            android:windowSoftInputMode="stateHidden|adjustResize"
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service android:name=".RssService" />
@@ -54,7 +56,10 @@
         <activity
             android:name=".AppIntro"
             android:theme="@style/Theme.Intro" />
-        <activity android:name=".AboutDeveloper"></activity>
+        <activity android:name=".AboutDeveloper" />
+        <activity
+            android:name=".ImageDialog"
+            android:theme="@style/myDialogTheme"></activity>
     </application>
 
 </manifest>

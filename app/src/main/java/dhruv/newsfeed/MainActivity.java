@@ -1,6 +1,9 @@
 package dhruv.newsfeed;
 
+import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -19,10 +22,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
@@ -49,6 +54,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.File;
 import java.util.Locale;
+import java.util.Random;
 
 import static dhruv.newsfeed.R.menu.action_settings;
 //import com.google.firebase.crash.FirebaseCrash;
@@ -100,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            startActivity(i);
 //        }
 
-
 // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
@@ -120,6 +125,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar.setTitle("");
         toolbar.setSubtitle("");
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.INTERNET)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.INTERNET},
+                        1);
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_NETWORK_STATE},
+                        2);
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        3);
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        4);
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE},
+                        5);
+            }
+        }
+
         relativeLayout = (RelativeLayout) findViewById(R.id.main_layout);
         sref = MainActivity.this.getSharedPreferences("sharedPrefSize", 0);
         for (int i = 0; i < 15; i++) {
@@ -128,6 +173,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         for (int i = 0; i < 15; i++) {
             flag[i] = 0;
+        }
+
+        Random r = new Random();
+        int i1 = r.nextInt(10);
+
+        if (i1 < 7) {
+//            Intent i = new Intent(MainActivity.this,ImageDialog.class);
+//            startActivity(i);
+
+            Dialog settingsDialog = new Dialog(this);
+            settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            settingsDialog.setContentView(getLayoutInflater().inflate(R.layout.your_dialog_layout
+                    , null));
+            settingsDialog.show();
+
+//            Intent i = new Intent(android.content.Intent.ACTION_VIEW);
+//            i.setData(Uri.parse("https://play.google.com/store/apps/details?id=businesscard.dhruv.businesscardscanner"));
+//            startActivity(i);
+
+            settingsDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=businesscard.dhruv.businesscardscanner"));
+                    startActivity(browserIntent);
+                }
+            });
+
+            settingsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=businesscard.dhruv.businesscardscanner"));
+                    startActivity(browserIntent);
+                }
+            });
         }
 
         SharedPreferences saved = MainActivity.this.getSharedPreferences("savedArticle", 0);
@@ -195,11 +274,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        }
 //        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 // just adding to add new commit XD
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-4523503976646485/5363018650");
-        mAdView = (AdView) findViewById(R.id.adView);
-//        AdRequest adRequest = new AdRequest.Builder().setLocation(useLocation).build();
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        MobileAds.initialize(getApplicationContext(), "ca-app-pub-4748103840217652~2438497723");
+//        mAdView = (AdView) findViewById(R.id.adView);
+////        AdRequest adRequest = new AdRequest.Builder().setLocation(useLocation).build();
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
 
         t1.setSpeechRate(0.8f);
         Log.d(TAG, "beforeTabLayout");
@@ -310,10 +389,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences.Editor editor = sref.edit();
 
         if (sref.getBoolean("entered", false) == false) {
-            Intent i = new Intent(this, AppIntro.class);
+//            Intent i = new Intent(this, AppIntro.class);
             editor.putBoolean("entered", true);
             editor.apply();
-            startActivity(i);
+//            startActivity(i);
         }
 
         Log.d(TAG, "sharedPref " + sref.getBoolean("entered", true));
@@ -347,6 +426,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return super.onCreateOptionsMenu(menu);
     }
+
+    public void business() {
+        Intent i = new Intent(android.content.Intent.ACTION_VIEW);
+        i.setData(Uri.parse("https://play.google.com/store/apps/details?id=businesscard.dhruv.businesscardscanner"));
+        startActivity(i);
+
+//        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+//        try {
+//            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=businesscard.dhruv.businesscardscanner" + appPackageName)));
+//        } catch (android.content.ActivityNotFoundException anfe) {
+//            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=businesscard.dhruv.businesscardscanner" + appPackageName)));
+//        }
+    }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -624,6 +717,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        } else if (id == R.id.nav_manage) {
 //     }
         else if (id == R.id.nav_share) {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+
+            shareIntent.setType("text/html");
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Have you tried News Feed?" + "\n");   // instead send the description here
+
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Have you tried News Feed" + "\n" + "I invite you to be a part of an Informed Community by staying updated." + "\n" + "https://play.google.com/store/apps/details?id=dhruv.newsfeed");
+            this.startActivity(Intent.createChooser(shareIntent, "Invite to join an informed community"));
+
             // put the playstore link here
 
         } else if (id == R.id.aboutMeNav) {
